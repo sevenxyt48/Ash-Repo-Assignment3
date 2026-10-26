@@ -1,171 +1,100 @@
 {
-  "categories": {
-    "nature": "自然",
-    "time": "时间",
-    "emotion": "情感",
-    "journey": "旅程"
-  },
   "relationshipTypes": {
-    "related": "语义相关",
-    "imagery": "意象联想",
-    "contrast": "对照关系"
+    "origin": "Word origin",
+    "similar": "Similar meaning",
+    "confusable": "Easily confused",
+    "antonym": "Antonym"
   },
   "words": [
     {
       "id": "water",
-      "category": "nature",
       "translations": { "zh": "水", "en": "water", "ja": "水", "ko": "물" },
       "pinyin": "shuǐ",
-      "romanization": { "ja": "みず · mizu", "ko": "mul" },
-      "meaning": "流动、滋养，也映照周围的一切。水既是自然元素，也是变化与生命的意象。",
+      "romanization": { "ja": "mizu", "ko": "mul" },
+      "meaning": "The clear liquid that falls as rain, fills rivers, and sustains life.",
       "connections": [
-        { "target": "river", "type": "related" },
-        { "target": "rain", "type": "related" },
-        { "target": "light", "type": "imagery" }
+        { "target": "river", "type": "origin", "explanation": "河 (hé) contains the water radical 氵 (shuǐ), a compressed form of 水 (shuǐ) that marks a water-related meaning. This is a character-formation link, not a claim that the spoken word 河 (hé) descended from 水 (shuǐ)." },
+        { "target": "liquid", "type": "similar", "explanation": "Water is a common kind of liquid. The terms are related by category, but are not interchangeable synonyms." },
+        { "target": "rain", "type": "similar", "explanation": "Rain is water falling from clouds: closely related ideas, rather than synonyms." }
       ]
     },
     {
       "id": "river",
-      "category": "nature",
-      "translations": { "zh": "河流", "en": "river", "ja": "川", "ko": "강" },
-      "pinyin": "hé liú",
-      "romanization": { "ja": "かわ · kawa", "ko": "gang" },
-      "meaning": "沿着河道持续流动的水，也常被用来比喻时间、记忆或人生的方向。",
-      "connections": [
-        { "target": "water", "type": "related" },
-        { "target": "journey", "type": "imagery" },
-        { "target": "memory", "type": "imagery" }
-      ]
+      "translations": { "zh": "河", "en": "river", "ja": "川", "ko": "강" },
+      "pinyin": "hé",
+      "romanization": { "ja": "kawa", "ko": "gang" },
+      "meaning": "A natural stream of water that flows across land.",
+      "connections": []
+    },
+    {
+      "id": "liquid",
+      "translations": { "zh": "液体", "en": "liquid", "ja": "液体", "ko": "액체" },
+      "pinyin": "yè tǐ",
+      "romanization": { "ja": "ekitai", "ko": "aekche" },
+      "meaning": "A substance that flows and takes the shape of its container.",
+      "connections": []
     },
     {
       "id": "rain",
-      "category": "nature",
       "translations": { "zh": "雨", "en": "rain", "ja": "雨", "ko": "비" },
       "pinyin": "yǔ",
-      "romanization": { "ja": "あめ · ame", "ko": "bi" },
-      "meaning": "从天空落下的水滴。雨能滋润土地，也让人想到安静、等待与重逢。",
-      "connections": [
-        { "target": "water", "type": "related" },
-        { "target": "sky", "type": "related" },
-        { "target": "longing", "type": "imagery" }
-      ]
-    },
-    {
-      "id": "sky",
-      "category": "nature",
-      "translations": { "zh": "天空", "en": "sky", "ja": "空", "ko": "하늘" },
-      "pinyin": "tiān kōng",
-      "romanization": { "ja": "そら · sora", "ko": "haneul" },
-      "meaning": "地面之上的广阔空间。不同的天气与光线，让天空成为变化最直观的画布。",
-      "connections": [
-        { "target": "rain", "type": "related" },
-        { "target": "light", "type": "related" },
-        { "target": "distance", "type": "imagery" }
-      ]
-    },
-    {
-      "id": "light",
-      "category": "nature",
-      "translations": { "zh": "光", "en": "light", "ja": "光", "ko": "빛" },
-      "pinyin": "guāng",
-      "romanization": { "ja": "ひかり · hikari", "ko": "bit" },
-      "meaning": "使事物可见的能量，也象征希望、理解与突然出现的可能。",
-      "connections": [
-        { "target": "sky", "type": "related" },
-        { "target": "water", "type": "imagery" },
-        { "target": "night", "type": "contrast" }
-      ]
-    },
-    {
-      "id": "morning",
-      "category": "time",
-      "translations": { "zh": "清晨", "en": "morning", "ja": "朝", "ko": "아침" },
-      "pinyin": "qīng chén",
-      "romanization": { "ja": "あさ · asa", "ko": "achim" },
-      "meaning": "一天刚开始的时刻，常带着安静、新鲜和重新出发的感觉。",
-      "connections": [
-        { "target": "night", "type": "contrast" },
-        { "target": "light", "type": "imagery" },
-        { "target": "hope", "type": "imagery" }
-      ]
-    },
-    {
-      "id": "night",
-      "category": "time",
-      "translations": { "zh": "夜晚", "en": "night", "ja": "夜", "ko": "밤" },
-      "pinyin": "yè wǎn",
-      "romanization": { "ja": "よる · yoru", "ko": "bam" },
-      "meaning": "日落之后的时段。夜晚使世界慢下来，也给星光、梦境和独处留出空间。",
-      "connections": [
-        { "target": "morning", "type": "contrast" },
-        { "target": "light", "type": "contrast" },
-        { "target": "memory", "type": "imagery" }
-      ]
-    },
-    {
-      "id": "memory",
-      "category": "time",
-      "translations": { "zh": "记忆", "en": "memory", "ja": "記憶", "ko": "기억" },
-      "pinyin": "jì yì",
-      "romanization": { "ja": "きおく · kioku", "ko": "gieok" },
-      "meaning": "留存在心里的经历与印象。记忆会随着时间改变，却仍然牵引着当下。",
-      "connections": [
-        { "target": "river", "type": "imagery" },
-        { "target": "night", "type": "imagery" },
-        { "target": "longing", "type": "related" }
-      ]
+      "romanization": { "ja": "ame", "ko": "bi" },
+      "meaning": "Drops of water that fall from clouds.",
+      "connections": []
     },
     {
       "id": "hope",
-      "category": "emotion",
       "translations": { "zh": "希望", "en": "hope", "ja": "希望", "ko": "희망" },
       "pinyin": "xī wàng",
-      "romanization": { "ja": "きぼう · kibō", "ko": "huimang" },
-      "meaning": "对未来仍抱有期待。希望不一定是确定的答案，也可以是继续前行的理由。",
+      "romanization": { "ja": "kibō", "ko": "huimang" },
+      "meaning": "A feeling of wanting something to happen and believing it may.",
       "connections": [
-        { "target": "morning", "type": "imagery" },
-        { "target": "longing", "type": "related" },
-        { "target": "journey", "type": "related" }
+        { "target": "longing", "type": "similar", "explanation": "Both look toward an outcome or someone absent. 盼望 (pànwàng) usually carries a stronger sense of eager anticipation." }
       ]
     },
     {
       "id": "longing",
-      "category": "emotion",
-      "translations": { "zh": "思念", "en": "longing", "ja": "恋しさ", "ko": "그리움" },
-      "pinyin": "sī niàn",
-      "romanization": { "ja": "こいしさ · koishisa", "ko": "geurium" },
-      "meaning": "对远方的人、地方或时光的深切想念，带着缺席，也带着珍惜。",
+      "translations": { "zh": "盼望", "en": "longing", "ja": "願い", "ko": "바람" },
+      "pinyin": "pàn wàng",
+      "romanization": { "ja": "negai", "ko": "baram" },
+      "meaning": "A strong feeling of wanting or eagerly expecting something.",
+      "connections": []
+    },
+    {
+      "id": "day",
+      "translations": { "zh": "白天", "en": "daytime", "ja": "昼", "ko": "낮" },
+      "pinyin": "bái tiān",
+      "romanization": { "ja": "hiru", "ko": "nat" },
+      "meaning": "The lighter part of each 24-hour cycle, between sunrise and sunset.",
       "connections": [
-        { "target": "rain", "type": "imagery" },
-        { "target": "memory", "type": "related" },
-        { "target": "hope", "type": "related" }
+        { "target": "night", "type": "antonym", "explanation": "Daytime and night are conventional opposites for the light and dark parts of a daily cycle." }
       ]
     },
     {
-      "id": "journey",
-      "category": "journey",
-      "translations": { "zh": "旅程", "en": "journey", "ja": "旅", "ko": "여정" },
-      "pinyin": "lǚ chéng",
-      "romanization": { "ja": "たび · tabi", "ko": "yeojeong" },
-      "meaning": "从一个地方走向另一个地方的过程，也可以是学习、成长或人生的隐喻。",
+      "id": "night",
+      "translations": { "zh": "夜", "en": "night", "ja": "夜", "ko": "밤" },
+      "pinyin": "yè",
+      "romanization": { "ja": "yoru", "ko": "bam" },
+      "meaning": "The dark part of each 24-hour cycle, from sunset to sunrise.",
+      "connections": []
+    },
+    {
+      "id": "soil",
+      "translations": { "zh": "土", "en": "soil", "ja": "土", "ko": "흙" },
+      "pinyin": "tǔ",
+      "romanization": { "ja": "tsuchi", "ko": "heuk" },
+      "meaning": "The upper layer of earth where plants grow.",
       "connections": [
-        { "target": "river", "type": "imagery" },
-        { "target": "hope", "type": "related" },
-        { "target": "distance", "type": "related" }
+        { "target": "scholar", "type": "confusable", "explanation": "土 (tǔ, soil) and 士 (shì, scholar) differ in the relative length and position of their horizontal strokes, so the forms are easy to mix up." }
       ]
     },
     {
-      "id": "distance",
-      "category": "journey",
-      "translations": { "zh": "远方", "en": "distance", "ja": "遠く", "ko": "먼 곳" },
-      "pinyin": "yuǎn fāng",
-      "romanization": { "ja": "とおく · tōku", "ko": "meon got" },
-      "meaning": "离此处很远的地方。远方既是地理上的距离，也可能是尚未抵达的愿望。",
-      "connections": [
-        { "target": "sky", "type": "imagery" },
-        { "target": "journey", "type": "related" },
-        { "target": "longing", "type": "imagery" }
-      ]
+      "id": "scholar",
+      "translations": { "zh": "士", "en": "scholar", "ja": "士", "ko": "선비" },
+      "pinyin": "shì",
+      "romanization": { "ja": "shi", "ko": "seonbi" },
+      "meaning": "A learned person; in Chinese, 士 can also refer to a person of a particular rank or role.",
+      "connections": []
     }
   ]
 }
