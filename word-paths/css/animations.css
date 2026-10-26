@@ -1,0 +1,9 @@
+.random-button, .connection-chip, .graph-node, .graph-edge {
+  transition: opacity .2s ease, transform .2s ease, background-color .2s ease, border-color .2s ease, stroke .2s ease;
+}
+
+.random-button:hover { background: #274c3a; transform: translateY(-1px); }
+.random-button:active { transform: translateY(0); }
+.graph-node:hover .node-halo { fill: rgba(54, 96, 73, .07); stroke: #9ab09e; }
+.graph-node:hover .node-core { transform: scale(1.08); transform-box: fill-box; transform-origin: center; }
+.graph-edge.is-active { stroke: #597c63; stroke-width: 2; }
