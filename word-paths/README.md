@@ -1,3 +1,5 @@
+<!-- 此文件说明前端词汇数据模型、校验规则和未来 API 接入准备。 -->
+
 # Word Paths
 
 The static frontend explores Chinese, Japanese, Korean, and English words using a local vocabulary and interactive SVG graph. It uses native browser technologies and has no build step or package dependencies.

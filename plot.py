@@ -1,3 +1,4 @@
+# 此脚本读取本地数据文件、生成可视化图表并保存到输出目录。
 # /// script
 # requires-python = ">=3.10"
 # dependencies = ["matplotlib"]

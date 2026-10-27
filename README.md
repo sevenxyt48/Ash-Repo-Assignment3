@@ -1,3 +1,5 @@
+<!-- 此文件介绍 Word Paths 项目结构、本地运行方式和词汇数据准备情况。 -->
+
 # Word Paths
 
 Word Paths is a dependency-free multilingual vocabulary explorer for Chinese, Japanese, Korean, and English. Its single-page interface uses a local word collection to render an interactive relationship graph.

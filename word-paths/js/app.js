@@ -1,3 +1,4 @@
+// 此文件协调页面状态、搜索、筛选、词汇仓库和关系图渲染。
 import { renderGraph, resetGraphView, zoomGraph } from "./graph.js";
 import { renderDetails, renderEmptyDetails } from "./details.js";
 import { loadWordDataset } from "./wordRepository.js";

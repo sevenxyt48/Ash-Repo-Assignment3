@@ -1,4 +1,5 @@
 {
+  "$comment": "此文件保存 Word Paths 的本地多语言词汇、发音和带来源状态的关系样例。",
   "relationshipTypes": {
     "origin": "Word origin",
     "similar": "Similar meaning",

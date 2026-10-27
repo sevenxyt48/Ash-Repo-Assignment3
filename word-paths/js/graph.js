@@ -1,3 +1,4 @@
+// 此文件计算词汇关系图布局并绘制可交互的 SVG 节点与连线。
 const SVG_NS = "http://www.w3.org/2000/svg";
 const VIEW_WIDTH = 1000;
 const VIEW_HEIGHT = 560;

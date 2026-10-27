@@ -1,3 +1,4 @@
+# 此脚本从指定数据源获取一次数据并保存原始响应。
 # /// script
 # requires-python = ">=3.10"
 # dependencies = ["requests"]

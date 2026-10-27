@@ -1,3 +1,4 @@
+// 此文件负责加载并校验本地词汇数据，为未来的数据提供器预留接口。
 const LANGUAGE_CODES = ["zh", "ja", "ko", "en"];
 const RELATIONSHIP_TYPES = ["origin", "similar", "confusable", "antonym"];
 const VERIFICATION_STATUSES = ["unverified", "verified"];

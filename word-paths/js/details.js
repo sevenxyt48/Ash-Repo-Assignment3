@@ -1,3 +1,4 @@
+// 此文件根据当前词条和语言渲染词语详情及关系来源状态。
 const LANGUAGE_NAMES = {
   zh: "Chinese",
   en: "English",

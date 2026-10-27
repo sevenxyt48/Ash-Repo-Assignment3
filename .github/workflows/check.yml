@@ -1,3 +1,4 @@
+# 此工作流在 GitHub Actions 中运行仓库作业检查。
 # Every push gets a tick or a cross on GitHub, and the Actions tab shows the same
 # checklist `uv run check.py --assignment 2` prints on your machine. Nothing to edit.
 name: Assignment check
