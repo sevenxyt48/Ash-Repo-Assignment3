@@ -19,6 +19,15 @@ function readingFor(word, language) {
   return `English · ${word.translations.en}`;
 }
 
+function definitionFor(word, language) {
+  return word.definitions?.[language] ?? word.definitions?.en ?? word.meaning;
+}
+
+function partOfSpeechFor(word, language) {
+  const value = word.partsOfSpeech?.[language] ?? word.partsOfSpeech?.en;
+  return Array.isArray(value) ? value.join(" · ") : value;
+}
+
 export function renderEmptyDetails(container) {
   const empty = element("div", "detail-empty");
   const sparkle = element("span", "detail-sparkle", "✳");
@@ -47,7 +56,9 @@ export function renderDetails(container, word, data, language, relation, connect
 
   card.append(element("h2", "detail-word", word.translations[language] ?? word.translations.en));
   card.append(element("p", "detail-reading", readingFor(word, language)));
-  card.append(element("p", "detail-meaning", word.meaning));
+  const partOfSpeech = partOfSpeechFor(word, language);
+  if (partOfSpeech) card.append(element("p", "detail-pos", partOfSpeech));
+  card.append(element("p", "detail-meaning", definitionFor(word, language)));
 
   if (relation) {
     const section = element("section", "detail-section");
@@ -55,6 +66,9 @@ export function renderDetails(container, word, data, language, relation, connect
       element("h3", "", "Why these words connect"),
       element("p", "relation-copy", relation.explanation)
     );
+    const status = relation.verificationStatus === "verified" ? "Source verified" : "Unverified";
+    const sourceLabel = relation.source?.label ?? "Source not attached";
+    section.append(element("p", "relation-provenance", `${status} · ${sourceLabel}`));
     card.append(section);
   } else {
     const translations = element("section", "detail-section");

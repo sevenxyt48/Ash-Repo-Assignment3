@@ -108,6 +108,7 @@ function drawEdge(parent, from, to, connection, relationshipTypes) {
 function addNode(parent, node, language, otherLanguages, selectedId, query, onSelect) {
   const { word, x, y, depth } = node;
   const label = word.translations[language] ?? word.translations.en;
+  const meaning = word.definitions?.[language] ?? word.definitions?.en ?? word.meaning;
   const group = svgElement("g", {
     class: `graph-node${word.id === selectedId ? " is-center" : ""}${depth === 1 ? " is-connected" : ""}`,
     transform: `translate(${x} ${y})`,
@@ -119,7 +120,7 @@ function addNode(parent, node, language, otherLanguages, selectedId, query, onSe
   const chineseReading = language !== "zh" && word.translations.zh
     ? `, Chinese ${word.translations.zh}, pinyin ${word.pinyin}`
     : "";
-  group.setAttribute("aria-label", `${label}${chineseReading} — ${word.meaning}`);
+  group.setAttribute("aria-label", `${label}${chineseReading} — ${meaning}`);
 
   group.append(
     svgElement("circle", { r: "37", class: "node-halo" }),
@@ -146,7 +147,13 @@ function addNode(parent, node, language, otherLanguages, selectedId, query, onSe
   }
 
   if (query) {
-    const searchable = [word.id, ...Object.values(word.translations), word.pinyin]
+    const searchable = [
+      word.id,
+      word.meaning,
+      ...Object.values(word.definitions ?? {}),
+      ...Object.values(word.translations),
+      word.pinyin
+    ]
       .join(" ").toLocaleLowerCase();
     if (!searchable.includes(query)) group.classList.add("is-dimmed");
   }

@@ -2,6 +2,10 @@
 site/
 data/cache/
 
+# Local credentials and provider configuration.
+.env
+.env.*
+
 # Machinery, not work.
 .venv/
 __pycache__/

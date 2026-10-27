@@ -248,6 +248,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .detail-language { color: #9a9e97; font: 9px "DM Mono", monospace; }
 .detail-word { margin: 20px 0 2px; font-size: 30px; font-weight: 500; letter-spacing: -.045em; line-height: 1.2; overflow-wrap: anywhere; }
 .detail-reading { margin: 0; color: #8b9188; font: 11px "DM Mono", "Noto Sans SC", sans-serif; }
+.detail-pos { margin: 8px 0 0; color: #858b83; font-size: 10px; }
 .detail-meaning { margin: 16px 0 18px; color: #656d65; font-size: 11px; line-height: 1.75; }
 .detail-section { padding: 12px 0; border-top: 1px solid #eff0eb; }
 .detail-section h3 { margin: 0 0 9px; color: #92978e; font: 500 9px "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
@@ -255,6 +256,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .translation-row strong { color: #4b524c; font-size: 10px; font-weight: 500; text-align: right; }
 .translation-reading { display: block; margin-top: 2px; color: #9a9f98; font: 9px "DM Mono", sans-serif; }
 .relation-copy { margin: 0; color: #686f68; font-size: 10px; line-height: 1.7; }
+.relation-provenance { margin: 9px 0 0; color: #999e96; font-size: 9px; }
 .detail-empty { padding: 18px 0; }
 .detail-sparkle { width: 34px; height: 34px; display: grid; margin-bottom: 23px; place-items: center; border-radius: 50%; background: #f0f6ef; color: var(--green-dark); font-size: 17px; }
 .detail-empty h2 { margin: 0 0 7px; font-size: 16px; font-weight: 500; }

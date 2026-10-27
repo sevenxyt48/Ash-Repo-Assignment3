@@ -1,5 +1,6 @@
 import { renderGraph, resetGraphView, zoomGraph } from "./graph.js";
 import { renderDetails, renderEmptyDetails } from "./details.js";
+import { loadWordDataset } from "./wordRepository.js";
 
 const graphContainer = document.querySelector("#graph");
 const graphMessage = document.querySelector("#graph-message");
@@ -32,6 +33,7 @@ function wordSearchTerms(word) {
   return [
     word.id,
     word.meaning,
+    ...Object.values(word.definitions ?? {}),
     word.pinyin,
     ...Object.values(word.translations),
     ...Object.values(word.romanization)
@@ -153,18 +155,7 @@ function fillSuggestions() {
 
 async function initialize() {
   try {
-    const response = await fetch("./data/words.json");
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    state.data = await response.json();
-    if (!Array.isArray(state.data.words) || state.data.words.length === 0) {
-      throw new Error("Word data is empty or invalid");
-    }
-    const ids = new Set(state.data.words.map((word) => word.id));
-    for (const word of state.data.words) {
-      if (!word.connections.every((connection) => ids.has(connection.target))) {
-        throw new Error(`Word "${word.id}" references a missing connection`);
-      }
-    }
+    state.data = await loadWordDataset();
     fillSuggestions();
     state.selectedId = state.data.words[Math.floor(Math.random() * state.data.words.length)].id;
     graphMessage.hidden = true;

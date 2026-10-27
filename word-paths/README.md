@@ -1,51 +1,35 @@
 # Word Paths
 
-Word Paths is a small, static vocabulary explorer for Chinese, English, Japanese, and Korean. Search a word or choose a node to follow its documented relationships in a single interactive map.
+The static frontend explores Chinese, Japanese, Korean, and English words using a local vocabulary and interactive SVG graph. It uses native browser technologies and has no build step or package dependencies.
 
 ## Run locally
 
-The page loads its vocabulary with `fetch`, so serve this directory over HTTP rather than opening `index.html` directly. For example, with Python installed:
+From this directory, serve the files over HTTP:
 
-```bash
+```powershell
 python -m http.server 8000
 ```
 
-Then open <http://localhost:8000>.
+Then open <http://localhost:8000>. The page must be served over HTTP to load the JSON file.
 
-## Explore
+## Local data
 
-- Search words, translations, and pronunciations; unknown terms are reported without invented definitions.
-- Choose the word-display language, roll for a random word, or select a connected node to make it the center.
-- Toggle the four relationship types independently. The optional **Other languages** control adds translations to graph nodes.
-- Drag the map to pan; scroll or use the controls to zoom. Keyboard users can tab to nodes and activate them with Enter or Space.
-- Chinese nodes always include Hanyu Pinyin when another display language is selected. Chinese translations in word details include Pinyin as well.
-- The graph honors `prefers-reduced-motion`.
+`data/words.json` is the current vocabulary source. `js/wordRepository.js` loads and validates it separately from the page and graph rendering code. The loader accepts an optional asynchronous `apiLoader` provider returning this same normalized dataset; if the provider throws or returns invalid data, the repository logs the issue and uses the local dataset.
 
-## Curated vocabulary
+Each word contains:
 
-`data/words.json` is a deliberately small prototype dataset. Each entry contains a stable ID, translations, pronunciation support, a short English meaning, and documented connections. A connection has one of four types:
+- `translations`: values keyed by `zh`, `ja`, `ko`, and `en`;
+- `pinyin` and `romanization` for pronunciation support;
+- `meaning`: the English fallback definition;
+- optional `definitions` and `partsOfSpeech` maps, keyed by language, for sourced data when available;
+- `connections`: an array of typed relationships.
 
-- `origin`: character formation or word history, with the explanation stating the scope of the claim.
-- `similar`: closely related meanings; an explanation distinguishes semantic neighbors from exact synonyms.
-- `confusable`: forms that are easy to mistake for one another.
-- `antonym`: words with opposing meanings.
+Every relationship needs a `target`, `type`, `explanation`, `source`, and `verificationStatus`. `source` is `null` until a source is attached, or an object such as `{ "label": "Dictionary name", "url": "https://…" }`. `verificationStatus` is `unverified` or `verified`; verified relationships must include a source. The current sample links are marked unverified and are not represented as sourced facts.
 
-Relationships are written as directed entries and displayed in both directions. Add a connection only when its explanation can be supported; do not infer a shared origin from translated words alone.
+The loader checks the four translations, Pinyin, valid relationship targets/types, explanations, source fields, and verification state. The detail panel shows relationship verification and source information. Chinese Pinyin remains visible for Chinese words in non-Chinese display languages.
 
-## Structure
+## API preparation
 
-```text
-word-paths/
-├── index.html
-├── css/
-│   ├── styles.css
-│   └── animations.css
-├── data/
-│   └── words.json
-└── js/
-    ├── app.js
-    ├── graph.js
-    └── details.js
-```
+The Multilingual Dictionary API is pending approval. This project has no backend, API endpoints, credentials, or API response assumptions. Once access and official documentation are available, implement a provider adapter that normalizes its verified response into the local dataset contract. Keep secrets server-side if required; `.env` files are ignored by Git.
 
-The app uses native HTML, CSS, JavaScript, and SVG. It has no build step or third-party JavaScript dependencies.
+Datamuse may be used for English synonym/antonym lookups only. Do not use its English relationship results for Chinese, Japanese, or Korean.

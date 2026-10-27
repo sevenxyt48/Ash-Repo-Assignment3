@@ -13,9 +13,9 @@
       "romanization": { "ja": "mizu", "ko": "mul" },
       "meaning": "The clear liquid that falls as rain, fills rivers, and sustains life.",
       "connections": [
-        { "target": "river", "type": "origin", "explanation": "河 (hé) contains the water radical 氵 (shuǐ), a compressed form of 水 (shuǐ) that marks a water-related meaning. This is a character-formation link, not a claim that the spoken word 河 (hé) descended from 水 (shuǐ)." },
-        { "target": "liquid", "type": "similar", "explanation": "Water is a common kind of liquid. The terms are related by category, but are not interchangeable synonyms." },
-        { "target": "rain", "type": "similar", "explanation": "Rain is water falling from clouds: closely related ideas, rather than synonyms." }
+        { "target": "river", "type": "origin", "explanation": "河 (hé) contains the water radical 氵 (shuǐ), a compressed form of 水 (shuǐ) that marks a water-related meaning. This is a character-formation link, not a claim that the spoken word 河 (hé) descended from 水 (shuǐ).", "source": null, "verificationStatus": "unverified" },
+        { "target": "liquid", "type": "similar", "explanation": "Water is a common kind of liquid. The terms are related by category, but are not interchangeable synonyms.", "source": null, "verificationStatus": "unverified" },
+        { "target": "rain", "type": "similar", "explanation": "Rain is water falling from clouds: closely related ideas, rather than synonyms.", "source": null, "verificationStatus": "unverified" }
       ]
     },
     {
@@ -49,7 +49,7 @@
       "romanization": { "ja": "kibō", "ko": "huimang" },
       "meaning": "A feeling of wanting something to happen and believing it may.",
       "connections": [
-        { "target": "longing", "type": "similar", "explanation": "Both look toward an outcome or someone absent. 盼望 (pànwàng) usually carries a stronger sense of eager anticipation." }
+        { "target": "longing", "type": "similar", "explanation": "Both look toward an outcome or someone absent. 盼望 (pànwàng) usually carries a stronger sense of eager anticipation.", "source": null, "verificationStatus": "unverified" }
       ]
     },
     {
@@ -67,7 +67,7 @@
       "romanization": { "ja": "hiru", "ko": "nat" },
       "meaning": "The lighter part of each 24-hour cycle, between sunrise and sunset.",
       "connections": [
-        { "target": "night", "type": "antonym", "explanation": "Daytime and night are conventional opposites for the light and dark parts of a daily cycle." }
+        { "target": "night", "type": "antonym", "explanation": "Daytime and night are conventional opposites for the light and dark parts of a daily cycle.", "source": null, "verificationStatus": "unverified" }
       ]
     },
     {
@@ -85,7 +85,7 @@
       "romanization": { "ja": "tsuchi", "ko": "heuk" },
       "meaning": "The upper layer of earth where plants grow.",
       "connections": [
-        { "target": "scholar", "type": "confusable", "explanation": "土 (tǔ, soil) and 士 (shì, scholar) differ in the relative length and position of their horizontal strokes, so the forms are easy to mix up." }
+        { "target": "scholar", "type": "confusable", "explanation": "土 (tǔ, soil) and 士 (shì, scholar) differ in the relative length and position of their horizontal strokes, so the forms are easy to mix up.", "source": null, "verificationStatus": "unverified" }
       ]
     },
     {
