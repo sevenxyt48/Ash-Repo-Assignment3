@@ -3,7 +3,12 @@ import { renderGraph, resetGraphView, zoomGraph } from "./graph.js";
 import { renderDetails, renderEmptyDetails } from "./details.js";
 import { loadWordDataset, validateWordDataset } from "./wordRepository.js";
 import { fetchConceptNetWord, translateText } from "./vocabularyApi.js";
-import { applyInterfaceLanguage, languageName, translate } from "./i18n.js";
+import {
+  applyInterfaceLanguage,
+  formatVocabularyWord,
+  languageName,
+  translate
+} from "./i18n.js";
 
 const graphContainer = document.querySelector("#graph");
 const graphMessage = document.querySelector("#graph-message");
@@ -45,7 +50,7 @@ function normalized(value) {
 
 function wordSearchTerms(word) {
   return [word.englishTranslation, word.translations.en, word.pinyin,
-    ...Object.values(word.romanization)].filter(Boolean).map(normalized);
+    word.reading, ...Object.values(word.romanization)].filter(Boolean).map(normalized);
 }
 
 function getConnections(word, activeTypes = state.activeTypes, data = state.data,
@@ -244,7 +249,10 @@ function findMatchesIn(query, data) {
   const languages = queryLanguages(query);
   return data.words.filter((word) => {
     if (languages.length) {
-      return languages.includes(word.language) && normalized(word.word).startsWith(term);
+      return languages.includes(word.language) &&
+        [word.word, word.language === "ja" ? word.reading : null]
+          .filter(Boolean)
+          .some((candidate) => normalized(candidate).startsWith(term));
     }
     return wordSearchTerms(word).some((candidate) => candidate.startsWith(term));
   });
@@ -273,7 +281,7 @@ function renderSearchCandidates(words, onSelect) {
     option.setAttribute("aria-selected", "false");
     const label = document.createElement("span");
     label.className = "search-candidate-word";
-    label.textContent = word.word;
+    label.textContent = formatVocabularyWord(word);
     const language = document.createElement("span");
     language.className = "search-candidate-language";
     language.textContent = `${languageName(word.language, state.language)} (${word.language})`;

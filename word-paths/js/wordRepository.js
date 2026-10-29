@@ -38,6 +38,13 @@ export function validateWordDataset(data) {
     if (!DICTIONARY_LANGUAGES.includes(word.language)) {
       throw new Error(`Word "${word.id}" must use a supported dictionary language`);
     }
+    if (Object.prototype.hasOwnProperty.call(word, "reading") &&
+        (word.language !== "ja" ||
+         (word.reading !== null &&
+          (typeof word.reading !== "string" ||
+           !/^[\u3041-\u3096\u3099-\u309f]+$/u.test(word.reading))))) {
+      throw new Error(`Reading for "${word.id}" must be null or hiragana on a Japanese word`);
+    }
     if (!isRecord(word.translations) || !isRecord(word.romanization) ||
         typeof word.meaning !== "string") {
       throw new Error(`Word "${word.id}" must include translations, readings, and a meaning`);

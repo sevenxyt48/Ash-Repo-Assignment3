@@ -1,5 +1,5 @@
 // 此文件计算词汇关系图布局并绘制可交互的 SVG 节点与连线。
-import { languageName, translate } from "./i18n.js";
+import { formatVocabularyWord, languageName, translate } from "./i18n.js";
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 const VIEW_WIDTH = 1000;
@@ -146,8 +146,12 @@ function addNode(parent, node, language, otherLanguages, selectedId, query, onSe
     "data-id": word.id
   });
   const wordLanguageName = languageName(word.language, language);
-  const reading = word.language === "zh" ? word.pinyin : word.romanization[word.language];
-  const nodeAriaLabel = `${label}, ${wordLanguageName}${reading ? `, ${reading}` : ""}`;
+  const reading = word.language === "ja"
+    ? word.reading
+    : word.language === "zh" ? word.pinyin : word.romanization[word.language];
+  const nodeAriaLabel = `${formatVocabularyWord(word)}, ${wordLanguageName}${
+    word.language !== "ja" && reading ? `, ${reading}` : ""
+  }`;
   group.setAttribute("aria-label", nodeAriaLabel);
 
   group.append(
@@ -158,7 +162,12 @@ function addNode(parent, node, language, otherLanguages, selectedId, query, onSe
   text.textContent = label;
   group.append(text);
 
-  if (reading) {
+  if (word.language === "ja" && reading && reading !== word.word) {
+    text.setAttribute("y", "-8");
+    const pronunciation = svgElement("text", { y: "10", class: "node-pinyin" });
+    pronunciation.textContent = `（${reading}）`;
+    group.append(pronunciation);
+  } else if (word.language !== "ja" && reading) {
     const pronunciation = svgElement("text", { y: "13", class: "node-pinyin" });
     pronunciation.textContent = reading;
     group.append(pronunciation);
@@ -184,7 +193,8 @@ function addNode(parent, node, language, otherLanguages, selectedId, query, onSe
       word.meaning,
       ...Object.values(word.definitions ?? {}),
       ...Object.values(word.translations),
-      word.pinyin
+      word.pinyin,
+      word.reading
     ]
       .join(" ").toLocaleLowerCase();
     if (!searchable.includes(query)) group.classList.add("is-dimmed");

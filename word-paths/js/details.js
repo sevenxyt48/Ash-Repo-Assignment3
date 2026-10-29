@@ -1,5 +1,5 @@
 // 此文件根据当前词条和语言渲染词语详情及关系来源状态。
-import { languageName, translate } from "./i18n.js";
+import { formatVocabularyWord, languageName, translate } from "./i18n.js";
 
 function element(tag, className, text) {
   const node = document.createElement(tag);
@@ -62,7 +62,7 @@ export function renderDetails(container, word, data, language, relation, connect
   top.append(type, element("span", "detail-language", languageName(word.language, language)));
   card.append(top);
 
-  card.append(element("h2", "detail-word", word.word));
+  card.append(element("h2", "detail-word", formatVocabularyWord(word)));
   const reading = readingFor(word, language);
   if (reading) card.append(element("p", "detail-reading", reading));
   const partOfSpeech = partOfSpeechFor(word, language);

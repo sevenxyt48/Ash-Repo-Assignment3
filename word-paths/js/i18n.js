@@ -425,6 +425,13 @@ export function languageName(language, uiLanguage) {
   return translate(uiLanguage, `language.${language}`);
 }
 
+export function formatVocabularyWord(word) {
+  if (word.language !== "ja" || !word.reading || word.reading === word.word) {
+    return word.word;
+  }
+  return `${word.word}（${word.reading}）`;
+}
+
 export function applyInterfaceLanguage(language) {
   document.documentElement.lang = LANGUAGE_TAGS[language] ?? LANGUAGE_TAGS.zh;
   for (const element of document.querySelectorAll("[data-i18n]")) {
