@@ -9,7 +9,7 @@ const graphMessage = document.querySelector("#graph-message");
 const searchForm = document.querySelector("#search-form");
 const searchInput = document.querySelector("#search");
 const searchMessage = document.querySelector("#search-message");
-const suggestions = document.querySelector("#word-suggestions");
+const searchCandidates = document.querySelector("#search-candidates");
 const languageSelect = document.querySelector("#language");
 const randomButton = document.querySelector("#random");
 const detailsPanel = document.querySelector("#details");
@@ -36,16 +36,8 @@ function normalized(value) {
 }
 
 function wordSearchTerms(word) {
-  return [
-    word.id,
-    word.word,
-    word.englishTranslation,
-    word.meaning,
-    ...Object.values(word.definitions ?? {}),
-    word.pinyin,
-    ...Object.values(word.translations),
-    ...Object.values(word.romanization)
-  ].filter(Boolean).map(normalized);
+  return [word.englishTranslation, word.translations.en, word.pinyin,
+    ...Object.values(word.romanization)].filter(Boolean).map(normalized);
 }
 
 function getConnections(word) {
@@ -86,6 +78,7 @@ function hasVerifiedConnections(word, words) {
 }
 
 function selectWord(id, relation = null) {
+  state.searchRequest += 1;
   state.selectedId = id;
   state.selectedRelation = relation;
   if (state.data === state.localData) {
@@ -99,6 +92,7 @@ function selectWord(id, relation = null) {
   searchInput.value = "";
   searchMessage.textContent = "";
   searchMessage.classList.remove("is-error");
+  clearSearchCandidates();
   render();
 }
 
@@ -154,73 +148,180 @@ function showMessage(message, isError = false) {
   searchMessage.classList.toggle("is-error", isError);
 }
 
-function findMatches(query) {
-  return findMatchesIn(query, state.localData);
+const LANGUAGE_NAMES = {
+  zh: "中文",
+  ja: "日本語",
+  ko: "한국어"
+};
+
+function queryLanguages(query) {
+  if (/\p{Script=Hangul}/u.test(query)) return ["ko"];
+  if (/\p{Script=Hiragana}|\p{Script=Katakana}/u.test(query)) return ["ja"];
+  if (/\p{Script=Han}/u.test(query)) return ["zh", "ja"];
+  return [];
 }
 
 function findMatchesIn(query, data) {
   const term = normalized(query);
   if (!term) return [];
-  return data.words.filter((word) =>
-    wordSearchTerms(word).some((candidate) => candidate === term || candidate.startsWith(term))
-  );
+  const languages = queryLanguages(query);
+  return data.words.filter((word) => {
+    if (languages.length) {
+      return languages.includes(word.language) && normalized(word.word).startsWith(term);
+    }
+    return wordSearchTerms(word).some((candidate) => candidate.startsWith(term));
+  });
 }
 
-function queryLanguage(query) {
-  if (/\p{Script=Hangul}/u.test(query)) return "ko";
-  if (/\p{Script=Hiragana}|\p{Script=Katakana}/u.test(query)) return "ja";
-  if (/\p{Script=Han}/u.test(query)) {
-    return languageSelect.value === "ja" ? "ja" : "zh";
+function findMatches(query) {
+  return findMatchesIn(query, state.localData);
+}
+
+function clearSearchCandidates() {
+  searchCandidates.replaceChildren();
+  searchCandidates.hidden = true;
+}
+
+function renderSearchCandidates(words, onSelect) {
+  searchCandidates.replaceChildren();
+  for (const word of words) {
+    const option = document.createElement("button");
+    option.type = "button";
+    option.className = "search-candidate";
+    option.setAttribute("role", "option");
+    option.setAttribute("aria-selected", "false");
+    const label = document.createElement("span");
+    label.className = "search-candidate-word";
+    label.textContent = word.word;
+    const language = document.createElement("span");
+    language.className = "search-candidate-language";
+    language.textContent = `${LANGUAGE_NAMES[word.language]} (${word.language})`;
+    option.append(label, language);
+    option.addEventListener("click", () => onSelect(word));
+    searchCandidates.append(option);
   }
-  return "en";
+  searchCandidates.hidden = words.length === 0;
+}
+
+function mergeWordDatasets(datasets) {
+  const words = new Map();
+  const relationshipTypes = {};
+  for (const dataset of datasets) {
+    Object.assign(relationshipTypes, dataset.relationshipTypes);
+    for (const word of dataset.words) {
+      const current = words.get(word.id);
+      if (!current) {
+        words.set(word.id, { ...word, connections: [...word.connections] });
+        continue;
+      }
+      const connections = new Map(current.connections.map((item) => [item.id, item]));
+      for (const connection of word.connections) connections.set(connection.id, connection);
+      words.set(word.id, { ...current, ...word, connections: [...connections.values()] });
+    }
+  }
+  return { words: [...words.values()], relationshipTypes };
+}
+
+function selectSearchCandidate(word, dataset = state.localData) {
+  state.data = dataset;
+  state.selectedId = word.id;
+  state.selectedRelation = null;
+  state.apiEmpty = !hasVerifiedConnections(word, dataset.words);
+  state.apiError = false;
+  state.query = "";
+  searchInput.value = "";
+  searchMessage.textContent = "";
+  searchMessage.classList.remove("is-error");
+  clearSearchCandidates();
+  render();
 }
 
 async function exploreSearch(query) {
   const requestId = ++state.searchRequest;
   const term = normalized(query);
   if (!term) return;
+  if (!state.localData) {
+    showMessage("The vocabulary is still loading. Try again shortly.", true);
+    return;
+  }
+  clearSearchCandidates();
   state.data = state.localData;
   state.apiEmpty = false;
   state.apiError = false;
-  const exact = state.localData.words.find((word) =>
-    wordSearchTerms(word).some((candidate) => candidate === term)
-  );
-  if (exact) {
-    selectWord(exact.id);
-    return;
-  }
   const matches = findMatchesIn(query, state.localData);
-  if (matches.length === 1) {
-    selectWord(matches[0].id);
+  const languages = queryLanguages(query);
+  if (matches.length > 0 && languages.length < 2) {
+    if (matches.length === 1) {
+      selectSearchCandidate(matches[0]);
+      return;
+    }
+    renderSearchCandidates(matches, (word) => selectSearchCandidate(word));
+    showMessage("Choose the matching word and confirm its language.");
     return;
   }
-  if (matches.length > 1) {
-    showMessage("A few words match. Add another character or choose a suggestion.", true);
+  const missingLanguages = languages.filter((language) =>
+    !matches.some((word) => word.language === language)
+  );
+  if (matches.length > 0 && missingLanguages.length === 0) {
+    renderSearchCandidates(matches, (word) => selectSearchCandidate(word));
+    showMessage("Choose the matching word and confirm its language.");
     return;
   }
-  const language = queryLanguage(query);
-  if (language === "en") {
-    showMessage("No matching word was found in the Chinese, Japanese, and Korean vocabulary.", true);
+  if (languages.length === 0) {
+    showMessage("Search using Chinese, Japanese, or Korean vocabulary.", true);
     return;
   }
-  showMessage(`Looking up “${query.trim()}” in ConceptNet…`);
+  const languagesToSearch = languages.length > 1 ? missingLanguages : languages;
+  showMessage(`Searching ${languagesToSearch.map((language) => LANGUAGE_NAMES[language]).join(" and ")} in ConceptNet…`);
   try {
-    const data = await fetchConceptNetWord(query, language);
+    const results = await Promise.allSettled(
+      languagesToSearch.map((language) => fetchConceptNetWord(query, language))
+    );
     if (requestId !== state.searchRequest) return;
+    const remoteDatasets = results
+      .filter((result) => result.status === "fulfilled")
+      .map((result) => result.value);
+    if (remoteDatasets.length === 0) {
+      const failure = results.find((result) => result.status === "rejected");
+      throw failure.reason;
+    }
+    const datasets = [state.localData, ...remoteDatasets];
+    const data = mergeWordDatasets(datasets);
     state.data = data;
     validateWordDataset(state.data);
     for (const type of Object.keys(state.data.relationshipTypes)) state.activeTypes.add(type);
-    state.selectedId = state.data.words[0].id;
-    state.selectedRelation = null;
-    state.apiEmpty = !hasVerifiedConnections(state.data.words[0], state.data.words);
+    const candidates = [...new Map([
+      ...matches,
+      ...remoteDatasets.map((dataset) => dataset.words[0])
+    ].map((word) => [word.id, word])).values()];
+    if (candidates.length === 1 && languages.length === 1) {
+      selectSearchCandidate(candidates[0], data);
+      return;
+    }
+    state.apiEmpty = true;
     state.apiError = false;
     graphMessage.hidden = true;
-    searchMessage.classList.remove("is-error");
-    searchMessage.textContent = "";
+    renderSearchCandidates(candidates, (word) => selectSearchCandidate(word, data));
+    showMessage(results.some((result) => result.status === "rejected")
+      ? "Some language lookups failed. Choose from the results that were returned."
+      : "Choose the matching word and confirm its language.");
+    state.selectedId = candidates[0].id;
+    state.selectedRelation = null;
     render();
   } catch (error) {
     if (requestId !== state.searchRequest) return;
     console.error("ConceptNet lookup failed:", error);
+    if (matches.length > 0) {
+      state.data = state.localData;
+      state.apiEmpty = false;
+      state.apiError = false;
+      state.selectedId = matches[0].id;
+      state.selectedRelation = null;
+      renderSearchCandidates(matches, (word) => selectSearchCandidate(word));
+      render();
+      showMessage("ConceptNet is unavailable for another language. Choose from the local matches.", true);
+      return;
+    }
     state.data = state.localData;
     state.apiEmpty = false;
     state.apiError = true;
@@ -234,23 +335,10 @@ async function exploreSearch(query) {
   }
 }
 
-function fillSuggestions() {
-  const values = new Set();
-  for (const word of state.data.words) {
-    for (const value of wordSearchTerms(word)) values.add(value);
-  }
-  for (const value of values) {
-    const option = document.createElement("option");
-    option.value = value;
-    suggestions.append(option);
-  }
-}
-
 async function initialize() {
   try {
     state.data = await loadWordDataset();
     state.localData = state.data;
-    fillSuggestions();
     state.selectedId = state.data.words[Math.floor(Math.random() * state.data.words.length)].id;
     state.apiEmpty = !hasVerifiedConnections(
       state.data.words.find((word) => word.id === state.selectedId),
@@ -273,13 +361,27 @@ searchForm.addEventListener("submit", (event) => {
 });
 
 searchInput.addEventListener("input", () => {
+  state.searchRequest += 1;
   const query = searchInput.value.trim();
   if (!query) {
     showMessage("");
+    clearSearchCandidates();
+    return;
+  }
+  if (!state.localData) {
+    clearSearchCandidates();
+    showMessage("The vocabulary is still loading.");
     return;
   }
   const matches = findMatches(query);
-  showMessage(matches.length ? `${matches.length} word${matches.length === 1 ? "" : "s"} to explore — press Enter` : "Press Enter to check this word.");
+  renderSearchCandidates(matches, (word) => selectSearchCandidate(word));
+  if (matches.length > 1) {
+    showMessage(`${matches.length} matching words — choose the language-specific entry.`);
+  } else if (matches.length === 1) {
+    showMessage(`1 matching ${LANGUAGE_NAMES[matches[0].language]} word — press Enter or choose it.`);
+  } else {
+    showMessage("Press Enter to search the Chinese, Japanese, and Korean vocabulary.");
+  }
 });
 
 languageSelect.addEventListener("change", () => {
@@ -322,7 +424,9 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && document.activeElement === searchInput) {
     searchInput.value = "";
     state.query = "";
+    state.searchRequest += 1;
     showMessage("");
+    clearSearchCandidates();
     searchInput.blur();
   }
 });

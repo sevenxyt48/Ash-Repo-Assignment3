@@ -157,6 +157,24 @@ button { -webkit-tap-highlight-color: transparent; }
 .random-button:active { transform: scale(.94); }
 .search-message { min-height: 16px; margin: 5px 0 8px 3px; color: #777e77; font-size: 10px; }
 .search-message.is-error { color: #a65a50; }
+.search-candidates { max-width: 740px; display: grid; gap: 5px; margin: 0 0 10px; }
+.search-candidates[hidden] { display: none; }
+.search-candidate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #e8e9e3;
+  border-radius: 9px;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+.search-candidate:hover, .search-candidate:focus-visible { border-color: #abd2ad; background: #f7fbf5; }
+.search-candidate-word { color: var(--ink); font-size: 13px; }
+.search-candidate-language { color: #777e77; font-size: 11px; }
 
 .filter-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .filter-label { margin-right: 4px; color: #92978f; font-size: 11px; }

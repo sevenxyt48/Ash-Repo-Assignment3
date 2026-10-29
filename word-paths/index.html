@@ -47,9 +47,8 @@
           <form id="search-form" class="search-row" role="search">
             <label class="search-box">
               <span class="search-icon" aria-hidden="true"></span>
-              <span class="sr-only">Search words in four languages</span>
-              <input id="search" type="search" list="word-suggestions" placeholder="Try a word — 水, river, 夜…" autocomplete="off">
-              <datalist id="word-suggestions"></datalist>
+              <span class="sr-only">Search Chinese, Japanese, and Korean words</span>
+              <input id="search" type="search" placeholder="Try a word — 水, 学校, 학교…" autocomplete="off" aria-controls="search-candidates" aria-autocomplete="list">
               <kbd>/</kbd>
             </label>
             <button class="random-button" id="random" type="button" aria-label="Discover a random word" title="Discover a random word">
@@ -57,6 +56,7 @@
             </button>
           </form>
           <p id="search-message" class="search-message" aria-live="polite"></p>
+          <div id="search-candidates" class="search-candidates" role="listbox" aria-label="Matching vocabulary" hidden></div>
 
           <div class="filter-row" role="group" aria-label="Relationship filters">
             <span class="filter-label">Show connections</span>
