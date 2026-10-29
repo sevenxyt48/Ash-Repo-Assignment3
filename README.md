@@ -1,42 +1,117 @@
-<!-- 此文件介绍 Word Paths 项目结构、本地运行方式和词汇数据准备情况。 -->
-
 # Word Paths
 
-Word Paths is a multilingual vocabulary explorer for Chinese, Japanese, Korean, and English. Its single-page interface uses a local word collection and public word APIs to render an interactive relationship graph.
+Word Paths is an interactive web experience for exploring relationships between Chinese, Japanese, and Korean words that use Chinese characters. Instead of treating each word as an isolated dictionary entry, it presents related words as a visual network that users can explore by searching, filtering relationships, and selecting nodes.
 
-## Project structure
+**Course:** SD5913 — Interactive Experience  
+**Project type:** Individual project  
+**Status:** MVP in development
+
+## The Idea
+
+Word Paths is designed mainly for native Chinese speakers who are learning Japanese or Korean, as well as people interested in comparing vocabulary across these languages. Similar-looking words can have different meanings, readings, or usage. A relationship graph makes these connections easier to notice and investigate.
+
+The experience focuses on the relationship between words rather than on providing a complete dictionary. The available vocabulary and relationships are limited by the data sources that can be accessed and verified during the project.
+
+## Main Interaction
+
+The intended interaction loop is **search or discover → inspect relationships → select a related word → explore again**.
+
+- **Start exploring:** The page loads an available starting word and its connected words.
+- **Search:** Enter a word to find matching entries in the available dataset. Chinese and Japanese searches for the same written form should show language labels so users can distinguish the entries.
+- **Explore randomly:** Use the dice button to discover another available word.
+- **Filter relationships:** Show or hide relationship categories to focus on the connections that matter.
+- **Follow a connection:** Select a related word to make it the new focus of the graph.
+- **Check a translation:** Hover over a word to see an English helper translation when one is available.
+- **Change the interface language:** The interface supports Chinese, English, Japanese, and Korean. This changes the interface text, not the dictionary scope: the core vocabulary remains Chinese, Japanese, and Korean.
+- **Understand the data scope:** The page reports the actual number of available entries and relationships, with a note that coverage is limited.
+
+The relationship categories are etymology, similar meaning, easily confused, and antonyms. A relationship should only appear in the graph when there is a usable basis for displaying it; missing data should not be replaced with invented connections.
+
+## Preview
+
+Add screenshots from the running project before submission. Keep the image files in the repository and update these paths to match their actual locations.
+
+![Main interface](assets/images/main-interface.png)
+
+*Main interface: search, language selection, relationship filters, and the word graph.*
+
+![Word relationship graph](assets/images/relationship-graph.png)
+
+*Example interaction: selecting a related word updates the graph.*
+
+> If these screenshots have not been added yet, replace this section with real screenshots before submitting the repository.
+
+## Run Locally
+
+The project is a static web app built with HTML, CSS, and JavaScript. It uses local JSON data, so run it through a local HTTP server rather than opening `index.html` directly.
+
+1. Clone or download this repository.
+2. Open a terminal in the project directory (the directory containing `index.html`).
+3. Start Python's built-in static server:
+
+```bash
+python -m http.server 8000
+```
+
+4. Open [http://localhost:8000](http://localhost:8000) in your browser.
+
+You can also use the VS Code Live Server extension to serve the project directory. If port 8000 is already in use, choose another port, such as `python -m http.server 8001`, and open the matching local URL.
+
+No package installation or build step is required for the static version. If the project structure changes, update these instructions to match the final repository.
+
+## Project Structure
+
+The current planned structure is:
 
 ```text
 word-paths/
 ├── index.html
-├── server.py
 ├── css/
-│   ├── animations.css
-│   └── styles.css
+│   ├── styles.css
+│   └── animations.css
+├── js/
+│   ├── app.js
+│   ├── graph.js
+│   └── details.js
 ├── data/
 │   └── words.json
-└── js/
-    ├── app.js
-    ├── details.js
-    ├── graph.js
-    ├── vocabularyApi.js
-    └── wordRepository.js
+├── assets/
+│   └── images/
+├── README.md
+└── PROCESS.md
 ```
 
-The project uses native HTML, CSS, browser JavaScript modules, SVG, and JSON, with a small Python standard-library server to proxy ConceptNet requests blocked by browser CORS. There is no package manifest, framework, package manager, or build step.
+The actual repository may differ as development continues. Keep this tree synchronized with the files committed to GitHub.
 
-## Run and test locally
+## Data and Technical Notes
 
-From `word-paths/`, run the static server and ConceptNet proxy (Python 3):
+- The interface is built with native HTML, CSS, and JavaScript.
+- SVG can be used to draw the word nodes and connecting lines.
+- The local JSON dataset stores available word entries and their relationships.
+- The multilingual dictionary API application is still pending approval, so the MVP must not depend on that API being available.
+- ConceptNet or another external source may be unavailable or return errors. The app should continue to provide the local data experience where possible.
+- English is used only as a helper translation; it is not a fourth core dictionary language.
+- The dataset is intentionally small. Word Paths does not claim to cover all Chinese, Japanese, or Korean vocabulary.
 
-```powershell
-python server.py
-```
+## Error Handling and Known Limitations
 
-Open <http://127.0.0.1:8000>. To check the local data, search for `water`, `水`, or `soil`. Search a word not in the local collection to query ConceptNet; this requires the proxy server.
+- **No search results:** Show a clear empty state and let the user edit the query or try another word.
+- **No verified relationships:** Show the word without fabricating connections, and explain that no usable related data is available.
+- **External API unavailable:** Do not let an unavailable service prevent the local dataset from loading.
+- **Missing English helper translation:** Omit the translation rather than displaying guessed text.
+- **Limited coverage:** The graph only reflects the entries and relationships currently available in the dataset. Some words may have few or no connections.
+- **Relationship accuracy:** Similar written forms do not automatically mean words share the same meaning or origin. Relationship types should be shown only when supported by the available data.
 
-The repository validates local translations/readings and the normalized relationship target, type, source, and verification fields. API nodes can use sparse language labels while preserving their source metadata. No automated test or build command is configured.
+## Credits
 
-## Vocabulary and public APIs
+Word Paths is an individual student project for SD5913. Credit any external APIs, datasets, code examples, libraries, fonts, icons, or media used in the final implementation here, including their source links and licences where applicable. Do not include material unless its source and permitted use have been checked.
 
-`word-paths/js/wordRepository.js` owns local vocabulary loading and validation. `word-paths/js/vocabularyApi.js` integrates keyless ConceptNet relationship lookups and MyMemory hover translation. Searching a local miss fetches the requested word and its sourced relations; local sample data and UI remain available if a request fails. See [word-paths/README.md](word-paths/README.md) for behavior, licensing, data model, and API limitations.
+## Development Process
+
+See [`PROCESS.md`](PROCESS.md) for the starting idea, implementation decisions, user trial, iteration, and disclosure of AI tools used. This file should be completed with the actual testing observations and decisions before submission.
+
+## Project Links
+
+- **GitHub repository:** Add the public repository URL before submission.
+- **Live demo:** Add a deployed URL if available.
+- **Course:** SD5913 — Interactive Experience
