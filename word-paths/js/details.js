@@ -14,6 +14,7 @@ function element(tag, className, text) {
 }
 
 function readingFor(word, language) {
+  if (word.language) return `${LANGUAGE_NAMES[word.language]} · ${word.translations[word.language]}`;
   if (language === "zh") return `Pinyin · ${word.pinyin}`;
   if (language === "ja") return `Romaji · ${word.romanization.ja}`;
   if (language === "ko") return `Romanization · ${word.romanization.ko}`;
@@ -48,18 +49,20 @@ export function renderDetails(container, word, data, language, relation, connect
   const card = element("div", "detail-card");
   const top = element("div", "detail-topline");
   const relationType = relation
-    ? data.relationshipTypes[relation.type]
+    ? data.relationshipTypes[relation.type] ?? relation.type
     : "Center word";
   const type = element("span", "detail-type");
   type.append(element("i", ""), document.createTextNode(relationType));
   top.append(type, element("span", "detail-language", LANGUAGE_NAMES[language]));
   card.append(top);
 
-  card.append(element("h2", "detail-word", word.translations[language] ?? word.translations.en));
-  card.append(element("p", "detail-reading", readingFor(word, language)));
+  const wordLabel = word.translations[language] ?? word.translations[word.language] ?? word.translations.en ?? word.id;
+  card.append(element("h2", "detail-word", wordLabel));
+  const reading = readingFor(word, language);
+  if (reading) card.append(element("p", "detail-reading", reading));
   const partOfSpeech = partOfSpeechFor(word, language);
   if (partOfSpeech) card.append(element("p", "detail-pos", partOfSpeech));
-  card.append(element("p", "detail-meaning", definitionFor(word, language)));
+  card.append(element("p", "detail-meaning", definitionFor(word, language) ?? word.meaning));
 
   if (relation) {
     const section = element("section", "detail-section");
@@ -69,22 +72,77 @@ export function renderDetails(container, word, data, language, relation, connect
     );
     const status = relation.verificationStatus === "verified" ? "Source verified" : "Unverified";
     const sourceLabel = relation.source?.label ?? "Source not attached";
-    section.append(element("p", "relation-provenance", `${status} · ${sourceLabel}`));
+    const licenseLabel = relation.source?.licenseId?.startsWith("cc:")
+      ? `CC ${relation.source.licenseId.slice(3).replace("/", " ").toUpperCase()}`
+      : relation.source?.license;
+    const license = licenseLabel ? ` · ${licenseLabel}` : "";
+    const dataset = relation.source?.dataset
+      ? ` · ${[].concat(relation.source.dataset).join(", ")}`
+      : "";
+    const sources = relation.source?.sources
+      ?.map((source) => [source.contributor, source.activity, source.process].filter(Boolean).join(" / "))
+      .filter(Boolean)
+      .join("; ");
+    const sourceDetails = sources ? ` · ${sources}` : "";
+    const provenance = element(
+      "p",
+      "relation-provenance",
+      `${status} · ${sourceLabel}${license}${dataset}${sourceDetails}`
+    );
+    if (relation.source?.license && licenseLabel) {
+      const link = element("a", "", licenseLabel);
+      link.href = relation.source.license;
+      link.target = "_blank";
+      link.rel = "noreferrer";
+      provenance.replaceChildren(
+        document.createTextNode(`${status} · ${sourceLabel} · `),
+        link,
+        document.createTextNode(`${dataset}${sourceDetails}`)
+      );
+    }
+    if (relation.source?.url) {
+      const link = element("a", "", "View edge");
+      link.href = relation.source.url;
+      link.target = "_blank";
+      link.rel = "noreferrer";
+      provenance.append(document.createTextNode(" · "), link);
+    }
+    section.append(provenance);
     card.append(section);
   } else {
     const translations = element("section", "detail-section");
     translations.append(element("h3", "", "Also known as"));
-    for (const [code, name] of Object.entries(LANGUAGE_NAMES)) {
+    for (const [code, value] of Object.entries(word.translations)) {
+      const name = LANGUAGE_NAMES[code];
       const row = element("div", "translation-row");
       row.append(element("span", "", name));
-      const value = element("strong", "", word.translations[code]);
+      const translation = element("strong", "", value);
       if (code === "zh" && language !== "zh") {
-        value.append(element("span", "translation-reading", `Pinyin · ${word.pinyin}`));
+        if (word.pinyin) translation.append(element("span", "translation-reading", `Pinyin · ${word.pinyin}`));
       }
-      row.append(value);
+      row.append(translation);
       translations.append(row);
     }
     card.append(translations);
+  }
+
+  if (word.source) {
+    const attribution = element("p", "relation-provenance", `${word.source.label} · `);
+    if (word.source.license === "CC BY-SA 4.0") {
+      const licenseLink = element("a", "", word.source.license);
+      licenseLink.href = "https://creativecommons.org/licenses/by-sa/4.0/";
+      licenseLink.target = "_blank";
+      licenseLink.rel = "noreferrer";
+      attribution.append(licenseLink);
+    } else {
+      attribution.append(document.createTextNode(word.source.license ?? "Source data"));
+    }
+    const link = element("a", "", "View source");
+    link.href = word.source.url;
+    link.target = "_blank";
+    link.rel = "noreferrer";
+    attribution.append(document.createTextNode(" · "), link);
+    card.append(attribution);
   }
 
   if (connections.length) {
@@ -94,7 +152,12 @@ export function renderDetails(container, word, data, language, relation, connect
     for (const connection of connections) {
       const chip = element("button", "connection-chip");
       chip.type = "button";
-      chip.append(document.createTextNode(connection.word.translations[language] ?? connection.word.translations.en));
+      chip.append(document.createTextNode(
+        connection.word.translations[language] ??
+        connection.word.translations[connection.word.language] ??
+        connection.word.translations.en ??
+        connection.word.id
+      ));
       chip.addEventListener("click", () => onSelect(connection.word.id, connection));
       chips.append(chip);
     }

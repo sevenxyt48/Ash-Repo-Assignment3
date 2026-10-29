@@ -1,7 +1,8 @@
 // 此文件协调页面状态、搜索、筛选、词汇仓库和关系图渲染。
 import { renderGraph, resetGraphView, zoomGraph } from "./graph.js";
 import { renderDetails, renderEmptyDetails } from "./details.js";
-import { loadWordDataset } from "./wordRepository.js";
+import { loadWordDataset, validateWordDataset } from "./wordRepository.js";
+import { fetchConceptNetWord, translateText } from "./vocabularyApi.js";
 
 const graphContainer = document.querySelector("#graph");
 const graphMessage = document.querySelector("#graph-message");
@@ -18,12 +19,16 @@ const otherLanguagesButton = document.querySelector("#other-languages");
 
 const state = {
   data: null,
+  localData: null,
   language: "en",
   selectedId: null,
   selectedRelation: null,
   activeTypes: new Set(["origin", "similar", "confusable", "antonym"]),
   otherLanguages: false,
-  query: ""
+  query: "",
+  apiEmpty: false,
+  apiError: false,
+  searchRequest: 0
 };
 
 function normalized(value) {
@@ -46,11 +51,15 @@ function getConnections(word) {
   for (const item of state.data.words) {
     for (const connection of item.connections) {
       if (!state.activeTypes.has(connection.type)) continue;
+      const targetId = item.id === word.id ? connection.target : item.id;
+      if (item.id !== word.id && connection.target !== word.id) continue;
+      const key = `${targetId}\u0000${connection.type}`;
+      if (connections.has(key)) continue;
       if (item.id === word.id) {
         const target = state.data.words.find((candidate) => candidate.id === connection.target);
-        if (target) connections.set(target.id, { ...connection, word: target });
-      } else if (connection.target === word.id) {
-        connections.set(item.id, {
+        if (target) connections.set(key, { ...connection, word: target });
+      } else {
+        connections.set(key, {
           ...connection,
           target: item.id,
           word: item
@@ -64,6 +73,10 @@ function getConnections(word) {
 function selectWord(id, relation = null) {
   state.selectedId = id;
   state.selectedRelation = relation;
+  if (state.data === state.localData) {
+    state.apiEmpty = false;
+    state.apiError = false;
+  }
   state.query = "";
   searchInput.value = "";
   searchMessage.textContent = "";
@@ -82,11 +95,20 @@ function render() {
     activeTypes: state.activeTypes,
     otherLanguages: state.otherLanguages,
     relationshipTypes: state.data.relationshipTypes,
-    onSelect: selectWord
+    onSelect: selectWord,
+    onHover: (word) => translateText(word.translations[word.language], word.language, "en")
   });
+  graphMessage.hidden = !state.apiEmpty && !state.apiError;
+  if (state.apiEmpty) {
+    graphMessage.textContent = "ConceptNet has no relationships for this word yet.";
+  } else if (state.apiError) {
+    graphMessage.textContent = "The vocabulary service is unavailable. Check your connection and try again.";
+  }
 
   const connectionCount = graphResult.edgeCount;
-  resultCount.textContent = connectionCount
+  resultCount.textContent = state.apiEmpty
+    ? "No ConceptNet relationships found"
+    : connectionCount
     ? `${graphResult.nodeCount} words · ${connectionCount} ${connectionCount === 1 ? "connection" : "connections"}`
     : "No connections match these filters";
 
@@ -113,24 +135,41 @@ function showMessage(message, isError = false) {
 }
 
 function findMatches(query) {
+  return findMatchesIn(query, state.localData);
+}
+
+function findMatchesIn(query, data) {
   const term = normalized(query);
   if (!term) return [];
-  return state.data.words.filter((word) =>
+  return data.words.filter((word) =>
     wordSearchTerms(word).some((candidate) => candidate === term || candidate.startsWith(term))
   );
 }
 
-function exploreSearch(query) {
+function queryLanguage(query) {
+  if (/\p{Script=Hangul}/u.test(query)) return "ko";
+  if (/\p{Script=Hiragana}|\p{Script=Katakana}/u.test(query)) return "ja";
+  if (/\p{Script=Han}/u.test(query)) {
+    return languageSelect.value === "ja" ? "ja" : "zh";
+  }
+  return "en";
+}
+
+async function exploreSearch(query) {
+  const requestId = ++state.searchRequest;
   const term = normalized(query);
   if (!term) return;
-  const exact = state.data.words.find((word) =>
+  state.data = state.localData;
+  state.apiEmpty = false;
+  state.apiError = false;
+  const exact = state.localData.words.find((word) =>
     wordSearchTerms(word).some((candidate) => candidate === term)
   );
   if (exact) {
     selectWord(exact.id);
     return;
   }
-  const matches = findMatches(query);
+  const matches = findMatchesIn(query, state.localData);
   if (matches.length === 1) {
     selectWord(matches[0].id);
     return;
@@ -139,7 +178,36 @@ function exploreSearch(query) {
     showMessage("A few words match. Add another character or choose a suggestion.", true);
     return;
   }
-  showMessage(`“${query.trim()}” isn’t in this small collection yet. Try water, 水, hope, 白天, or 土.`, true);
+  showMessage(`Looking up “${query.trim()}” in ConceptNet…`);
+  try {
+    const language = queryLanguage(query);
+    const data = await fetchConceptNetWord(query, language);
+    if (requestId !== state.searchRequest) return;
+    state.data = data;
+    validateWordDataset(state.data);
+    for (const type of Object.keys(state.data.relationshipTypes)) state.activeTypes.add(type);
+    state.selectedId = state.data.words[0].id;
+    state.selectedRelation = null;
+    state.apiEmpty = state.data.words[0].connections.length === 0;
+    state.apiError = false;
+    graphMessage.hidden = true;
+    searchMessage.classList.remove("is-error");
+    searchMessage.textContent = "";
+    render();
+  } catch (error) {
+    if (requestId !== state.searchRequest) return;
+    console.error("ConceptNet lookup failed:", error);
+    state.data = state.localData;
+    state.apiEmpty = false;
+    state.apiError = true;
+    if (!state.localData.words.some((word) => word.id === state.selectedId)) {
+      state.selectedId = state.localData.words[0].id;
+      state.selectedRelation = null;
+    }
+    render();
+    resultCount.textContent = "ConceptNet unavailable";
+    showMessage("Could not retrieve this word from ConceptNet.", true);
+  }
 }
 
 function fillSuggestions() {
@@ -157,6 +225,7 @@ function fillSuggestions() {
 async function initialize() {
   try {
     state.data = await loadWordDataset();
+    state.localData = state.data;
     fillSuggestions();
     state.selectedId = state.data.words[Math.floor(Math.random() * state.data.words.length)].id;
     graphMessage.hidden = true;
@@ -172,7 +241,7 @@ async function initialize() {
 
 searchForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  exploreSearch(searchInput.value);
+  void exploreSearch(searchInput.value);
 });
 
 searchInput.addEventListener("input", () => {

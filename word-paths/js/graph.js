@@ -20,13 +20,17 @@ function getConnections(word, words, activeTypes) {
   for (const item of words) {
     for (const connection of item.connections) {
       if (!activeTypes.has(connection.type)) continue;
+      const targetId = item.id === word.id ? connection.target : item.id;
+      if (item.id !== word.id && connection.target !== word.id) continue;
+      const key = `${targetId}\u0000${connection.type}`;
+      if (connections.has(key)) continue;
       if (item.id === word.id) {
-        connections.set(connection.target, { ...connection, source: word.id });
-      } else if (connection.target === word.id) {
-        connections.set(item.id, {
+        connections.set(key, { ...connection, sourceId: word.id });
+      } else {
+        connections.set(key, {
           ...connection,
           target: item.id,
-          source: word.id
+          sourceId: word.id
         });
       }
     }
@@ -92,8 +96,8 @@ function drawEdge(parent, from, to, connection, relationshipTypes) {
   const bend = Math.min(105, gap * .42);
   const path = svgElement("path", {
     d: `M ${from.x} ${from.y} C ${from.x + direction * bend} ${from.y}, ${to.x - direction * bend} ${to.y}, ${to.x} ${to.y}`,
-    class: `graph-edge edge-${connection.type}`,
-    "data-source": connection.source,
+    class: `graph-edge edge-${connection.type.replace(/[^a-z0-9_-]/gi, "-")}`,
+    "data-source": connection.sourceId,
     "data-target": connection.target,
     "aria-label": relationshipTypes[connection.type] ?? connection.type
   });
@@ -106,9 +110,9 @@ function drawEdge(parent, from, to, connection, relationshipTypes) {
   parent.append(label);
 }
 
-function addNode(parent, node, language, otherLanguages, selectedId, query, onSelect) {
+function addNode(parent, node, language, otherLanguages, selectedId, query, onSelect, onHover) {
   const { word, x, y, depth } = node;
-  const label = word.translations[language] ?? word.translations.en;
+  const label = word.translations[language] ?? word.translations[word.language] ?? word.translations.en ?? word.id;
   const meaning = word.definitions?.[language] ?? word.definitions?.en ?? word.meaning;
   const group = svgElement("g", {
     class: `graph-node${word.id === selectedId ? " is-center" : ""}${depth === 1 ? " is-connected" : ""}`,
@@ -118,7 +122,7 @@ function addNode(parent, node, language, otherLanguages, selectedId, query, onSe
     "aria-pressed": String(word.id === selectedId),
     "data-id": word.id
   });
-  const chineseReading = language !== "zh" && word.translations.zh
+  const chineseReading = language !== "zh" && word.translations.zh && word.pinyin
     ? `, Chinese ${word.translations.zh}, pinyin ${word.pinyin}`
     : "";
   group.setAttribute("aria-label", `${label}${chineseReading} — ${meaning}`);
@@ -140,7 +144,8 @@ function addNode(parent, node, language, otherLanguages, selectedId, query, onSe
   if (otherLanguages) {
     const alternatives = Object.entries(word.translations)
       .filter(([code]) => code !== language)
-      .map(([code, translation]) => code === "zh" ? `${translation} (${word.pinyin})` : translation)
+      .map(([code, translation]) =>
+        code === "zh" && word.pinyin ? `${translation} (${word.pinyin})` : translation)
       .join(" · ");
     const other = svgElement("text", { y: "25", class: "node-pinyin node-alternates" });
     other.textContent = alternatives;
@@ -169,8 +174,22 @@ function addNode(parent, node, language, otherLanguages, selectedId, query, onSe
       onSelect(word.id, null);
     }
   });
-  group.addEventListener("pointerenter", () => highlightConnections(group, word.id));
-  group.addEventListener("pointerleave", clearHighlights);
+  group.addEventListener("pointerenter", () => {
+    highlightConnections(group, word.id);
+    if (word.language && word.language !== "en" && onHover) {
+      group.dataset.hovered = "true";
+      onHover(word).then((translation) => {
+        if (group.isConnected && group.dataset.hovered === "true") {
+          group.setAttribute("title", `English: ${translation}`);
+          group.setAttribute("aria-label", `${group.getAttribute("aria-label")}. English: ${translation}`);
+        }
+      }).catch((error) => console.warn("Unable to translate hovered word:", error));
+    }
+  });
+  group.addEventListener("pointerleave", () => {
+    delete group.dataset.hovered;
+    clearHighlights({ currentTarget: group });
+  });
   parent.append(group);
 }
 
@@ -247,7 +266,7 @@ function enablePanAndZoom(svg) {
 }
 
 export function renderGraph(container, words, options) {
-  const { language, selectedId, query, activeTypes, otherLanguages, onSelect } = options;
+  const { language, selectedId, query, activeTypes, otherLanguages, onSelect, onHover } = options;
   const center = words.find((word) => word.id === selectedId);
   if (!center) return { nodeCount: 0, edgeCount: 0 };
 
@@ -256,7 +275,7 @@ export function renderGraph(container, words, options) {
   const svg = svgElement("svg", {
     viewBox: `0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`,
     role: "group",
-    "aria-label": `Word relationships centered on ${center.translations[language] ?? center.translations.en}`
+    "aria-label": `Word relationships centered on ${center.translations[language] ?? center.translations[center.language] ?? center.translations.en ?? center.id}`
   });
   const content = svgElement("g", { class: "graph-content" });
   const edgeLayer = svgElement("g", { "aria-hidden": "true" });
@@ -267,7 +286,7 @@ export function renderGraph(container, words, options) {
     drawEdge(edgeLayer, nodePointFor(edge, "from"), nodePointFor(edge, "to"), edge.connection, relationshipTypes);
   }
   for (const node of layout.nodes) {
-    addNode(nodeLayer, node, language, otherLanguages, selectedId, query, onSelect);
+    addNode(nodeLayer, node, language, otherLanguages, selectedId, query, onSelect, onHover);
   }
 
   content.append(edgeLayer, nodeLayer);
