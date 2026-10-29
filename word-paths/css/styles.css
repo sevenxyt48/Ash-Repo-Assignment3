@@ -209,6 +209,15 @@ button { -webkit-tap-highlight-color: transparent; }
 .graph-heading h2 { margin: 0 0 3px; font-size: 15px; font-weight: 600; letter-spacing: -.02em; }
 .graph-heading p { margin: 0; color: #92978f; font-size: 10px; }
 .graph-heading .dataset-stats { margin-top: 3px; color: #a0a59e; font-size: 9px; }
+.development-notice {
+  margin: 0 0 12px;
+  padding: 9px 12px;
+  border: 1px solid #e6c982;
+  border-radius: 8px;
+  background: #fff8e6;
+  color: #765a16;
+  font-size: 12px;
+}
 .graph-instruction { padding-bottom: 2px; }
 .instruction-dot { width: 7px; height: 7px; display: inline-block; margin-right: 5px; border-radius: 50%; background: var(--green); }
 
@@ -233,6 +242,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .graph-edge.edge-similar { stroke: #a9ba8e; }
 .graph-edge.edge-confusable { stroke: #bba6af; stroke-dasharray: 4 4; }
 .graph-edge.edge-antonym { stroke: #92a6ba; stroke-dasharray: 2 4; }
+.graph-edge.edge-unclassified { stroke: #92978f; stroke-dasharray: 1 4; }
 .graph-edge.is-active { stroke: #58a86b; stroke-width: 2.4; }
 .edge-label { fill: #929990; font: 11px "DM Sans", "Noto Sans SC", sans-serif; text-anchor: middle; }
 .graph-node { cursor: pointer; outline: none; }

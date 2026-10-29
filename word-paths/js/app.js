@@ -16,8 +16,12 @@ const randomButton = document.querySelector("#random");
 const detailsPanel = document.querySelector("#details");
 const resultCount = document.querySelector("#result-count");
 const datasetStats = document.querySelector("#dataset-stats");
+const developmentNotice = document.querySelector("#development-notice");
 const filters = [...document.querySelectorAll("[data-filter]")];
 const otherLanguagesButton = document.querySelector("#other-languages");
+const localHosts = new Set(["localhost", "127.0.0.1", "[::1]"]);
+const developmentGraph = localHosts.has(window.location.hostname) &&
+  new URLSearchParams(window.location.search).get("devGraph") === "1";
 
 const state = {
   data: null,
@@ -31,7 +35,8 @@ const state = {
   searchRequest: 0,
   searchMessage: null,
   searchCandidates: [],
-  searchCandidateHandler: null
+  searchCandidateHandler: null,
+  developmentGraph
 };
 
 function normalized(value) {
@@ -43,20 +48,28 @@ function wordSearchTerms(word) {
     ...Object.values(word.romanization)].filter(Boolean).map(normalized);
 }
 
-function getConnections(word, activeTypes = state.activeTypes, data = state.data) {
+function getConnections(word, activeTypes = state.activeTypes, data = state.data,
+  includeUnverified = state.developmentGraph) {
   if (!word || !data) return [];
   const connections = new Map();
   const wordIds = new Set(data.words.map((candidate) => candidate.id));
   for (const item of data.words) {
     for (const connection of item.connections) {
-      if (connection.verificationStatus !== "verified" ||
-          !connection.productRelationType ||
-          !Object.prototype.hasOwnProperty.call(data.relationshipTypes, connection.productRelationType) ||
-          !activeTypes.has(connection.productRelationType)) continue;
+      const hasProductType = connection.productRelationType &&
+        Object.prototype.hasOwnProperty.call(data.relationshipTypes, connection.productRelationType);
+      const isUnclassifiedRawRelation = includeUnverified &&
+        connection.verificationStatus === "unverified" &&
+        !connection.productRelationType &&
+        connection.rawRelationType;
+      if ((!includeUnverified && connection.verificationStatus !== "verified") ||
+          (includeUnverified &&
+           !["verified", "unverified", "demo"].includes(connection.verificationStatus)) ||
+          (!hasProductType && !isUnclassifiedRawRelation) ||
+          (hasProductType && !activeTypes.has(connection.productRelationType))) continue;
       const targetId = item.id === word.id ? connection.targetWordId : item.id;
       if (item.id !== word.id && connection.targetWordId !== word.id) continue;
       if (!wordIds.has(targetId)) continue;
-      const key = `${targetId}\u0000${connection.productRelationType}`;
+      const key = `${targetId}\u0000${connection.productRelationType ?? connection.rawRelationType}`;
       if (connections.has(key)) continue;
       if (item.id === word.id) {
         const target = data.words.find((candidate) => candidate.id === connection.targetWordId);
@@ -91,6 +104,46 @@ function countDisplayableRelationships(data) {
   return relationshipIds.size;
 }
 
+function countDemoRelationships(data) {
+  const wordIds = new Set(data.words.map((word) => word.id));
+  const relationshipIds = new Set();
+  for (const word of data.words) {
+    for (const connection of word.connections) {
+      if (connection.verificationStatus !== "demo" ||
+          connection.sourceWordId !== word.id ||
+          !connection.productRelationType ||
+          !Object.prototype.hasOwnProperty.call(data.relationshipTypes, connection.productRelationType) ||
+          !wordIds.has(connection.targetWordId)) continue;
+      const endpoints = [connection.sourceWordId, connection.targetWordId].sort();
+      relationshipIds.add(`${endpoints[0]}\u0000${endpoints[1]}\u0000${connection.productRelationType}`);
+    }
+  }
+  return relationshipIds.size;
+}
+
+async function addDemoRelationships(data) {
+  const response = await fetch(new URL("../data/demo-relationships.json", import.meta.url));
+  if (!response.ok) throw new Error(`Unable to load development graph fixtures: HTTP ${response.status}`);
+  const fixture = await response.json();
+  if (!Array.isArray(fixture.relationships) || fixture.relationships.length < 6 ||
+      !fixture.relationships.every((relationship) => relationship.verificationStatus === "demo")) {
+    throw new Error("Development graph fixtures must include at least six demo relationships");
+  }
+  const words = new Map(data.words.map((word) => [word.id, {
+    ...word,
+    connections: [...word.connections]
+  }]));
+  // Fixture relationship categories only exercise the existing filters; they are not linguistic claims.
+  for (const relationship of fixture.relationships) {
+    const source = words.get(relationship.sourceWordId);
+    if (!source || !words.has(relationship.targetWordId)) {
+      throw new Error(`Demo relationship "${relationship.id}" references an unknown word`);
+    }
+    source.connections.push(relationship);
+  }
+  return validateWordDataset({ ...data, words: [...words.values()] });
+}
+
 function selectWord(id, relation = null) {
   state.searchRequest += 1;
   state.selectedId = id;
@@ -112,24 +165,28 @@ function render() {
     query: state.query,
     activeTypes: state.activeTypes,
     otherLanguages: state.otherLanguages,
+    developmentGraph: state.developmentGraph,
     relationshipTypes: state.data.relationshipTypes,
     onSelect: selectWord,
     onHover: (word) => word.englishTranslation
       ? Promise.resolve(word.englishTranslation)
       : translateText(word.word, word.language, "en")
   });
-  const displayableConnections = getConnections(selected, new Set(Object.keys(state.data.relationshipTypes)));
+  const displayableConnections = getConnections(selected,
+    new Set(Object.keys(state.data.relationshipTypes)), state.data, state.developmentGraph);
   const matchingConnections = getConnections(selected);
   graphMessage.hidden = matchingConnections.length > 0;
   if (displayableConnections.length === 0) {
-    graphMessage.textContent = translate(state.language, "graph.noVerified");
+    graphMessage.textContent = translate(state.language,
+      state.developmentGraph ? "graph.noDevelopmentRelationships" : "graph.noVerified");
   } else if (matchingConnections.length === 0) {
     graphMessage.textContent = translate(state.language, "graph.noFiltered");
   }
 
   const connectionCount = matchingConnections.length;
   resultCount.textContent = displayableConnections.length === 0
-    ? translate(state.language, "search.noVerified")
+    ? translate(state.language,
+      state.developmentGraph ? "search.noDevelopmentRelationships" : "search.noVerified")
     : connectionCount === 0
       ? translate(state.language, "search.noFiltered")
       : translate(state.language, connectionCount === 1 ? "search.focusRelationsOne" : "search.focusRelations", {
@@ -143,6 +200,13 @@ function render() {
     datasetRelationshipCount === 1 ? "search.datasetStatsOne" : "search.datasetStats",
     { words: formattedWordCount, relations: formattedRelationshipCount }
   );
+  if (state.developmentGraph) {
+    const formattedDemoCount = new Intl.NumberFormat(state.language)
+      .format(countDemoRelationships(state.data));
+    datasetStats.textContent += ` · ${translate(state.language, "search.demoStats", {
+      count: formattedDemoCount
+    })}`;
+  }
 
   const relation = state.selectedRelation
     ? {
@@ -220,6 +284,13 @@ function renderSearchCandidates(words, onSelect) {
   searchCandidates.hidden = words.length === 0;
 }
 
+function updateDevelopmentNotice() {
+  developmentNotice.hidden = !state.developmentGraph;
+  if (state.developmentGraph) {
+    developmentNotice.textContent = translate(state.language, "graph.developmentNotice");
+  }
+}
+
 function mergeWordDatasets(datasets) {
   const words = new Map();
   const relationshipTypes = {};
@@ -239,8 +310,8 @@ function mergeWordDatasets(datasets) {
   return { words: [...words.values()], relationshipTypes };
 }
 
-function selectSearchCandidate(word, dataset = state.localData) {
-  state.data = dataset;
+function selectSearchCandidate(word, dataset = state.data ?? state.localData) {
+  if (dataset) state.data = dataset;
   state.selectedId = word.id;
   state.selectedRelation = null;
   state.query = "";
@@ -313,7 +384,8 @@ async function exploreSearch(query) {
       return;
     }
     const datasets = [state.localData, ...matchedRemoteDatasets];
-    const data = mergeWordDatasets(datasets);
+    let data = mergeWordDatasets(datasets);
+    if (state.developmentGraph) data = await addDemoRelationships(data);
     state.data = data;
     validateWordDataset(state.data);
     for (const type of Object.keys(state.data.relationshipTypes)) state.activeTypes.add(type);
@@ -346,9 +418,14 @@ async function exploreSearch(query) {
 
 async function initialize() {
   try {
-    state.data = await loadWordDataset();
-    state.localData = state.data;
-    state.selectedId = state.data.words[Math.floor(Math.random() * state.data.words.length)].id;
+    state.localData = await loadWordDataset();
+    state.data = state.developmentGraph
+      ? await addDemoRelationships(state.localData)
+      : state.localData;
+    updateDevelopmentNotice();
+    state.selectedId = state.developmentGraph
+      ? "water-zh"
+      : state.data.words[Math.floor(Math.random() * state.data.words.length)].id;
     render();
   } catch (error) {
     console.error("Unable to load the word graph:", error);
@@ -392,6 +469,7 @@ searchInput.addEventListener("input", () => {
 languageSelect.addEventListener("change", () => {
   state.language = languageSelect.value;
   applyInterfaceLanguage(state.language);
+  updateDevelopmentNotice();
   if (state.searchCandidates.length) {
     renderSearchCandidates(state.searchCandidates, state.searchCandidateHandler);
   }

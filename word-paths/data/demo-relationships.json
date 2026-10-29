@@ -1,0 +1,71 @@
+{
+  "purpose": "UI and interaction testing only. These relationships are fictional fixtures and are not verified linguistic claims.",
+  "relationships": [
+    {
+      "id": "demo-water-liquid",
+      "sourceWordId": "water-zh",
+      "targetWordId": "liquid-zh",
+      "rawRelationType": "demo-similar",
+      "productRelationType": "similar",
+      "description": "Demo fixture for testing the similar-meaning filter; not a verified linguistic claim.",
+      "source": { "label": "Word Paths UI test fixture" },
+      "verificationStatus": "demo",
+      "metadata": { "purpose": "UI and interaction testing only" }
+    },
+    {
+      "id": "demo-water-ja",
+      "sourceWordId": "water-zh",
+      "targetWordId": "water-ja",
+      "rawRelationType": "demo-similar",
+      "productRelationType": "similar",
+      "description": "Demo fixture for testing cross-language labels; not a verified linguistic claim.",
+      "source": { "label": "Word Paths UI test fixture" },
+      "verificationStatus": "demo",
+      "metadata": { "purpose": "UI and interaction testing only" }
+    },
+    {
+      "id": "demo-water-ko",
+      "sourceWordId": "water-zh",
+      "targetWordId": "water-ko",
+      "rawRelationType": "demo-similar",
+      "productRelationType": "similar",
+      "description": "Demo fixture for testing cross-language labels; not a verified linguistic claim.",
+      "source": { "label": "Word Paths UI test fixture" },
+      "verificationStatus": "demo",
+      "metadata": { "purpose": "UI and interaction testing only" }
+    },
+    {
+      "id": "demo-water-river",
+      "sourceWordId": "water-zh",
+      "targetWordId": "river-zh",
+      "rawRelationType": "demo-origin",
+      "productRelationType": "origin",
+      "description": "Demo fixture for testing the origin filter; not a verified linguistic claim.",
+      "source": { "label": "Word Paths UI test fixture" },
+      "verificationStatus": "demo",
+      "metadata": { "purpose": "UI and interaction testing only" }
+    },
+    {
+      "id": "demo-water-rain",
+      "sourceWordId": "water-zh",
+      "targetWordId": "rain-zh",
+      "rawRelationType": "demo-confusable",
+      "productRelationType": "confusable",
+      "description": "Demo fixture for testing the easily-confused filter; not a verified linguistic claim.",
+      "source": { "label": "Word Paths UI test fixture" },
+      "verificationStatus": "demo",
+      "metadata": { "purpose": "UI and interaction testing only" }
+    },
+    {
+      "id": "demo-water-night",
+      "sourceWordId": "water-zh",
+      "targetWordId": "night-zh",
+      "rawRelationType": "demo-antonym",
+      "productRelationType": "antonym",
+      "description": "Demo fixture for testing the antonym filter; not a verified linguistic claim.",
+      "source": { "label": "Word Paths UI test fixture" },
+      "verificationStatus": "demo",
+      "metadata": { "purpose": "UI and interaction testing only" }
+    }
+  ]
+}

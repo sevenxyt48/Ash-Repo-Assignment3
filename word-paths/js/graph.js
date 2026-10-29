@@ -16,17 +16,23 @@ function svgElement(name, attributes = {}) {
   return element;
 }
 
-function getConnections(word, words, activeTypes) {
+function getConnections(word, words, activeTypes, developmentGraph) {
   const byId = new Map(words.map((item) => [item.id, item]));
   const connections = new Map();
   for (const item of words) {
     for (const connection of item.connections) {
-      if (connection.verificationStatus !== "verified" ||
-          !connection.productRelationType ||
-          !activeTypes.has(connection.productRelationType)) continue;
+      const isUnclassifiedRawRelation = developmentGraph &&
+        connection.verificationStatus === "unverified" &&
+        !connection.productRelationType &&
+        connection.rawRelationType;
+      if ((!developmentGraph && connection.verificationStatus !== "verified") ||
+          (developmentGraph &&
+           !["verified", "unverified", "demo"].includes(connection.verificationStatus)) ||
+          (!connection.productRelationType && !isUnclassifiedRawRelation) ||
+          (connection.productRelationType && !activeTypes.has(connection.productRelationType))) continue;
       const targetId = item.id === word.id ? connection.targetWordId : item.id;
       if (item.id !== word.id && connection.targetWordId !== word.id) continue;
-      const key = `${targetId}\u0000${connection.productRelationType}`;
+      const key = `${targetId}\u0000${connection.productRelationType ?? connection.rawRelationType}`;
       if (connections.has(key)) continue;
       if (item.id === word.id) {
         connections.set(key, { ...connection, sourceId: word.id });
@@ -46,11 +52,11 @@ function getConnections(word, words, activeTypes) {
       TYPE_ORDER.indexOf(a.productRelationType) - TYPE_ORDER.indexOf(b.productRelationType));
 }
 
-function getLayout(center, words, activeTypes) {
+function getLayout(center, words, activeTypes, developmentGraph) {
   const visible = [{ word: center, x: 500, y: 280, depth: 0 }];
   const edges = [];
   const seen = new Set([center.id]);
-  const firstLevel = getConnections(center, words, activeTypes).slice(0, 6);
+  const firstLevel = getConnections(center, words, activeTypes, developmentGraph).slice(0, 6);
 
   firstLevel.forEach((connection, index) => {
     const side = index % 2 === 0 ? -1 : 1;
@@ -65,7 +71,7 @@ function getLayout(center, words, activeTypes) {
 
   const secondary = [];
   for (const parent of visible.slice(1)) {
-    const next = getConnections(parent.word, words, activeTypes)
+    const next = getConnections(parent.word, words, activeTypes, developmentGraph)
       .find((connection) => !seen.has(connection.word.id));
     if (next && secondary.length < 4) {
       seen.add(next.word.id);
@@ -100,13 +106,21 @@ function drawEdge(parent, from, to, connection, relationshipTypes, language) {
   const gap = Math.abs(to.x - from.x);
   const bend = Math.min(105, gap * .42);
   const type = connection.productRelationType;
-  const relationshipLabel = translate(language, `relationship.${type}`);
-  const labelText = relationshipLabel === `relationship.${type}`
-    ? relationshipTypes[type] ?? type
+  const relationshipLabel = type
+    ? translate(language, `relationship.${type}`)
+    : translate(language, "relationship.rawType", { type: connection.rawRelationType });
+  const baseLabel = relationshipLabel.startsWith("relationship.")
+    ? relationshipTypes[type] ?? type ?? connection.rawRelationType
     : relationshipLabel;
+  const statusLabel = connection.verificationStatus === "demo"
+    ? translate(language, "relationship.demoMarker")
+    : connection.verificationStatus === "unverified"
+      ? translate(language, "relationship.unverifiedMarker")
+      : "";
+  const labelText = [baseLabel, statusLabel].filter(Boolean).join(" · ");
   const path = svgElement("path", {
     d: `M ${from.x} ${from.y} C ${from.x + direction * bend} ${from.y}, ${to.x - direction * bend} ${to.y}, ${to.x} ${to.y}`,
-    class: `graph-edge edge-${type.replace(/[^a-z0-9_-]/gi, "-")}`,
+    class: `graph-edge edge-${(type ?? "unclassified").replace(/[^a-z0-9_-]/gi, "-")}`,
     "data-source": connection.sourceId,
     "data-target": connection.targetWordId,
     "aria-label": labelText
@@ -286,11 +300,12 @@ function enablePanAndZoom(svg) {
 }
 
 export function renderGraph(container, words, options) {
-  const { language, selectedId, query, activeTypes, otherLanguages, onSelect, onHover } = options;
+  const { language, selectedId, query, activeTypes, otherLanguages, onSelect, onHover,
+    developmentGraph } = options;
   const center = words.find((word) => word.id === selectedId);
   if (!center) return { nodeCount: 0, edgeCount: 0 };
 
-  const layout = getLayout(center, words, new Set(activeTypes));
+  const layout = getLayout(center, words, new Set(activeTypes), developmentGraph);
 
   const svg = svgElement("svg", {
     viewBox: `0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`,

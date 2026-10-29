@@ -49,11 +49,13 @@ export function renderDetails(container, word, data, language, relation, connect
   const rawRelationType = relation?.productRelationType;
   const translatedRelationType = rawRelationType
     ? translate(language, `relationship.${rawRelationType}`)
-    : null;
+    : relation?.rawRelationType
+      ? translate(language, "relationship.rawType", { type: relation.rawRelationType })
+      : null;
   const relationType = relation
-    ? translatedRelationType === `relationship.${rawRelationType}`
+    ? translatedRelationType?.startsWith("relationship.")
       ? data.relationshipTypes[rawRelationType] ?? rawRelationType
-      : translatedRelationType
+      : translatedRelationType ?? translate(language, "details.center")
     : translate(language, "details.center");
   const type = element("span", "detail-type");
   type.append(element("i", ""), document.createTextNode(relationType));
@@ -71,11 +73,19 @@ export function renderDetails(container, word, data, language, relation, connect
     const section = element("section", "detail-section");
     section.append(
       element("h3", "", translate(language, "details.reason")),
-      element("p", "relation-copy", relation.description)
+      element("p", "relation-copy", relation.verificationStatus === "demo"
+        ? translate(language, "details.demoDescription")
+        : relation.verificationStatus === "unverified" && !relation.productRelationType
+          ? translate(language, "details.unverifiedRawDescription", {
+              type: relation.rawRelationType
+            })
+        : relation.description)
     );
     const status = relation.verificationStatus === "verified"
       ? translate(language, "details.verified")
-      : translate(language, "details.unverified");
+      : relation.verificationStatus === "demo"
+        ? translate(language, "details.demo")
+        : translate(language, "details.unverified");
     const sourceLabel = relation.source?.label ?? translate(language, "details.sourceMissing");
     const licenseLabel = relation.source?.licenseId?.startsWith("cc:")
       ? `CC ${relation.source.licenseId.slice(3).replace("/", " ").toUpperCase()}`

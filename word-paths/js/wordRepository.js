@@ -2,7 +2,7 @@
 const DICTIONARY_LANGUAGES = ["zh", "ja", "ko"];
 const TRANSLATION_LANGUAGES = [...DICTIONARY_LANGUAGES, "en"];
 const PRODUCT_RELATIONSHIP_TYPES = ["origin", "similar", "confusable", "antonym"];
-const VERIFICATION_STATUSES = ["unverified", "verified"];
+const VERIFICATION_STATUSES = ["unverified", "verified", "demo"];
 const LOCAL_DATA_URL = new URL("../data/words.json", import.meta.url);
 
 function isRecord(value) {
@@ -119,8 +119,9 @@ export function validateWordDataset(data) {
         throw new Error(`Relationship "${connection.id}" must have a non-empty description or null`);
       }
       if (!isRecord(connection.source) || typeof connection.source.label !== "string" ||
-          !connection.source.label || typeof connection.source.url !== "string" ||
-          !connection.source.url) {
+          !connection.source.label ||
+          (connection.verificationStatus !== "demo" &&
+           (typeof connection.source.url !== "string" || !connection.source.url))) {
         throw new Error(`Relationship "${connection.id}" must include a source label and URL`);
       }
       if (connection.verificationStatus === "verified" && connection.productRelationType === null) {
