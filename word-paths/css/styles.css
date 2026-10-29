@@ -208,6 +208,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .graph-heading { display: flex; justify-content: space-between; align-items: end; margin: 25px 3px 11px; }
 .graph-heading h2 { margin: 0 0 3px; font-size: 15px; font-weight: 600; letter-spacing: -.02em; }
 .graph-heading p { margin: 0; color: #92978f; font-size: 10px; }
+.graph-heading .dataset-stats { margin-top: 3px; color: #a0a59e; font-size: 9px; }
 .graph-instruction { padding-bottom: 2px; }
 .instruction-dot { width: 7px; height: 7px; display: inline-block; margin-right: 5px; border-radius: 50%; background: var(--green); }
 

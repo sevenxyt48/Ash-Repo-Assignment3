@@ -148,7 +148,11 @@ function normalizeConceptResponse(term, language, payload) {
     });
   }
 
-  return { words: [...words.values()], relationshipTypes };
+  return {
+    words: [...words.values()],
+    relationshipTypes,
+    queryMatched: Boolean(rootEndpoint)
+  };
 }
 
 export async function fetchConceptNetWord(term, language, { fetchImpl = fetch } = {}) {
@@ -169,6 +173,7 @@ export async function fetchConceptNetWord(term, language, { fetchImpl = fetch } 
       term: cleanedTerm,
       language,
       nodes: dataset.words.length,
+      queryMatched: dataset.queryMatched,
       relationships: [...new Set(dataset.words.flatMap((word) =>
         word.connections.map((item) => item.rawRelationType)))],
       sources: [...new Set(dataset.words.flatMap((word) => word.connections.map((item) => item.source.label)))]
