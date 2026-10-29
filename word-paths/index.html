@@ -1,12 +1,12 @@
 <!doctype html>
 <!-- 此文件是 Word Paths 单页应用的 HTML 入口和主界面结构。 -->
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#fafaf7">
-    <meta name="description" content="A quiet map for exploring how words connect across languages.">
-    <title>Word Paths — a map of meaning</title>
+    <meta name="description" content="探索中文、日文和韩文词汇之间的关系。">
+    <title>Word Paths — 词语关系地图</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
@@ -16,16 +16,16 @@
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="./" aria-label="Word Paths home">
+      <a class="brand" href="./" aria-label="Word Paths 首页" data-i18n-attr="aria-label:brand.home">
         <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
         <span>word paths</span>
       </a>
       <label class="language-picker">
-        <span class="sr-only">Word display language</span>
+        <span class="sr-only" data-i18n="language.label">界面语言</span>
         <span class="language-globe" aria-hidden="true">◎</span>
         <select id="language">
           <option value="en">English</option>
-          <option value="zh">中文</option>
+          <option value="zh" selected>中文</option>
           <option value="ja">日本語</option>
           <option value="ko">한국어</option>
         </select>
@@ -35,74 +35,74 @@
     <main class="page-shell">
       <section class="welcome">
         <div>
-          <p class="eyebrow">A LIVING MAP OF WORDS</p>
-          <h1>Follow a word somewhere new.</h1>
-          <p class="welcome-copy">Explore the small connections that make language feel alive.</p>
+          <p class="eyebrow" data-i18n="welcome.eyebrow">词语之间的鲜活地图</p>
+          <h1 data-i18n="welcome.title">沿着一个词，探索新的连接。</h1>
+          <p class="welcome-copy" data-i18n="welcome.copy">发现让语言鲜活起来的细微联系。</p>
         </div>
         <span class="welcome-mark" aria-hidden="true">↗</span>
       </section>
 
-      <section class="explorer" aria-label="Vocabulary explorer">
+      <section class="explorer" aria-label="词汇探索" data-i18n-attr="aria-label:explorer.label">
         <div class="explorer-tools">
           <form id="search-form" class="search-row" role="search">
             <label class="search-box">
               <span class="search-icon" aria-hidden="true"></span>
-              <span class="sr-only">Search Chinese, Japanese, and Korean words</span>
-              <input id="search" type="search" placeholder="Try a word — 水, 学校, 학교…" autocomplete="off" aria-controls="search-candidates" aria-autocomplete="list">
+              <span class="sr-only" data-i18n="search.label">搜索中文、日文和韩文词汇</span>
+              <input id="search" type="search" placeholder="试试一个词 — 水、学校、학교…" data-i18n-attr="placeholder:search.placeholder" autocomplete="off" aria-controls="search-candidates" aria-autocomplete="list">
               <kbd>/</kbd>
             </label>
-            <button class="random-button" id="random" type="button" aria-label="Discover a random word" title="Discover a random word">
+            <button class="random-button" id="random" type="button" aria-label="随机探索一个词" title="随机探索一个词" data-i18n-attr="aria-label:search.random" data-i18n-title="search.random">
               <span aria-hidden="true">⚄</span>
             </button>
           </form>
           <p id="search-message" class="search-message" aria-live="polite"></p>
-          <div id="search-candidates" class="search-candidates" role="listbox" aria-label="Matching vocabulary" hidden></div>
+          <div id="search-candidates" class="search-candidates" role="listbox" aria-label="匹配的词条" data-i18n-attr="aria-label:search.candidates" hidden></div>
 
-          <div class="filter-row" role="group" aria-label="Relationship filters">
-            <span class="filter-label">Show connections</span>
-            <button class="filter-chip" type="button" data-filter="origin" aria-pressed="true"><i class="filter-dot origin-dot"></i>Word origins</button>
-            <button class="filter-chip" type="button" data-filter="similar" aria-pressed="true"><i class="filter-dot similar-dot"></i>Similar meanings</button>
-            <button class="filter-chip" type="button" data-filter="confusable" aria-pressed="true"><i class="filter-dot confusable-dot"></i>Easily confused meanings</button>
-            <button class="filter-chip" type="button" data-filter="antonym" aria-pressed="true"><i class="filter-dot antonym-dot"></i>Antonyms</button>
-            <button class="filter-chip other-filter" id="other-languages" type="button" aria-pressed="false"><span class="filter-check" aria-hidden="true"></span>Other languages</button>
+          <div class="filter-row" role="group" aria-label="关系筛选" data-i18n-attr="aria-label:filters.label">
+            <span class="filter-label" data-i18n="filters.label">显示关系</span>
+            <button class="filter-chip" type="button" data-filter="origin" aria-pressed="true"><i class="filter-dot origin-dot"></i><span data-i18n="filter.origin">词源</span></button>
+            <button class="filter-chip" type="button" data-filter="similar" aria-pressed="true"><i class="filter-dot similar-dot"></i><span data-i18n="filter.similar">意思相近</span></button>
+            <button class="filter-chip" type="button" data-filter="confusable" aria-pressed="true"><i class="filter-dot confusable-dot"></i><span data-i18n="filter.confusable">容易混淆</span></button>
+            <button class="filter-chip" type="button" data-filter="antonym" aria-pressed="true"><i class="filter-dot antonym-dot"></i><span data-i18n="filter.antonym">反义词</span></button>
+            <button class="filter-chip other-filter" id="other-languages" type="button" aria-pressed="false"><span class="filter-check" aria-hidden="true"></span><span data-i18n="filter.otherLanguages">其他语言</span></button>
           </div>
         </div>
 
         <div class="graph-heading">
           <div>
-            <h2>Your word map</h2>
-            <p id="result-count" aria-live="polite">Finding a first word…</p>
+            <h2 data-i18n="graph.title">你的词语地图</h2>
+            <p id="result-count" aria-live="polite">正在加载词条…</p>
           </div>
-          <p class="graph-instruction"><span class="instruction-dot"></span> Select a word to follow its path</p>
+          <p class="graph-instruction"><span class="instruction-dot"></span> <span data-i18n="graph.instruction">选择一个词，沿着关系继续探索</span></p>
         </div>
 
         <div class="workspace">
           <div class="graph-column">
             <div class="graph-frame">
-              <div id="graph" class="graph" role="region" aria-label="Interactive vocabulary relationship graph"></div>
+              <div id="graph" class="graph" role="region" aria-label="交互式词汇关系图" data-i18n-attr="aria-label:graph.label"></div>
               <div id="graph-message" class="graph-message" role="status" hidden></div>
-              <div class="graph-controls" aria-label="Graph controls">
-                <button id="zoom-in" type="button" aria-label="Zoom in">+</button>
-                <button id="zoom-out" type="button" aria-label="Zoom out">−</button>
-                <button id="zoom-reset" type="button" aria-label="Reset graph view">↺</button>
+              <div class="graph-controls" aria-label="关系图控制" data-i18n-attr="aria-label:graph.controls">
+                <button id="zoom-in" type="button" aria-label="放大" data-i18n-attr="aria-label:graph.zoomIn">+</button>
+                <button id="zoom-out" type="button" aria-label="缩小" data-i18n-attr="aria-label:graph.zoomOut">−</button>
+                <button id="zoom-reset" type="button" aria-label="重置关系图视图" data-i18n-attr="aria-label:graph.reset">↺</button>
               </div>
-              <span class="drag-hint">Drag to move · scroll to zoom</span>
+              <span class="drag-hint" data-i18n="graph.dragHint">拖动以移动 · 滚动以缩放</span>
             </div>
-            <div class="legend" aria-label="Relationship legend">
-              <span><i class="legend-line origin-line"></i>Origin</span>
-              <span><i class="legend-line similar-line"></i>Similar meaning</span>
-              <span><i class="legend-line confusable-line"></i>Often confused</span>
-              <span><i class="legend-line antonym-line"></i>Antonym</span>
+            <div class="legend" aria-label="关系图例" data-i18n-attr="aria-label:legend.label">
+              <span><i class="legend-line origin-line"></i><span data-i18n="filter.origin">词源</span></span>
+              <span><i class="legend-line similar-line"></i><span data-i18n="filter.similar">意思相近</span></span>
+              <span><i class="legend-line confusable-line"></i><span data-i18n="filter.confusable">容易混淆</span></span>
+              <span><i class="legend-line antonym-line"></i><span data-i18n="filter.antonym">反义词</span></span>
             </div>
           </div>
 
-          <aside class="details-panel" id="details" aria-live="polite" aria-label="Selected word details"></aside>
+          <aside class="details-panel" id="details" aria-live="polite" aria-label="词条详情" data-i18n-attr="aria-label:details.panel"></aside>
         </div>
-        <p class="dataset-note"><span aria-hidden="true">✳</span> Local prototype relationships are unverified. ConceptNet attribution: <a href="https://conceptnet.io/" target="_blank" rel="noreferrer">ConceptNet</a>; reuse of the dataset follows <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a>, with individual edge licenses shown in details. English hover translations use <a href="https://mymemory.translated.net/terms-and-conditions" target="_blank" rel="noreferrer">MyMemory under its API terms</a>.</p>
+        <p class="dataset-note"><span data-i18n="dataset.prefix">✳ 本地原型中的词汇关系尚未核验。ConceptNet 来源：</span><a href="https://conceptnet.io/" target="_blank" rel="noreferrer" data-i18n="dataset.conceptnet">ConceptNet</a><span data-i18n="dataset.licensePrefix">；数据集依据</span><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer" data-i18n="dataset.license">CC BY-SA 4.0</a><span data-i18n="dataset.licenseSuffix">许可使用，具体边的许可信息见详情。英文悬浮翻译来自</span><a href="https://mymemory.translated.net/terms-and-conditions" target="_blank" rel="noreferrer" data-i18n="dataset.mymemory">MyMemory</a><span data-i18n="dataset.suffix">，并遵循其 API 条款。</span></p>
       </section>
 
       <footer class="page-footer">
-        <span>Words are paths, not islands.</span>
+        <span data-i18n="footer">词语相连，不是孤岛。</span>
         <span>中文 <i>·</i> 日本語 <i>·</i> 한국어 <i>·</i> English</span>
       </footer>
     </main>

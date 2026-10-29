@@ -1,4 +1,6 @@
 // 此文件计算词汇关系图布局并绘制可交互的 SVG 节点与连线。
+import { languageName, translate } from "./i18n.js";
+
 const SVG_NS = "http://www.w3.org/2000/svg";
 const VIEW_WIDTH = 1000;
 const VIEW_HEIGHT = 560;
@@ -93,31 +95,34 @@ function nodePointFor(edge, endpoint) {
   return { x: node.x, y: node.y };
 }
 
-function drawEdge(parent, from, to, connection, relationshipTypes) {
+function drawEdge(parent, from, to, connection, relationshipTypes, language) {
   const direction = to.x >= from.x ? 1 : -1;
   const gap = Math.abs(to.x - from.x);
   const bend = Math.min(105, gap * .42);
   const type = connection.productRelationType;
+  const relationshipLabel = translate(language, `relationship.${type}`);
+  const labelText = relationshipLabel === `relationship.${type}`
+    ? relationshipTypes[type] ?? type
+    : relationshipLabel;
   const path = svgElement("path", {
     d: `M ${from.x} ${from.y} C ${from.x + direction * bend} ${from.y}, ${to.x - direction * bend} ${to.y}, ${to.x} ${to.y}`,
     class: `graph-edge edge-${type.replace(/[^a-z0-9_-]/gi, "-")}`,
     "data-source": connection.sourceId,
     "data-target": connection.targetWordId,
-    "aria-label": relationshipTypes[type] ?? type
+    "aria-label": labelText
   });
   parent.append(path);
 
   const middleX = (from.x + to.x) / 2;
   const middleY = (from.y + to.y) / 2 + (to.y >= from.y ? 16 : -12);
   const label = svgElement("text", { x: middleX, y: middleY, class: "edge-label" });
-  label.textContent = relationshipTypes[type] ?? type;
+  label.textContent = labelText;
   parent.append(label);
 }
 
 function addNode(parent, node, language, otherLanguages, selectedId, query, onSelect, onHover) {
   const { word, x, y, depth } = node;
   const label = word.word;
-  const meaning = word.definitions?.[language] ?? word.definitions?.en ?? word.meaning;
   const group = svgElement("g", {
     class: `graph-node${word.id === selectedId ? " is-center" : ""}${depth === 1 ? " is-connected" : ""}`,
     transform: `translate(${x} ${y})`,
@@ -126,9 +131,10 @@ function addNode(parent, node, language, otherLanguages, selectedId, query, onSe
     "aria-pressed": String(word.id === selectedId),
     "data-id": word.id
   });
-  const languageName = { zh: "Chinese", ja: "Japanese", ko: "Korean" }[word.language];
+  const wordLanguageName = languageName(word.language, language);
   const reading = word.language === "zh" ? word.pinyin : word.romanization[word.language];
-  group.setAttribute("aria-label", `${label}, ${languageName}${reading ? `, ${reading}` : ""} — ${meaning}`);
+  const nodeAriaLabel = `${label}, ${wordLanguageName}${reading ? `, ${reading}` : ""}`;
+  group.setAttribute("aria-label", nodeAriaLabel);
 
   group.append(
     svgElement("circle", { r: "37", class: "node-halo" }),
@@ -180,22 +186,30 @@ function addNode(parent, node, language, otherLanguages, selectedId, query, onSe
       onSelect(word.id, null);
     }
   });
+  const showEnglishTranslation = () => {
+    if (!word.language || word.language === "en" || !onHover || group.dataset.hovered === "true") return;
+    group.dataset.hovered = "true";
+    onHover(word).then((translation) => {
+      if (group.isConnected && group.dataset.hovered === "true") {
+        const englishTip = `${translate(language, "hover.english")}: ${translation}`;
+        group.setAttribute("title", englishTip);
+        group.setAttribute("aria-label", `${nodeAriaLabel}. ${englishTip}`);
+      }
+    }).catch((error) => console.warn("Unable to translate hovered word:", error));
+  };
+  const clearEnglishTranslation = () => {
+    delete group.dataset.hovered;
+    group.removeAttribute("title");
+    group.setAttribute("aria-label", nodeAriaLabel);
+    clearHighlights({ currentTarget: group });
+  };
   group.addEventListener("pointerenter", () => {
     highlightConnections(group, word.id);
-    if (word.language && word.language !== "en" && onHover) {
-      group.dataset.hovered = "true";
-      onHover(word).then((translation) => {
-        if (group.isConnected && group.dataset.hovered === "true") {
-          group.setAttribute("title", `English: ${translation}`);
-          group.setAttribute("aria-label", `${group.getAttribute("aria-label")}. English: ${translation}`);
-        }
-      }).catch((error) => console.warn("Unable to translate hovered word:", error));
-    }
+    showEnglishTranslation();
   });
-  group.addEventListener("pointerleave", () => {
-    delete group.dataset.hovered;
-    clearHighlights({ currentTarget: group });
-  });
+  group.addEventListener("focus", showEnglishTranslation);
+  group.addEventListener("pointerleave", clearEnglishTranslation);
+  group.addEventListener("blur", clearEnglishTranslation);
   parent.append(group);
 }
 
@@ -281,7 +295,10 @@ export function renderGraph(container, words, options) {
   const svg = svgElement("svg", {
     viewBox: `0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`,
     role: "group",
-    "aria-label": `Word relationships centered on ${center.word} (${center.language})`
+    "aria-label": translate(language, "aria.wordMap", {
+      word: center.word,
+      language: languageName(center.language, language)
+    })
   });
   const content = svgElement("g", { class: "graph-content" });
   const edgeLayer = svgElement("g", { "aria-hidden": "true" });
@@ -289,7 +306,8 @@ export function renderGraph(container, words, options) {
   const relationshipTypes = options.relationshipTypes;
 
   for (const edge of layout.edges) {
-    drawEdge(edgeLayer, nodePointFor(edge, "from"), nodePointFor(edge, "to"), edge.connection, relationshipTypes);
+    drawEdge(edgeLayer, nodePointFor(edge, "from"), nodePointFor(edge, "to"), edge.connection,
+      relationshipTypes, language);
   }
   for (const node of layout.nodes) {
     addNode(nodeLayer, node, language, otherLanguages, selectedId, query, onSelect, onHover);

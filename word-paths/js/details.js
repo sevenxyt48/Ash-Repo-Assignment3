@@ -1,10 +1,5 @@
 // 此文件根据当前词条和语言渲染词语详情及关系来源状态。
-const LANGUAGE_NAMES = {
-  zh: "Chinese",
-  en: "English",
-  ja: "Japanese",
-  ko: "Korean"
-};
+import { languageName, translate } from "./i18n.js";
 
 function element(tag, className, text) {
   const node = document.createElement(tag);
@@ -13,31 +8,35 @@ function element(tag, className, text) {
   return node;
 }
 
-function readingFor(word) {
-  if (word.language === "zh" && word.pinyin) return `Pinyin · ${word.pinyin}`;
-  if (word.language === "ja" && word.romanization.ja) return `Romaji · ${word.romanization.ja}`;
-  if (word.language === "ko" && word.romanization.ko) return `Romanization · ${word.romanization.ko}`;
+function readingFor(word, language) {
+  if (word.language === "zh" && word.pinyin) return `${translate(language, "details.pinyin")} · ${word.pinyin}`;
+  if (word.language === "ja" && word.romanization.ja) return `${translate(language, "details.romaji")} · ${word.romanization.ja}`;
+  if (word.language === "ko" && word.romanization.ko) return `${translate(language, "details.romanization")} · ${word.romanization.ko}`;
   return "";
 }
 
 function definitionFor(word, language) {
-  return word.definitions?.[language] ?? word.definitions?.en ?? word.meaning;
+  const definition = word.definitions?.[language];
+  if (definition) return definition;
+  if (language === "en") return word.definitions?.en ?? word.meaning;
+  return translate(language, "details.meaningUnavailable");
 }
 
 function partOfSpeechFor(word, language) {
-  const value = word.partsOfSpeech?.[language] ?? word.partsOfSpeech?.en;
+  const value = word.partsOfSpeech?.[language] ??
+    (language === "en" ? word.partsOfSpeech?.en : undefined);
   return Array.isArray(value) ? value.join(" · ") : value;
 }
 
-export function renderEmptyDetails(container) {
+export function renderEmptyDetails(container, language) {
   const empty = element("div", "detail-empty");
   const sparkle = element("span", "detail-sparkle", "✳");
   sparkle.setAttribute("aria-hidden", "true");
   empty.append(sparkle);
   const copy = element("div", "");
   copy.append(
-    element("h2", "", "A word to begin with"),
-    element("p", "", "Choose a word on the map to see its meaning and follow a connection.")
+    element("h2", "", translate(language, "details.emptyTitle")),
+    element("p", "", translate(language, "details.emptyCopy"))
   );
   empty.append(copy);
   container.replaceChildren(empty);
@@ -47,16 +46,22 @@ export function renderDetails(container, word, data, language, relation, connect
   if (!word) return;
   const card = element("div", "detail-card");
   const top = element("div", "detail-topline");
+  const rawRelationType = relation?.productRelationType;
+  const translatedRelationType = rawRelationType
+    ? translate(language, `relationship.${rawRelationType}`)
+    : null;
   const relationType = relation
-    ? data.relationshipTypes[relation.productRelationType] ?? relation.productRelationType
-    : "Center word";
+    ? translatedRelationType === `relationship.${rawRelationType}`
+      ? data.relationshipTypes[rawRelationType] ?? rawRelationType
+      : translatedRelationType
+    : translate(language, "details.center");
   const type = element("span", "detail-type");
   type.append(element("i", ""), document.createTextNode(relationType));
-  top.append(type, element("span", "detail-language", LANGUAGE_NAMES[word.language]));
+  top.append(type, element("span", "detail-language", languageName(word.language, language)));
   card.append(top);
 
   card.append(element("h2", "detail-word", word.word));
-  const reading = readingFor(word);
+  const reading = readingFor(word, language);
   if (reading) card.append(element("p", "detail-reading", reading));
   const partOfSpeech = partOfSpeechFor(word, language);
   if (partOfSpeech) card.append(element("p", "detail-pos", partOfSpeech));
@@ -65,13 +70,13 @@ export function renderDetails(container, word, data, language, relation, connect
   if (relation) {
     const section = element("section", "detail-section");
     section.append(
-      element("h3", "", "Why these words connect"),
+      element("h3", "", translate(language, "details.reason")),
       element("p", "relation-copy", relation.description)
     );
     const status = relation.verificationStatus === "verified"
-      ? "Relationship verified"
-      : "Unverified relationship";
-    const sourceLabel = relation.source?.label ?? "Source not attached";
+      ? translate(language, "details.verified")
+      : translate(language, "details.unverified");
+    const sourceLabel = relation.source?.label ?? translate(language, "details.sourceMissing");
     const licenseLabel = relation.source?.licenseId?.startsWith("cc:")
       ? `CC ${relation.source.licenseId.slice(3).replace("/", " ").toUpperCase()}`
       : relation.source?.license;
@@ -101,7 +106,7 @@ export function renderDetails(container, word, data, language, relation, connect
       );
     }
     if (relation.source?.url) {
-      const link = element("a", "", "View edge");
+      const link = element("a", "", translate(language, "details.viewEdge"));
       link.href = relation.source.url;
       link.target = "_blank";
       link.rel = "noreferrer";
@@ -111,14 +116,15 @@ export function renderDetails(container, word, data, language, relation, connect
     card.append(section);
   } else {
     const translations = element("section", "detail-section");
-    translations.append(element("h3", "", "Also known as"));
-    for (const [code, value] of Object.entries(word.translations)) {
-      const name = LANGUAGE_NAMES[code];
+    translations.append(element("h3", "", translate(language, "details.alsoKnown")));
+    for (const [code, value] of Object.entries(word.translations).filter(([code]) => code !== "en")) {
+      const name = languageName(code, language);
       const row = element("div", "translation-row");
       row.append(element("span", "", name));
       const translation = element("strong", "", value);
       if (code === "zh" && language !== "zh") {
-        if (word.pinyin) translation.append(element("span", "translation-reading", `Pinyin · ${word.pinyin}`));
+        if (word.pinyin) translation.append(element("span", "translation-reading",
+          `${translate(language, "details.pinyin")} · ${word.pinyin}`));
       }
       row.append(translation);
       translations.append(row);
@@ -135,9 +141,9 @@ export function renderDetails(container, word, data, language, relation, connect
       licenseLink.rel = "noreferrer";
       attribution.append(licenseLink);
     } else {
-      attribution.append(document.createTextNode(word.source.license ?? "Source data"));
+      attribution.append(document.createTextNode(word.source.license ?? translate(language, "details.sourceData")));
     }
-    const link = element("a", "", "View source");
+    const link = element("a", "", translate(language, "details.viewSource"));
     link.href = word.source.url;
     link.target = "_blank";
     link.rel = "noreferrer";
@@ -147,13 +153,13 @@ export function renderDetails(container, word, data, language, relation, connect
 
   if (connections.length) {
     const section = element("section", "detail-section");
-    section.append(element("h3", "", "Follow a connection"));
+    section.append(element("h3", "", translate(language, "details.follow")));
     const chips = element("div", "connection-list");
     for (const connection of connections) {
       const chip = element("button", "connection-chip");
       chip.type = "button";
       chip.append(document.createTextNode(
-        `${connection.word.word} (${LANGUAGE_NAMES[connection.word.language]})`
+        `${connection.word.word} (${languageName(connection.word.language, language)})`
       ));
       chip.addEventListener("click", () => onSelect(connection.word.id, connection));
       chips.append(chip);

@@ -289,7 +289,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .dataset-note span { margin-right: 4px; color: #85b58c; }
 .page-footer { display: flex; justify-content: space-between; padding: 17px 3px 24px; color: #969b93; font: 10px "DM Mono", monospace; }
 .page-footer i { color: #c1c7bf; font-style: normal; }
-.graph-message { position: absolute; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(252, 252, 250, .94); color: #747c73; font-size: 12px; text-align: center; }
+.graph-message { position: absolute; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(252, 252, 250, .94); color: #747c73; font-size: 12px; text-align: center; pointer-events: none; }
 .graph-message[hidden] { display: none; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
 

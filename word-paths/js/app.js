@@ -3,6 +3,7 @@ import { renderGraph, resetGraphView, zoomGraph } from "./graph.js";
 import { renderDetails, renderEmptyDetails } from "./details.js";
 import { loadWordDataset, validateWordDataset } from "./wordRepository.js";
 import { fetchConceptNetWord, translateText } from "./vocabularyApi.js";
+import { applyInterfaceLanguage, languageName, translate } from "./i18n.js";
 
 const graphContainer = document.querySelector("#graph");
 const graphMessage = document.querySelector("#graph-message");
@@ -20,7 +21,7 @@ const otherLanguagesButton = document.querySelector("#other-languages");
 const state = {
   data: null,
   localData: null,
-  language: "en",
+  language: "zh",
   selectedId: null,
   selectedRelation: null,
   activeTypes: new Set(["origin", "similar", "confusable", "antonym"]),
@@ -28,7 +29,10 @@ const state = {
   query: "",
   apiEmpty: false,
   apiError: false,
-  searchRequest: 0
+  searchRequest: 0,
+  searchMessage: null,
+  searchCandidates: [],
+  searchCandidateHandler: null
 };
 
 function normalized(value) {
@@ -90,8 +94,7 @@ function selectWord(id, relation = null) {
   }
   state.query = "";
   searchInput.value = "";
-  searchMessage.textContent = "";
-  searchMessage.classList.remove("is-error");
+  showMessage("");
   clearSearchCandidates();
   render();
 }
@@ -114,17 +117,20 @@ function render() {
   });
   graphMessage.hidden = !state.apiEmpty && !state.apiError;
   if (state.apiEmpty) {
-    graphMessage.textContent = "No verified relationships are available for this word.";
+    graphMessage.textContent = translate(state.language, "graph.noVerified");
   } else if (state.apiError) {
-    graphMessage.textContent = "The vocabulary service is unavailable. Check your connection and try again.";
+    graphMessage.textContent = translate(state.language, "graph.serviceUnavailable");
   }
 
   const connectionCount = graphResult.edgeCount;
   resultCount.textContent = state.apiEmpty
-    ? "No verified relationships found"
+    ? translate(state.language, "search.noVerified")
     : connectionCount
-    ? `${graphResult.nodeCount} words · ${connectionCount} ${connectionCount === 1 ? "connection" : "connections"}`
-    : "No connections match these filters";
+    ? translate(state.language, connectionCount === 1 ? "search.resultCountOne" : "search.resultCount", {
+        nodes: graphResult.nodeCount,
+        count: connectionCount
+      })
+    : translate(state.language, "search.noFiltered");
 
   const relation = state.selectedRelation
     ? {
@@ -143,16 +149,11 @@ function render() {
   );
 }
 
-function showMessage(message, isError = false) {
-  searchMessage.textContent = message;
+function showMessage(key, isError = false, values = {}) {
+  state.searchMessage = key ? { key, values, isError } : null;
+  searchMessage.textContent = key ? translate(state.language, key, values) : "";
   searchMessage.classList.toggle("is-error", isError);
 }
-
-const LANGUAGE_NAMES = {
-  zh: "中文",
-  ja: "日本語",
-  ko: "한국어"
-};
 
 function queryLanguages(query) {
   if (/\p{Script=Hangul}/u.test(query)) return ["ko"];
@@ -178,11 +179,15 @@ function findMatches(query) {
 }
 
 function clearSearchCandidates() {
+  state.searchCandidates = [];
+  state.searchCandidateHandler = null;
   searchCandidates.replaceChildren();
   searchCandidates.hidden = true;
 }
 
 function renderSearchCandidates(words, onSelect) {
+  state.searchCandidates = words;
+  state.searchCandidateHandler = onSelect;
   searchCandidates.replaceChildren();
   for (const word of words) {
     const option = document.createElement("button");
@@ -195,7 +200,7 @@ function renderSearchCandidates(words, onSelect) {
     label.textContent = word.word;
     const language = document.createElement("span");
     language.className = "search-candidate-language";
-    language.textContent = `${LANGUAGE_NAMES[word.language]} (${word.language})`;
+    language.textContent = `${languageName(word.language, state.language)} (${word.language})`;
     option.append(label, language);
     option.addEventListener("click", () => onSelect(word));
     searchCandidates.append(option);
@@ -230,8 +235,7 @@ function selectSearchCandidate(word, dataset = state.localData) {
   state.apiError = false;
   state.query = "";
   searchInput.value = "";
-  searchMessage.textContent = "";
-  searchMessage.classList.remove("is-error");
+  showMessage("");
   clearSearchCandidates();
   render();
 }
@@ -241,7 +245,7 @@ async function exploreSearch(query) {
   const term = normalized(query);
   if (!term) return;
   if (!state.localData) {
-    showMessage("The vocabulary is still loading. Try again shortly.", true);
+    showMessage("search.loading", true);
     return;
   }
   clearSearchCandidates();
@@ -256,7 +260,7 @@ async function exploreSearch(query) {
       return;
     }
     renderSearchCandidates(matches, (word) => selectSearchCandidate(word));
-    showMessage("Choose the matching word and confirm its language.");
+    showMessage("search.choose");
     return;
   }
   const missingLanguages = languages.filter((language) =>
@@ -264,15 +268,17 @@ async function exploreSearch(query) {
   );
   if (matches.length > 0 && missingLanguages.length === 0) {
     renderSearchCandidates(matches, (word) => selectSearchCandidate(word));
-    showMessage("Choose the matching word and confirm its language.");
+    showMessage("search.choose");
     return;
   }
   if (languages.length === 0) {
-    showMessage("Search using Chinese, Japanese, or Korean vocabulary.", true);
+    showMessage("search.unsupported", true);
     return;
   }
   const languagesToSearch = languages.length > 1 ? missingLanguages : languages;
-  showMessage(`Searching ${languagesToSearch.map((language) => LANGUAGE_NAMES[language]).join(" and ")} in ConceptNet…`);
+  showMessage("search.searching", false, {
+    languages: languagesToSearch.map((language) => languageName(language, state.language)).join(", ")
+  });
   try {
     const results = await Promise.allSettled(
       languagesToSearch.map((language) => fetchConceptNetWord(query, language))
@@ -303,8 +309,8 @@ async function exploreSearch(query) {
     graphMessage.hidden = true;
     renderSearchCandidates(candidates, (word) => selectSearchCandidate(word, data));
     showMessage(results.some((result) => result.status === "rejected")
-      ? "Some language lookups failed. Choose from the results that were returned."
-      : "Choose the matching word and confirm its language.");
+      ? "search.partial"
+      : "search.choose");
     state.selectedId = candidates[0].id;
     state.selectedRelation = null;
     render();
@@ -319,7 +325,7 @@ async function exploreSearch(query) {
       state.selectedRelation = null;
       renderSearchCandidates(matches, (word) => selectSearchCandidate(word));
       render();
-      showMessage("ConceptNet is unavailable for another language. Choose from the local matches.", true);
+      showMessage("search.lookupPartial", true);
       return;
     }
     state.data = state.localData;
@@ -330,8 +336,8 @@ async function exploreSearch(query) {
       state.selectedRelation = null;
     }
     render();
-    resultCount.textContent = "ConceptNet unavailable";
-    showMessage("Could not retrieve this word from ConceptNet.", true);
+    resultCount.textContent = translate(state.language, "search.conceptNetUnavailable");
+    showMessage("search.failed", true);
   }
 }
 
@@ -349,9 +355,9 @@ async function initialize() {
   } catch (error) {
     console.error("Unable to load the word graph:", error);
     graphMessage.hidden = false;
-    graphMessage.textContent = "The word collection could not be loaded. Open this page through a local web server, then refresh.";
-    resultCount.textContent = "Word collection unavailable";
-    renderEmptyDetails(detailsPanel);
+    graphMessage.textContent = translate(state.language, "load.failed");
+    resultCount.textContent = translate(state.language, "search.datasetUnavailable");
+    renderEmptyDetails(detailsPanel, state.language);
   }
 }
 
@@ -370,23 +376,31 @@ searchInput.addEventListener("input", () => {
   }
   if (!state.localData) {
     clearSearchCandidates();
-    showMessage("The vocabulary is still loading.");
+    showMessage("search.loadingInput");
     return;
   }
   const matches = findMatches(query);
   renderSearchCandidates(matches, (word) => selectSearchCandidate(word));
   if (matches.length > 1) {
-    showMessage(`${matches.length} matching words — choose the language-specific entry.`);
+    showMessage("search.multiple", false, { count: matches.length });
   } else if (matches.length === 1) {
-    showMessage(`1 matching ${LANGUAGE_NAMES[matches[0].language]} word — press Enter or choose it.`);
+    showMessage("search.one", false, { language: languageName(matches[0].language, state.language) });
   } else {
-    showMessage("Press Enter to search the Chinese, Japanese, and Korean vocabulary.");
+    showMessage("search.pressEnter");
   }
 });
 
 languageSelect.addEventListener("change", () => {
   state.language = languageSelect.value;
+  applyInterfaceLanguage(state.language);
+  if (state.searchCandidates.length) {
+    renderSearchCandidates(state.searchCandidates, state.searchCandidateHandler);
+  }
   if (state.data) render();
+  if (state.searchMessage) {
+    searchMessage.textContent = translate(state.language, state.searchMessage.key, state.searchMessage.values);
+    searchMessage.classList.toggle("is-error", state.searchMessage.isError);
+  }
 });
 
 for (const button of filters) {
@@ -431,4 +445,6 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+languageSelect.value = state.language;
+applyInterfaceLanguage(state.language);
 initialize();
