@@ -19,26 +19,29 @@ function getConnections(word, words, activeTypes) {
   const connections = new Map();
   for (const item of words) {
     for (const connection of item.connections) {
-      if (!activeTypes.has(connection.type)) continue;
-      const targetId = item.id === word.id ? connection.target : item.id;
-      if (item.id !== word.id && connection.target !== word.id) continue;
-      const key = `${targetId}\u0000${connection.type}`;
+      if (connection.verificationStatus !== "verified" ||
+          !connection.productRelationType ||
+          !activeTypes.has(connection.productRelationType)) continue;
+      const targetId = item.id === word.id ? connection.targetWordId : item.id;
+      if (item.id !== word.id && connection.targetWordId !== word.id) continue;
+      const key = `${targetId}\u0000${connection.productRelationType}`;
       if (connections.has(key)) continue;
       if (item.id === word.id) {
         connections.set(key, { ...connection, sourceId: word.id });
       } else {
         connections.set(key, {
           ...connection,
-          target: item.id,
+          targetWordId: item.id,
           sourceId: word.id
         });
       }
     }
   }
   return [...connections.values()]
-    .map((connection) => ({ ...connection, word: byId.get(connection.target) }))
+    .map((connection) => ({ ...connection, word: byId.get(connection.targetWordId) }))
     .filter((connection) => connection.word)
-    .sort((a, b) => TYPE_ORDER.indexOf(a.type) - TYPE_ORDER.indexOf(b.type));
+    .sort((a, b) =>
+      TYPE_ORDER.indexOf(a.productRelationType) - TYPE_ORDER.indexOf(b.productRelationType));
 }
 
 function getLayout(center, words, activeTypes) {
@@ -94,25 +97,26 @@ function drawEdge(parent, from, to, connection, relationshipTypes) {
   const direction = to.x >= from.x ? 1 : -1;
   const gap = Math.abs(to.x - from.x);
   const bend = Math.min(105, gap * .42);
+  const type = connection.productRelationType;
   const path = svgElement("path", {
     d: `M ${from.x} ${from.y} C ${from.x + direction * bend} ${from.y}, ${to.x - direction * bend} ${to.y}, ${to.x} ${to.y}`,
-    class: `graph-edge edge-${connection.type.replace(/[^a-z0-9_-]/gi, "-")}`,
+    class: `graph-edge edge-${type.replace(/[^a-z0-9_-]/gi, "-")}`,
     "data-source": connection.sourceId,
-    "data-target": connection.target,
-    "aria-label": relationshipTypes[connection.type] ?? connection.type
+    "data-target": connection.targetWordId,
+    "aria-label": relationshipTypes[type] ?? type
   });
   parent.append(path);
 
   const middleX = (from.x + to.x) / 2;
   const middleY = (from.y + to.y) / 2 + (to.y >= from.y ? 16 : -12);
   const label = svgElement("text", { x: middleX, y: middleY, class: "edge-label" });
-  label.textContent = relationshipTypes[connection.type] ?? connection.type;
+  label.textContent = relationshipTypes[type] ?? type;
   parent.append(label);
 }
 
 function addNode(parent, node, language, otherLanguages, selectedId, query, onSelect, onHover) {
   const { word, x, y, depth } = node;
-  const label = word.translations[language] ?? word.translations[word.language] ?? word.translations.en ?? word.id;
+  const label = word.word;
   const meaning = word.definitions?.[language] ?? word.definitions?.en ?? word.meaning;
   const group = svgElement("g", {
     class: `graph-node${word.id === selectedId ? " is-center" : ""}${depth === 1 ? " is-connected" : ""}`,
@@ -122,10 +126,9 @@ function addNode(parent, node, language, otherLanguages, selectedId, query, onSe
     "aria-pressed": String(word.id === selectedId),
     "data-id": word.id
   });
-  const chineseReading = language !== "zh" && word.translations.zh && word.pinyin
-    ? `, Chinese ${word.translations.zh}, pinyin ${word.pinyin}`
-    : "";
-  group.setAttribute("aria-label", `${label}${chineseReading} — ${meaning}`);
+  const languageName = { zh: "Chinese", ja: "Japanese", ko: "Korean" }[word.language];
+  const reading = word.language === "zh" ? word.pinyin : word.romanization[word.language];
+  group.setAttribute("aria-label", `${label}, ${languageName}${reading ? `, ${reading}` : ""} — ${meaning}`);
 
   group.append(
     svgElement("circle", { r: "37", class: "node-halo" }),
@@ -135,19 +138,22 @@ function addNode(parent, node, language, otherLanguages, selectedId, query, onSe
   text.textContent = label;
   group.append(text);
 
-  if (language !== "zh" && word.pinyin) {
-    const pinyin = svgElement("text", { y: "13", class: "node-pinyin" });
-    pinyin.textContent = word.pinyin;
-    group.append(pinyin);
+  if (reading) {
+    const pronunciation = svgElement("text", { y: "13", class: "node-pinyin" });
+    pronunciation.textContent = reading;
+    group.append(pronunciation);
   }
+
+  const languageLabel = svgElement("text", { y: "25", class: "node-language" });
+  languageLabel.textContent = { zh: "中文", ja: "日本語", ko: "한국어" }[word.language];
+  group.append(languageLabel);
 
   if (otherLanguages) {
     const alternatives = Object.entries(word.translations)
-      .filter(([code]) => code !== language)
-      .map(([code, translation]) =>
-        code === "zh" && word.pinyin ? `${translation} (${word.pinyin})` : translation)
+      .filter(([code]) => code !== word.language && code !== "en")
+      .map(([code, translation]) => `${code}: ${translation}`)
       .join(" · ");
-    const other = svgElement("text", { y: "25", class: "node-pinyin node-alternates" });
+    const other = svgElement("text", { y: "37", class: "node-pinyin node-alternates" });
     other.textContent = alternatives;
     group.append(other);
   }
@@ -275,7 +281,7 @@ export function renderGraph(container, words, options) {
   const svg = svgElement("svg", {
     viewBox: `0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`,
     role: "group",
-    "aria-label": `Word relationships centered on ${center.translations[language] ?? center.translations[center.language] ?? center.translations.en ?? center.id}`
+    "aria-label": `Word relationships centered on ${center.word} (${center.language})`
   });
   const content = svgElement("g", { class: "graph-content" });
   const edgeLayer = svgElement("g", { "aria-hidden": "true" });

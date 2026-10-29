@@ -1,6 +1,7 @@
 // 此文件负责加载并校验本地词汇数据及归一化后的 API 词汇数据。
-const LANGUAGE_CODES = ["zh", "ja", "ko", "en"];
-const LOCAL_RELATIONSHIP_TYPES = ["origin", "similar", "confusable", "antonym"];
+const DICTIONARY_LANGUAGES = ["zh", "ja", "ko"];
+const TRANSLATION_LANGUAGES = [...DICTIONARY_LANGUAGES, "en"];
+const PRODUCT_RELATIONSHIP_TYPES = ["origin", "similar", "confusable", "antonym"];
 const VERIFICATION_STATUSES = ["unverified", "verified"];
 const LOCAL_DATA_URL = new URL("../data/words.json", import.meta.url);
 
@@ -12,7 +13,7 @@ export function validateWordDataset(data) {
   if (!isRecord(data) || !Array.isArray(data.words) || !isRecord(data.relationshipTypes)) {
     throw new Error("Word dataset must include relationshipTypes and a words array");
   }
-  for (const type of LOCAL_RELATIONSHIP_TYPES) {
+  for (const type of PRODUCT_RELATIONSHIP_TYPES) {
     if (!Object.prototype.hasOwnProperty.call(data.relationshipTypes, type) ||
         typeof data.relationshipTypes[type] !== "string" || !data.relationshipTypes[type]) {
       throw new Error(`Word dataset is missing the "${type}" relationship label`);
@@ -27,43 +28,43 @@ export function validateWordDataset(data) {
 
   const wordIds = new Set();
   for (const word of data.words) {
-    if (!isRecord(word) || typeof word.id !== "string" || !word.id) {
-      throw new Error("Each word must have a non-empty id");
+    if (!isRecord(word) || typeof word.id !== "string" || !word.id ||
+        typeof word.word !== "string" || !word.word) {
+      throw new Error("Each word must have a non-empty id and word");
     }
     if (wordIds.has(word.id)) throw new Error(`Duplicate word id "${word.id}"`);
     wordIds.add(word.id);
 
-    if (!isRecord(word.translations) || !isRecord(word.romanization) || typeof word.meaning !== "string") {
-      throw new Error(`Word "${word.id}" must include translations, readings, and an English meaning`);
+    if (!DICTIONARY_LANGUAGES.includes(word.language)) {
+      throw new Error(`Word "${word.id}" must use a supported dictionary language`);
     }
-    if (word.language !== undefined) {
-      if (!LANGUAGE_CODES.includes(word.language) ||
-          typeof word.translations[word.language] !== "string" || !word.translations[word.language]) {
-        throw new Error(`API word "${word.id}" must include a translation in its source language`);
+    if (!isRecord(word.translations) || !isRecord(word.romanization) ||
+        typeof word.meaning !== "string") {
+      throw new Error(`Word "${word.id}" must include translations, readings, and a meaning`);
+    }
+    if (typeof word.translations[word.language] !== "string" ||
+        word.translations[word.language] !== word.word) {
+      throw new Error(`Word "${word.id}" must match its source-language translation`);
+    }
+    for (const [language, translation] of Object.entries(word.translations)) {
+      if (!TRANSLATION_LANGUAGES.includes(language) || typeof translation !== "string" || !translation) {
+        throw new Error(`Translation for "${word.id}" must use a supported language code`);
       }
-      for (const [language, translation] of Object.entries(word.translations)) {
-        if (!LANGUAGE_CODES.includes(language) || typeof translation !== "string" || !translation) {
-          throw new Error(`Translation for "${word.id}" must use a supported language code`);
-        }
-      }
-      if (word.source !== undefined && (!isRecord(word.source) ||
-          typeof word.source.label !== "string" || typeof word.source.url !== "string")) {
-        throw new Error(`Word source for "${word.id}" must include a label and URL`);
-      }
-    } else {
-      for (const language of LANGUAGE_CODES) {
-        if (typeof word.translations[language] !== "string" || !word.translations[language]) {
-          throw new Error(`Word "${word.id}" is missing its ${language} translation`);
-        }
-      }
-      if (typeof word.pinyin !== "string" || !word.pinyin) {
-        throw new Error(`Word "${word.id}" is missing Chinese pinyin`);
-      }
-      for (const language of ["ja", "ko"]) {
-        if (typeof word.romanization[language] !== "string" || !word.romanization[language]) {
-          throw new Error(`Word "${word.id}" is missing its ${language} reading`);
-        }
-      }
+    }
+    if (!Object.prototype.hasOwnProperty.call(word, "englishTranslation") ||
+        (word.englishTranslation !== null &&
+         (typeof word.englishTranslation !== "string" || !word.englishTranslation ||
+          word.translations.en !== word.englishTranslation))) {
+      throw new Error(`English translation for "${word.id}" must be non-empty text or null`);
+    }
+    if (!VERIFICATION_STATUSES.includes(word.verificationStatus)) {
+      throw new Error(`Word "${word.id}" is missing a valid verification status`);
+    }
+    if (!Object.prototype.hasOwnProperty.call(word, "source") ||
+        (word.source !== null && (!isRecord(word.source) ||
+        typeof word.source.label !== "string" || !word.source.label ||
+        typeof word.source.url !== "string" || !word.source.url))) {
+      throw new Error(`Word source for "${word.id}" must be null or include a label and URL`);
     }
     if (!Array.isArray(word.connections)) {
       throw new Error(`Word "${word.id}" must include a connections array`);
@@ -75,60 +76,69 @@ export function validateWordDataset(data) {
       throw new Error(`Parts of speech for "${word.id}" must be keyed by language`);
     }
     for (const [language, definition] of Object.entries(word.definitions ?? {})) {
-      if (!LANGUAGE_CODES.includes(language) || typeof definition !== "string") {
+      if (!TRANSLATION_LANGUAGES.includes(language) || typeof definition !== "string") {
         throw new Error(`Definition for "${word.id}" must be text keyed by a supported language`);
       }
     }
     for (const [language, partOfSpeech] of Object.entries(word.partsOfSpeech ?? {})) {
       const validValue = typeof partOfSpeech === "string" ||
         (Array.isArray(partOfSpeech) && partOfSpeech.every((item) => typeof item === "string"));
-      if (!LANGUAGE_CODES.includes(language) || !validValue) {
+      if (!TRANSLATION_LANGUAGES.includes(language) || !validValue) {
         throw new Error(`Part of speech for "${word.id}" must be text keyed by a supported language`);
       }
     }
   }
 
+  const relationshipIds = new Set();
   for (const word of data.words) {
     for (const connection of word.connections) {
-      if (!isRecord(connection) || !wordIds.has(connection.target)) {
+      if (!isRecord(connection) || typeof connection.id !== "string" || !connection.id ||
+          connection.sourceWordId !== word.id ||
+          !wordIds.has(connection.targetWordId)) {
         throw new Error(`Word "${word.id}" references an invalid connection target`);
       }
-      if (typeof connection.type !== "string" ||
-          !Object.prototype.hasOwnProperty.call(data.relationshipTypes, connection.type)) {
-        throw new Error(`Word "${word.id}" has an unsupported relationship type`);
+      if (relationshipIds.has(connection.id)) {
+        throw new Error(`Duplicate relationship id "${connection.id}"`);
+      }
+      relationshipIds.add(connection.id);
+      if (typeof connection.rawRelationType !== "string" || !connection.rawRelationType) {
+        throw new Error(`Relationship "${connection.id}" is missing its raw relation type`);
+      }
+      if (connection.productRelationType !== null &&
+          !PRODUCT_RELATIONSHIP_TYPES.includes(connection.productRelationType)) {
+        throw new Error(`Relationship "${connection.id}" has an unsupported product relation type`);
+      }
+      if (!Object.prototype.hasOwnProperty.call(connection, "productRelationType")) {
+        throw new Error(`Relationship "${connection.id}" is missing its product relation type`);
       }
       if (!VERIFICATION_STATUSES.includes(connection.verificationStatus)) {
-        throw new Error(`Relationship from "${word.id}" is missing a valid verification status`);
+        throw new Error(`Relationship "${connection.id}" is missing a valid verification status`);
       }
-      if (typeof connection.explanation !== "string" || !connection.explanation) {
-        throw new Error(`Relationship from "${word.id}" is missing an explanation`);
+      if (connection.description !== null &&
+          (typeof connection.description !== "string" || !connection.description)) {
+        throw new Error(`Relationship "${connection.id}" must have a non-empty description or null`);
       }
-      if (!Object.prototype.hasOwnProperty.call(connection, "source")) {
-        throw new Error(`Relationship from "${word.id}" is missing its source field`);
+      if (!isRecord(connection.source) || typeof connection.source.label !== "string" ||
+          !connection.source.label || typeof connection.source.url !== "string" ||
+          !connection.source.url) {
+        throw new Error(`Relationship "${connection.id}" must include a source label and URL`);
       }
-      if (connection.source !== null &&
-          (!isRecord(connection.source) || typeof connection.source.label !== "string" ||
-           (connection.source.url !== undefined && typeof connection.source.url !== "string"))) {
-        throw new Error(`Relationship source for "${word.id}" must be null or include a label`);
+      if (connection.verificationStatus === "verified" && connection.productRelationType === null) {
+        throw new Error(`Verified relationship "${connection.id}" must include a product relation type`);
       }
-      if (connection.verificationStatus === "verified" && connection.source === null) {
-        throw new Error(`Verified relationship from "${word.id}" must include its source`);
-      }
-      if (connection.source !== null && connection.source !== undefined) {
-        for (const field of ["dataset", "license"]) {
-          const value = connection.source[field];
-          const validValue = typeof value === "string" ||
-            (Array.isArray(value) && value.every((item) => typeof item === "string"));
-          if (value !== undefined && !validValue) {
-            throw new Error(`Relationship ${field} for "${word.id}" must be text`);
-          }
+      for (const field of ["dataset", "license"]) {
+        const value = connection.source[field];
+        const validValue = typeof value === "string" ||
+          (Array.isArray(value) && value.every((item) => typeof item === "string"));
+        if (value !== undefined && !validValue) {
+          throw new Error(`Relationship ${field} for "${word.id}" must be text`);
         }
       }
-      if (connection.weight !== undefined &&
-          connection.weight !== null && typeof connection.weight !== "number") {
-        throw new Error(`Relationship weight for "${word.id}" must be numeric`);
+      if (connection.metadata !== undefined && connection.metadata !== null &&
+          !isRecord(connection.metadata)) {
+        throw new Error(`Relationship metadata for "${word.id}" must be an object`);
       }
-      if (connection.source?.sources !== undefined &&
+      if (connection.source.sources !== undefined &&
           (!Array.isArray(connection.source.sources) ||
            !connection.source.sources.every(isRecord))) {
         throw new Error(`Relationship sources for "${word.id}" must be a list of source records`);

@@ -225,6 +225,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .graph-node:focus-visible .node-halo { stroke: #58a86b; stroke-width: 2; }
 .node-label { fill: #303631; font: 500 17px "DM Sans", "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", sans-serif; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
 .node-pinyin { fill: #858e84; font: 11px "DM Sans", sans-serif; text-anchor: middle; pointer-events: none; }
+.node-language { fill: #858e84; font: 8px "DM Sans", "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", sans-serif; text-anchor: middle; pointer-events: none; }
 .node-alternates { font-size: 8px; }
 .node-center-dot { fill: #58a86b; }
 .graph-node.is-dimmed { opacity: .3; }

@@ -13,12 +13,11 @@ function element(tag, className, text) {
   return node;
 }
 
-function readingFor(word, language) {
-  if (word.language) return `${LANGUAGE_NAMES[word.language]} · ${word.translations[word.language]}`;
-  if (language === "zh") return `Pinyin · ${word.pinyin}`;
-  if (language === "ja") return `Romaji · ${word.romanization.ja}`;
-  if (language === "ko") return `Romanization · ${word.romanization.ko}`;
-  return `English · ${word.translations.en}`;
+function readingFor(word) {
+  if (word.language === "zh" && word.pinyin) return `Pinyin · ${word.pinyin}`;
+  if (word.language === "ja" && word.romanization.ja) return `Romaji · ${word.romanization.ja}`;
+  if (word.language === "ko" && word.romanization.ko) return `Romanization · ${word.romanization.ko}`;
+  return "";
 }
 
 function definitionFor(word, language) {
@@ -49,16 +48,15 @@ export function renderDetails(container, word, data, language, relation, connect
   const card = element("div", "detail-card");
   const top = element("div", "detail-topline");
   const relationType = relation
-    ? data.relationshipTypes[relation.type] ?? relation.type
+    ? data.relationshipTypes[relation.productRelationType] ?? relation.productRelationType
     : "Center word";
   const type = element("span", "detail-type");
   type.append(element("i", ""), document.createTextNode(relationType));
-  top.append(type, element("span", "detail-language", LANGUAGE_NAMES[language]));
+  top.append(type, element("span", "detail-language", LANGUAGE_NAMES[word.language]));
   card.append(top);
 
-  const wordLabel = word.translations[language] ?? word.translations[word.language] ?? word.translations.en ?? word.id;
-  card.append(element("h2", "detail-word", wordLabel));
-  const reading = readingFor(word, language);
+  card.append(element("h2", "detail-word", word.word));
+  const reading = readingFor(word);
   if (reading) card.append(element("p", "detail-reading", reading));
   const partOfSpeech = partOfSpeechFor(word, language);
   if (partOfSpeech) card.append(element("p", "detail-pos", partOfSpeech));
@@ -68,9 +66,11 @@ export function renderDetails(container, word, data, language, relation, connect
     const section = element("section", "detail-section");
     section.append(
       element("h3", "", "Why these words connect"),
-      element("p", "relation-copy", relation.explanation)
+      element("p", "relation-copy", relation.description)
     );
-    const status = relation.verificationStatus === "verified" ? "Source verified" : "Unverified";
+    const status = relation.verificationStatus === "verified"
+      ? "Relationship verified"
+      : "Unverified relationship";
     const sourceLabel = relation.source?.label ?? "Source not attached";
     const licenseLabel = relation.source?.licenseId?.startsWith("cc:")
       ? `CC ${relation.source.licenseId.slice(3).replace("/", " ").toUpperCase()}`
@@ -153,10 +153,7 @@ export function renderDetails(container, word, data, language, relation, connect
       const chip = element("button", "connection-chip");
       chip.type = "button";
       chip.append(document.createTextNode(
-        connection.word.translations[language] ??
-        connection.word.translations[connection.word.language] ??
-        connection.word.translations.en ??
-        connection.word.id
+        `${connection.word.word} (${LANGUAGE_NAMES[connection.word.language]})`
       ));
       chip.addEventListener("click", () => onSelect(connection.word.id, connection));
       chips.append(chip);

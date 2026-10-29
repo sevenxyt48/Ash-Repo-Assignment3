@@ -1,5 +1,5 @@
 // 此文件封装 ConceptNet 关系查询和 MyMemory 英译，并缓存成功结果。
-const SUPPORTED_LANGUAGES = new Set(["zh", "ja", "en", "ko"]);
+const SUPPORTED_LANGUAGES = new Set(["zh", "ja", "ko"]);
 const conceptCache = new Map();
 const translationCache = new Map();
 const TRANSLATION_LANGUAGES = {
@@ -86,16 +86,15 @@ function normalizeConceptResponse(term, language, payload) {
   const edgeKeys = new Set();
   const root = {
     id: rootUri,
+    word: term,
     translations: { [language]: term },
     language,
+    englishTranslation: null,
     meaning: `ConceptNet concept: ${term}`,
     romanization: {},
+    source: { label: "ConceptNet", url: rootUri },
+    verificationStatus: "unverified",
     connections: [],
-    source: {
-      label: "ConceptNet",
-      url: rootUri,
-      license: "CC BY-SA 4.0"
-    }
   };
   words.set(root.id, root);
 
@@ -105,16 +104,15 @@ function normalizeConceptResponse(term, language, payload) {
     if (!words.has(endpoint.id)) {
       words.set(endpoint.id, {
         id: endpoint.id,
+        word: endpoint.label,
         translations: { [endpoint.language]: endpoint.label },
         language: endpoint.language,
+        englishTranslation: null,
         meaning: `ConceptNet concept: ${endpoint.label}`,
         romanization: {},
+        source: { label: "ConceptNet", url: endpoint.id },
+        verificationStatus: "unverified",
         connections: [],
-        source: {
-          label: "ConceptNet",
-          url: endpoint.id,
-          license: "CC BY-SA 4.0"
-        }
       });
     }
     return words.get(endpoint.id);
@@ -126,23 +124,27 @@ function normalizeConceptResponse(term, language, payload) {
     const end = getWord(edge.end);
     if (!start || !end) continue;
 
-    const type = edge.rel.label;
-    relationshipTypes[type] = type;
-    const key = `${start.id}\u0000${end.id}\u0000${type}`;
+    const rawRelationType = edge.rel.label;
+    const key = `${start.id}\u0000${end.id}\u0000${rawRelationType}`;
     if (edgeKeys.has(key)) continue;
     edgeKeys.add(key);
 
     const source = conceptSource(edge);
     start.connections.push({
-      target: end.id,
-      type,
-      explanation: `ConceptNet relation: ${type}`,
+      id: edge["@id"] ?? key,
+      sourceWordId: start.id,
+      targetWordId: end.id,
+      rawRelationType,
+      productRelationType: null,
+      description: `Unverified ConceptNet relation: ${rawRelationType}`,
       source,
-      verificationStatus: "verified",
-      weight: typeof edge.weight === "number" ? edge.weight : null,
-      dataset: edge.dataset,
-      license: source.license,
-      edgeUri: edge["@id"]
+      verificationStatus: "unverified",
+      metadata: {
+        weight: typeof edge.weight === "number" ? edge.weight : null,
+        dataset: edge.dataset,
+        license: source.license,
+        edgeUri: edge["@id"]
+      }
     });
   }
 
@@ -167,7 +169,8 @@ export async function fetchConceptNetWord(term, language, { fetchImpl = fetch } 
       term: cleanedTerm,
       language,
       nodes: dataset.words.length,
-      relationships: [...new Set(dataset.words.flatMap((word) => word.connections.map((item) => item.type)))],
+      relationships: [...new Set(dataset.words.flatMap((word) =>
+        word.connections.map((item) => item.rawRelationType)))],
       sources: [...new Set(dataset.words.flatMap((word) => word.connections.map((item) => item.source.label)))]
     });
     return dataset;

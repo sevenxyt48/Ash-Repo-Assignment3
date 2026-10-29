@@ -38,6 +38,8 @@ function normalized(value) {
 function wordSearchTerms(word) {
   return [
     word.id,
+    word.word,
+    word.englishTranslation,
     word.meaning,
     ...Object.values(word.definitions ?? {}),
     word.pinyin,
@@ -50,18 +52,20 @@ function getConnections(word) {
   const connections = new Map();
   for (const item of state.data.words) {
     for (const connection of item.connections) {
-      if (!state.activeTypes.has(connection.type)) continue;
-      const targetId = item.id === word.id ? connection.target : item.id;
-      if (item.id !== word.id && connection.target !== word.id) continue;
-      const key = `${targetId}\u0000${connection.type}`;
+      if (connection.verificationStatus !== "verified" ||
+          !connection.productRelationType ||
+          !state.activeTypes.has(connection.productRelationType)) continue;
+      const targetId = item.id === word.id ? connection.targetWordId : item.id;
+      if (item.id !== word.id && connection.targetWordId !== word.id) continue;
+      const key = `${targetId}\u0000${connection.productRelationType}`;
       if (connections.has(key)) continue;
       if (item.id === word.id) {
-        const target = state.data.words.find((candidate) => candidate.id === connection.target);
+        const target = state.data.words.find((candidate) => candidate.id === connection.targetWordId);
         if (target) connections.set(key, { ...connection, word: target });
       } else {
         connections.set(key, {
           ...connection,
-          target: item.id,
+          targetWordId: item.id,
           word: item
         });
       }
@@ -70,11 +74,25 @@ function getConnections(word) {
   return [...connections.values()];
 }
 
+function hasVerifiedConnections(word, words) {
+  if (!word) return false;
+  return words.some((item) =>
+    item.connections.some((connection) =>
+      connection.verificationStatus === "verified" &&
+      connection.productRelationType &&
+      (item.id === word.id || connection.targetWordId === word.id)
+    )
+  );
+}
+
 function selectWord(id, relation = null) {
   state.selectedId = id;
   state.selectedRelation = relation;
   if (state.data === state.localData) {
-    state.apiEmpty = false;
+    state.apiEmpty = !hasVerifiedConnections(
+      state.data.words.find((word) => word.id === id),
+      state.data.words
+    );
     state.apiError = false;
   }
   state.query = "";
@@ -96,18 +114,20 @@ function render() {
     otherLanguages: state.otherLanguages,
     relationshipTypes: state.data.relationshipTypes,
     onSelect: selectWord,
-    onHover: (word) => translateText(word.translations[word.language], word.language, "en")
+    onHover: (word) => word.englishTranslation
+      ? Promise.resolve(word.englishTranslation)
+      : translateText(word.word, word.language, "en")
   });
   graphMessage.hidden = !state.apiEmpty && !state.apiError;
   if (state.apiEmpty) {
-    graphMessage.textContent = "ConceptNet has no relationships for this word yet.";
+    graphMessage.textContent = "No verified relationships are available for this word.";
   } else if (state.apiError) {
     graphMessage.textContent = "The vocabulary service is unavailable. Check your connection and try again.";
   }
 
   const connectionCount = graphResult.edgeCount;
   resultCount.textContent = state.apiEmpty
-    ? "No ConceptNet relationships found"
+    ? "No verified relationships found"
     : connectionCount
     ? `${graphResult.nodeCount} words · ${connectionCount} ${connectionCount === 1 ? "connection" : "connections"}`
     : "No connections match these filters";
@@ -178,9 +198,13 @@ async function exploreSearch(query) {
     showMessage("A few words match. Add another character or choose a suggestion.", true);
     return;
   }
+  const language = queryLanguage(query);
+  if (language === "en") {
+    showMessage("No matching word was found in the Chinese, Japanese, and Korean vocabulary.", true);
+    return;
+  }
   showMessage(`Looking up “${query.trim()}” in ConceptNet…`);
   try {
-    const language = queryLanguage(query);
     const data = await fetchConceptNetWord(query, language);
     if (requestId !== state.searchRequest) return;
     state.data = data;
@@ -188,7 +212,7 @@ async function exploreSearch(query) {
     for (const type of Object.keys(state.data.relationshipTypes)) state.activeTypes.add(type);
     state.selectedId = state.data.words[0].id;
     state.selectedRelation = null;
-    state.apiEmpty = state.data.words[0].connections.length === 0;
+    state.apiEmpty = !hasVerifiedConnections(state.data.words[0], state.data.words);
     state.apiError = false;
     graphMessage.hidden = true;
     searchMessage.classList.remove("is-error");
@@ -228,6 +252,10 @@ async function initialize() {
     state.localData = state.data;
     fillSuggestions();
     state.selectedId = state.data.words[Math.floor(Math.random() * state.data.words.length)].id;
+    state.apiEmpty = !hasVerifiedConnections(
+      state.data.words.find((word) => word.id === state.selectedId),
+      state.data.words
+    );
     graphMessage.hidden = true;
     render();
   } catch (error) {

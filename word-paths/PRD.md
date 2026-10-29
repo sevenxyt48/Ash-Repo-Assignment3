@@ -559,8 +559,10 @@ MVP 阶段不要求收集个人身份信息，也不要求建立账号系统。
 | meaning | String / null | 词语释义 |
 | englishTranslation | String / null | 英文辅助翻译 |
 | pronunciation | String / null | 读音或发音信息 |
-| source | String / null | 数据来源 |
+| translations | Object | 可选的中日韩及英文辅助翻译；每个词条仍以 word 和 language 标识自身语言 |
+| source | Object / null | 词条来源信息 |
 | verificationStatus | String | 词条数据的核验状态；有数据来源本身不表示词条或其关系已核验 |
+| connections | WordRelation[] | 从该词条发出的关系记录 |
 
 ## 10.2 关系数据（WordRelation）
 
@@ -569,11 +571,11 @@ MVP 阶段不要求收集个人身份信息，也不要求建立账号系统。
 | id | String | 唯一关系 ID |
 | sourceWordId | String | 起始词条 ID |
 | targetWordId | String | 目标词条 ID |
-| relationType | String | 正式产品关系类型，仅限词源、近义、易混淆、反义四类 |
+| rawRelationType | String | 来源返回的原始关系类型，保留原始标签 |
+| productRelationType | String / null | 经过核验后归入的产品关系类型；仅限词源、近义、易混淆、反义，未归类或未核验时为 null |
 | description | String / null | 关系说明 |
-| source | String / null | 关系证据来源；来源存在不等同于关系已核验 |
+| source | Object | 关系证据来源及必要的出处信息 |
 | verificationStatus | String | 关系核验状态；API 请求成功不自动改变该状态 |
-| rawRelationType | String / null | 原始数据源返回的关系类型（例如 ConceptNet 原始关系标签），供来源追踪或研究使用，不自动作为产品关系类型 |
 | metadata | Object / null | 原始数据源的其他必要元数据；仅供来源追踪或研究，不因此进入正式关系图 |
 
 ## 10.3 关系标准
