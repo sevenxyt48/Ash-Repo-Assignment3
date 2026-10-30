@@ -239,6 +239,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .graph-content { transform-origin: 0 0; }
 .graph-edge { fill: none; stroke: #d0d8cf; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
 .graph-edge.edge-origin { stroke: #78ad81; }
+.graph-edge.edge-equivalent { stroke: #66a5bd; }
 .graph-edge.edge-similar { stroke: #a9ba8e; }
 .graph-edge.edge-confusable { stroke: #bba6af; stroke-dasharray: 4 4; }
 .graph-edge.edge-antonym { stroke: #92a6ba; stroke-dasharray: 2 4; }
@@ -262,6 +263,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
 .legend-line { width: 18px; height: 0; border-top: 1.5px solid #d0d8cf; }
 .origin-line { border-color: #78ad81; }
+.equivalent-line { border-color: #66a5bd; }
 .similar-line { border-color: #a9ba8e; }
 .confusable-line { border-color: #bba6af; border-top-style: dashed; }
 .antonym-line { border-color: #92a6ba; border-top-style: dotted; }

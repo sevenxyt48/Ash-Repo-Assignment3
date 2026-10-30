@@ -78,6 +78,7 @@ function normalizeConceptResponse(term, language, payload) {
   const rootUri = conceptUrl(rootId);
   const words = new Map();
   const relationshipTypes = {
+    equivalent: "Cross-language equivalent",
     origin: "Word origin",
     similar: "Similar meaning",
     confusable: "Easily confused",
@@ -136,9 +137,10 @@ function normalizeConceptResponse(term, language, payload) {
       targetWordId: end.id,
       rawRelationType,
       productRelationType: null,
+      directionality: "directed",
       description: `Unverified ConceptNet relation: ${rawRelationType}`,
       source,
-      verificationStatus: "unverified",
+      verificationStatus: "candidate",
       metadata: {
         weight: typeof edge.weight === "number" ? edge.weight : null,
         dataset: edge.dataset,

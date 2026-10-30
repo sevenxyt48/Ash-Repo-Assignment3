@@ -1,6 +1,7 @@
 {
   "$comment": "本地多语言词条按语言拆分；没有来源且未核验的旧关系已移除。",
   "relationshipTypes": {
+    "equivalent": "Cross-language equivalent",
     "origin": "Word origin",
     "similar": "Similar meaning",
     "confusable": "Easily confused",

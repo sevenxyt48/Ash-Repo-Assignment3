@@ -2,6 +2,7 @@
 import { renderGraph, resetGraphView, zoomGraph } from "./graph.js";
 import { renderDetails, renderEmptyDetails } from "./details.js";
 import { loadWordDataset, validateWordDataset } from "./wordRepository.js";
+import { relationshipIdentityKey } from "./relationshipValidation.mjs";
 import { fetchConceptNetWord, translateText } from "./vocabularyApi.js";
 import {
   applyInterfaceLanguage,
@@ -34,7 +35,7 @@ const state = {
   language: "zh",
   selectedId: null,
   selectedRelation: null,
-  activeTypes: new Set(["origin", "similar", "confusable", "antonym"]),
+  activeTypes: new Set(["equivalent", "origin", "similar", "confusable", "antonym"]),
   otherLanguages: false,
   query: "",
   searchRequest: 0,
@@ -54,7 +55,7 @@ function wordSearchTerms(word) {
 }
 
 function getConnections(word, activeTypes = state.activeTypes, data = state.data,
-  includeUnverified = state.developmentGraph) {
+  includeDemo = state.developmentGraph) {
   if (!word || !data) return [];
   const connections = new Map();
   const wordIds = new Set(data.words.map((candidate) => candidate.id));
@@ -62,17 +63,16 @@ function getConnections(word, activeTypes = state.activeTypes, data = state.data
     for (const connection of item.connections) {
       const hasProductType = connection.productRelationType &&
         Object.prototype.hasOwnProperty.call(data.relationshipTypes, connection.productRelationType);
-      const isUnclassifiedRawRelation = includeUnverified &&
-        connection.verificationStatus === "unverified" &&
-        !connection.productRelationType &&
-        connection.rawRelationType;
-      if ((!includeUnverified && connection.verificationStatus !== "verified") ||
-          (includeUnverified &&
-           !["verified", "unverified", "demo"].includes(connection.verificationStatus)) ||
-          (!hasProductType && !isUnclassifiedRawRelation) ||
-          (hasProductType && !activeTypes.has(connection.productRelationType))) continue;
-      const targetId = item.id === word.id ? connection.targetWordId : item.id;
-      if (item.id !== word.id && connection.targetWordId !== word.id) continue;
+      if ((!includeDemo && connection.verificationStatus !== "verified") ||
+          (includeDemo &&
+           !["verified", "demo"].includes(connection.verificationStatus)) ||
+          !hasProductType ||
+          !activeTypes.has(connection.productRelationType)) continue;
+      const isOutgoing = item.id === word.id;
+      const isIncomingSymmetric = connection.targetWordId === word.id &&
+        connection.directionality === "symmetric";
+      if (!isOutgoing && !isIncomingSymmetric) continue;
+      const targetId = isOutgoing ? connection.targetWordId : item.id;
       if (!wordIds.has(targetId)) continue;
       const key = `${targetId}\u0000${connection.productRelationType ?? connection.rawRelationType}`;
       if (connections.has(key)) continue;
@@ -94,6 +94,7 @@ function getConnections(word, activeTypes = state.activeTypes, data = state.data
 function countDisplayableRelationships(data) {
   const wordIds = new Set(data.words.map((word) => word.id));
   const relationshipIds = new Set();
+  const counts = { total: 0, equivalents: 0, semantic: 0 };
   for (const word of data.words) {
     for (const connection of word.connections) {
       if (connection.verificationStatus === "verified" &&
@@ -101,12 +102,17 @@ function countDisplayableRelationships(data) {
           Object.prototype.hasOwnProperty.call(data.relationshipTypes, connection.productRelationType) &&
           connection.sourceWordId === word.id &&
           wordIds.has(connection.targetWordId)) {
-        const endpoints = [connection.sourceWordId, connection.targetWordId].sort();
-        relationshipIds.add(`${endpoints[0]}\u0000${endpoints[1]}\u0000${connection.productRelationType}`);
+        relationshipIds.add(relationshipIdentityKey(connection));
       }
     }
   }
-  return relationshipIds.size;
+  for (const key of relationshipIds) {
+    const type = key.slice(key.lastIndexOf("\u0000") + 1);
+    if (type === "equivalent") counts.equivalents += 1;
+    else counts.semantic += 1;
+  }
+  counts.total = relationshipIds.size;
+  return counts;
 }
 
 function countDemoRelationships(data) {
@@ -119,8 +125,7 @@ function countDemoRelationships(data) {
           !connection.productRelationType ||
           !Object.prototype.hasOwnProperty.call(data.relationshipTypes, connection.productRelationType) ||
           !wordIds.has(connection.targetWordId)) continue;
-      const endpoints = [connection.sourceWordId, connection.targetWordId].sort();
-      relationshipIds.add(`${endpoints[0]}\u0000${endpoints[1]}\u0000${connection.productRelationType}`);
+      relationshipIds.add(relationshipIdentityKey(connection));
     }
   }
   return relationshipIds.size;
@@ -197,14 +202,15 @@ function render() {
       : translate(state.language, connectionCount === 1 ? "search.focusRelationsOne" : "search.focusRelations", {
           count: connectionCount
         });
-  const datasetRelationshipCount = countDisplayableRelationships(state.data);
+  const datasetRelationshipCounts = countDisplayableRelationships(state.data);
   const formattedWordCount = new Intl.NumberFormat(state.language).format(state.data.words.length);
-  const formattedRelationshipCount = new Intl.NumberFormat(state.language).format(datasetRelationshipCount);
-  datasetStats.textContent = translate(
-    state.language,
-    datasetRelationshipCount === 1 ? "search.datasetStatsOne" : "search.datasetStats",
-    { words: formattedWordCount, relations: formattedRelationshipCount }
-  );
+  const formatCount = (count) => new Intl.NumberFormat(state.language).format(count);
+  datasetStats.textContent = translate(state.language, "search.datasetStats", {
+    words: formattedWordCount,
+    relations: formatCount(datasetRelationshipCounts.total),
+    equivalents: formatCount(datasetRelationshipCounts.equivalents),
+    semantic: formatCount(datasetRelationshipCounts.semantic)
+  });
   if (state.developmentGraph) {
     const formattedDemoCount = new Intl.NumberFormat(state.language)
       .format(countDemoRelationships(state.data));

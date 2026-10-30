@@ -168,8 +168,13 @@ export function renderDetails(container, word, data, language, relation, connect
     for (const connection of connections) {
       const chip = element("button", "connection-chip");
       chip.type = "button";
+      const relationshipLabel = translate(language, `relationship.${connection.productRelationType}`);
       chip.append(document.createTextNode(
-        `${connection.word.word} (${languageName(connection.word.language, language)})`
+        `${connection.word.word} (${languageName(connection.word.language, language)}) · ${
+          relationshipLabel.startsWith("relationship.")
+            ? data.relationshipTypes[connection.productRelationType] ?? connection.productRelationType
+            : relationshipLabel
+        }`
       ));
       chip.addEventListener("click", () => onSelect(connection.word.id, connection));
       chips.append(chip);

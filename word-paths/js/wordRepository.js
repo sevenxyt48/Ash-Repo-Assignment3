@@ -1,15 +1,20 @@
 // 此文件负责加载并校验本地词汇数据及归一化后的 API 词汇数据。
+import {
+  RELATIONSHIP_TYPES,
+  validateRelationshipRecords
+} from "./relationshipValidation.mjs";
+
 const DICTIONARY_LANGUAGES = ["zh", "ja", "ko"];
 const TRANSLATION_LANGUAGES = [...DICTIONARY_LANGUAGES, "en"];
-const PRODUCT_RELATIONSHIP_TYPES = ["origin", "similar", "confusable", "antonym"];
-const VERIFICATION_STATUSES = ["unverified", "verified", "demo"];
+const PRODUCT_RELATIONSHIP_TYPES = RELATIONSHIP_TYPES;
+const WORD_VERIFICATION_STATUSES = ["unverified", "verified", "demo"];
 const LOCAL_DATA_URL = new URL("../data/words.json", import.meta.url);
 
 function isRecord(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 
-export function validateWordDataset(data) {
+export function validateWordDataset(data, { allowNonProductionStatuses = true } = {}) {
   if (!isRecord(data) || !Array.isArray(data.words) || !isRecord(data.relationshipTypes)) {
     throw new Error("Word dataset must include relationshipTypes and a words array");
   }
@@ -64,7 +69,7 @@ export function validateWordDataset(data) {
           word.translations.en !== word.englishTranslation))) {
       throw new Error(`English translation for "${word.id}" must be non-empty text or null`);
     }
-    if (!VERIFICATION_STATUSES.includes(word.verificationStatus)) {
+    if (!WORD_VERIFICATION_STATUSES.includes(word.verificationStatus)) {
       throw new Error(`Word "${word.id}" is missing a valid verification status`);
     }
     if (!Object.prototype.hasOwnProperty.call(word, "source") ||
@@ -96,43 +101,14 @@ export function validateWordDataset(data) {
     }
   }
 
-  const relationshipIds = new Set();
+  const relationships = [];
   for (const word of data.words) {
     for (const connection of word.connections) {
-      if (!isRecord(connection) || typeof connection.id !== "string" || !connection.id ||
-          connection.sourceWordId !== word.id ||
-          !wordIds.has(connection.targetWordId)) {
+      if (!isRecord(connection) || connection.sourceWordId !== word.id) {
         throw new Error(`Word "${word.id}" references an invalid connection target`);
       }
-      if (relationshipIds.has(connection.id)) {
-        throw new Error(`Duplicate relationship id "${connection.id}"`);
-      }
-      relationshipIds.add(connection.id);
-      if (typeof connection.rawRelationType !== "string" || !connection.rawRelationType) {
-        throw new Error(`Relationship "${connection.id}" is missing its raw relation type`);
-      }
-      if (connection.productRelationType !== null &&
-          !PRODUCT_RELATIONSHIP_TYPES.includes(connection.productRelationType)) {
-        throw new Error(`Relationship "${connection.id}" has an unsupported product relation type`);
-      }
-      if (!Object.prototype.hasOwnProperty.call(connection, "productRelationType")) {
-        throw new Error(`Relationship "${connection.id}" is missing its product relation type`);
-      }
-      if (!VERIFICATION_STATUSES.includes(connection.verificationStatus)) {
-        throw new Error(`Relationship "${connection.id}" is missing a valid verification status`);
-      }
-      if (connection.description !== null &&
-          (typeof connection.description !== "string" || !connection.description)) {
-        throw new Error(`Relationship "${connection.id}" must have a non-empty description or null`);
-      }
-      if (!isRecord(connection.source) || typeof connection.source.label !== "string" ||
-          !connection.source.label ||
-          (connection.verificationStatus !== "demo" &&
-           (typeof connection.source.url !== "string" || !connection.source.url))) {
-        throw new Error(`Relationship "${connection.id}" must include a source label and URL`);
-      }
-      if (connection.verificationStatus === "verified" && connection.productRelationType === null) {
-        throw new Error(`Verified relationship "${connection.id}" must include a product relation type`);
+      if (!isRecord(connection.source)) {
+        throw new Error(`Relationship source for "${word.id}" must be an object`);
       }
       for (const field of ["dataset", "license"]) {
         const value = connection.source[field];
@@ -151,9 +127,19 @@ export function validateWordDataset(data) {
            !connection.source.sources.every(isRecord))) {
         throw new Error(`Relationship sources for "${word.id}" must be a list of source records`);
       }
+      relationships.push(connection);
     }
   }
 
+  const relationshipErrors = validateRelationshipRecords(relationships, data.words);
+  if (relationshipErrors.length) {
+    throw new Error(relationshipErrors.join("; "));
+  }
+  if (!allowNonProductionStatuses &&
+      relationships.some((relationship) =>
+        ["candidate", "demo"].includes(relationship.verificationStatus))) {
+    throw new Error("Candidate and demo relationships must stay outside the production word dataset");
+  }
   return data;
 }
 
@@ -168,5 +154,5 @@ export async function loadWordDataset({ apiLoader } = {}) {
 
   const response = await fetch(LOCAL_DATA_URL);
   if (!response.ok) throw new Error(`Unable to load local vocabulary: HTTP ${response.status}`);
-  return validateWordDataset(await response.json());
+  return validateWordDataset(await response.json(), { allowNonProductionStatuses: false });
 }
