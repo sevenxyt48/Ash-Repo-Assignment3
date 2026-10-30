@@ -12,35 +12,143 @@
       "id": "water-zh",
       "word": "水",
       "language": "zh",
-      "translations": { "zh": "水", "en": "water", "ja": "水", "ko": "물" },
+      "translations": {
+        "zh": "水",
+        "en": "water",
+        "ja": "水",
+        "ko": "물"
+      },
       "englishTranslation": "water",
       "pinyin": "shuǐ",
       "romanization": {},
       "meaning": "The clear liquid that falls as rain, fills rivers, and sustains life.",
       "source": null,
       "verificationStatus": "unverified",
-      "connections": []
+      "connections": [
+        {
+          "id": "candidate-equivalent-water-zh-ja",
+          "sourceWordId": "water-zh",
+          "targetWordId": "water-ja",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://zh.wiktionary.org/wiki/%E6%B0%B4",
+            "sources": [
+              {
+                "language": "zh",
+                "label": "ZH Wiktionary: 水",
+                "url": "https://zh.wiktionary.org/wiki/%E6%B0%B4"
+              },
+              {
+                "language": "ja",
+                "label": "JA Wiktionary: 水",
+                "url": "https://ja.wiktionary.org/wiki/%E6%B0%B4"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        },
+        {
+          "id": "candidate-equivalent-water-zh-ko",
+          "sourceWordId": "water-zh",
+          "targetWordId": "water-ko",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://zh.wiktionary.org/wiki/%E6%B0%B4",
+            "sources": [
+              {
+                "language": "zh",
+                "label": "ZH Wiktionary: 水",
+                "url": "https://zh.wiktionary.org/wiki/%E6%B0%B4"
+              },
+              {
+                "language": "ko",
+                "label": "KO Wiktionary: 물",
+                "url": "https://ko.wiktionary.org/wiki/%EB%AC%BC"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        }
+      ]
     },
     {
       "id": "water-ja",
       "word": "水",
       "language": "ja",
-      "translations": { "zh": "水", "en": "water", "ja": "水", "ko": "물" },
+      "translations": {
+        "zh": "水",
+        "en": "water",
+        "ja": "水",
+        "ko": "물"
+      },
       "englishTranslation": "water",
       "reading": "みず",
-      "romanization": { "ja": "mizu" },
+      "romanization": {
+        "ja": "mizu"
+      },
       "meaning": "The clear liquid that falls as rain, fills rivers, and sustains life.",
       "source": null,
       "verificationStatus": "unverified",
-      "connections": []
+      "connections": [
+        {
+          "id": "candidate-equivalent-water-ja-ko",
+          "sourceWordId": "water-ja",
+          "targetWordId": "water-ko",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://ja.wiktionary.org/wiki/%E6%B0%B4",
+            "sources": [
+              {
+                "language": "ja",
+                "label": "JA Wiktionary: 水",
+                "url": "https://ja.wiktionary.org/wiki/%E6%B0%B4"
+              },
+              {
+                "language": "ko",
+                "label": "KO Wiktionary: 물",
+                "url": "https://ko.wiktionary.org/wiki/%EB%AC%BC"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        }
+      ]
     },
     {
       "id": "water-ko",
       "word": "물",
       "language": "ko",
-      "translations": { "zh": "水", "en": "water", "ja": "水", "ko": "물" },
+      "translations": {
+        "zh": "水",
+        "en": "water",
+        "ja": "水",
+        "ko": "물"
+      },
       "englishTranslation": "water",
-      "romanization": { "ko": "mul" },
+      "romanization": {
+        "ko": "mul"
+      },
       "meaning": "The clear liquid that falls as rain, fills rivers, and sustains life.",
       "source": null,
       "verificationStatus": "unverified",
@@ -50,35 +158,143 @@
       "id": "river-zh",
       "word": "河",
       "language": "zh",
-      "translations": { "zh": "河", "en": "river", "ja": "川", "ko": "강" },
+      "translations": {
+        "zh": "河",
+        "en": "river",
+        "ja": "川",
+        "ko": "강"
+      },
       "englishTranslation": "river",
       "pinyin": "hé",
       "romanization": {},
       "meaning": "A natural stream of water that flows across land.",
       "source": null,
       "verificationStatus": "unverified",
-      "connections": []
+      "connections": [
+        {
+          "id": "candidate-equivalent-river-zh-ja",
+          "sourceWordId": "river-zh",
+          "targetWordId": "river-ja",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://zh.wiktionary.org/wiki/%E6%B2%B3",
+            "sources": [
+              {
+                "language": "zh",
+                "label": "ZH Wiktionary: 河",
+                "url": "https://zh.wiktionary.org/wiki/%E6%B2%B3"
+              },
+              {
+                "language": "ja",
+                "label": "JA Wiktionary: 川",
+                "url": "https://ja.wiktionary.org/wiki/%E5%B7%9D"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        },
+        {
+          "id": "candidate-equivalent-river-zh-ko",
+          "sourceWordId": "river-zh",
+          "targetWordId": "river-ko",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://zh.wiktionary.org/wiki/%E6%B2%B3",
+            "sources": [
+              {
+                "language": "zh",
+                "label": "ZH Wiktionary: 河",
+                "url": "https://zh.wiktionary.org/wiki/%E6%B2%B3"
+              },
+              {
+                "language": "ko",
+                "label": "KO Wiktionary: 강",
+                "url": "https://ko.wiktionary.org/wiki/%EA%B0%95"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        }
+      ]
     },
     {
       "id": "river-ja",
       "word": "川",
       "language": "ja",
-      "translations": { "zh": "河", "en": "river", "ja": "川", "ko": "강" },
+      "translations": {
+        "zh": "河",
+        "en": "river",
+        "ja": "川",
+        "ko": "강"
+      },
       "englishTranslation": "river",
       "reading": "かわ",
-      "romanization": { "ja": "kawa" },
+      "romanization": {
+        "ja": "kawa"
+      },
       "meaning": "A natural stream of water that flows across land.",
       "source": null,
       "verificationStatus": "unverified",
-      "connections": []
+      "connections": [
+        {
+          "id": "candidate-equivalent-river-ja-ko",
+          "sourceWordId": "river-ja",
+          "targetWordId": "river-ko",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://ja.wiktionary.org/wiki/%E5%B7%9D",
+            "sources": [
+              {
+                "language": "ja",
+                "label": "JA Wiktionary: 川",
+                "url": "https://ja.wiktionary.org/wiki/%E5%B7%9D"
+              },
+              {
+                "language": "ko",
+                "label": "KO Wiktionary: 강",
+                "url": "https://ko.wiktionary.org/wiki/%EA%B0%95"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        }
+      ]
     },
     {
       "id": "river-ko",
       "word": "강",
       "language": "ko",
-      "translations": { "zh": "河", "en": "river", "ja": "川", "ko": "강" },
+      "translations": {
+        "zh": "河",
+        "en": "river",
+        "ja": "川",
+        "ko": "강"
+      },
       "englishTranslation": "river",
-      "romanization": { "ko": "gang" },
+      "romanization": {
+        "ko": "gang"
+      },
       "meaning": "A natural stream of water that flows across land.",
       "source": null,
       "verificationStatus": "unverified",
@@ -88,7 +304,12 @@
       "id": "liquid-zh",
       "word": "液体",
       "language": "zh",
-      "translations": { "zh": "液体", "en": "liquid", "ja": "液体", "ko": "액체" },
+      "translations": {
+        "zh": "液体",
+        "en": "liquid",
+        "ja": "液体",
+        "ko": "액체"
+      },
       "englishTranslation": "liquid",
       "pinyin": "yè tǐ",
       "romanization": {},
@@ -101,10 +322,17 @@
       "id": "liquid-ja",
       "word": "液体",
       "language": "ja",
-      "translations": { "zh": "液体", "en": "liquid", "ja": "液体", "ko": "액체" },
+      "translations": {
+        "zh": "液体",
+        "en": "liquid",
+        "ja": "液体",
+        "ko": "액체"
+      },
       "englishTranslation": "liquid",
       "reading": "えきたい",
-      "romanization": { "ja": "ekitai" },
+      "romanization": {
+        "ja": "ekitai"
+      },
       "meaning": "A substance that flows and takes the shape of its container.",
       "source": null,
       "verificationStatus": "unverified",
@@ -114,9 +342,16 @@
       "id": "liquid-ko",
       "word": "액체",
       "language": "ko",
-      "translations": { "zh": "液体", "en": "liquid", "ja": "液体", "ko": "액체" },
+      "translations": {
+        "zh": "液体",
+        "en": "liquid",
+        "ja": "液体",
+        "ko": "액체"
+      },
       "englishTranslation": "liquid",
-      "romanization": { "ko": "aekche" },
+      "romanization": {
+        "ko": "aekche"
+      },
       "meaning": "A substance that flows and takes the shape of its container.",
       "source": null,
       "verificationStatus": "unverified",
@@ -126,7 +361,12 @@
       "id": "rain-zh",
       "word": "雨",
       "language": "zh",
-      "translations": { "zh": "雨", "en": "rain", "ja": "雨", "ko": "비" },
+      "translations": {
+        "zh": "雨",
+        "en": "rain",
+        "ja": "雨",
+        "ko": "비"
+      },
       "englishTranslation": "rain",
       "pinyin": "yǔ",
       "romanization": {},
@@ -139,10 +379,17 @@
       "id": "rain-ja",
       "word": "雨",
       "language": "ja",
-      "translations": { "zh": "雨", "en": "rain", "ja": "雨", "ko": "비" },
+      "translations": {
+        "zh": "雨",
+        "en": "rain",
+        "ja": "雨",
+        "ko": "비"
+      },
       "englishTranslation": "rain",
       "reading": "あめ",
-      "romanization": { "ja": "ame" },
+      "romanization": {
+        "ja": "ame"
+      },
       "meaning": "Drops of water that fall from clouds.",
       "source": null,
       "verificationStatus": "unverified",
@@ -152,9 +399,16 @@
       "id": "rain-ko",
       "word": "비",
       "language": "ko",
-      "translations": { "zh": "雨", "en": "rain", "ja": "雨", "ko": "비" },
+      "translations": {
+        "zh": "雨",
+        "en": "rain",
+        "ja": "雨",
+        "ko": "비"
+      },
       "englishTranslation": "rain",
-      "romanization": { "ko": "bi" },
+      "romanization": {
+        "ko": "bi"
+      },
       "meaning": "Drops of water that fall from clouds.",
       "source": null,
       "verificationStatus": "unverified",
@@ -164,35 +418,143 @@
       "id": "hope-zh",
       "word": "希望",
       "language": "zh",
-      "translations": { "zh": "希望", "en": "hope", "ja": "希望", "ko": "희망" },
+      "translations": {
+        "zh": "希望",
+        "en": "hope",
+        "ja": "希望",
+        "ko": "희망"
+      },
       "englishTranslation": "hope",
       "pinyin": "xī wàng",
       "romanization": {},
       "meaning": "A feeling of wanting something to happen and believing it may.",
       "source": null,
       "verificationStatus": "unverified",
-      "connections": []
+      "connections": [
+        {
+          "id": "candidate-equivalent-hope-zh-ja",
+          "sourceWordId": "hope-zh",
+          "targetWordId": "hope-ja",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://zh.wiktionary.org/wiki/%E5%B8%8C%E6%9C%9B",
+            "sources": [
+              {
+                "language": "zh",
+                "label": "ZH Wiktionary: 希望",
+                "url": "https://zh.wiktionary.org/wiki/%E5%B8%8C%E6%9C%9B"
+              },
+              {
+                "language": "ja",
+                "label": "JA Wiktionary: 希望",
+                "url": "https://ja.wiktionary.org/wiki/%E5%B8%8C%E6%9C%9B"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        },
+        {
+          "id": "candidate-equivalent-hope-zh-ko",
+          "sourceWordId": "hope-zh",
+          "targetWordId": "hope-ko",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://zh.wiktionary.org/wiki/%E5%B8%8C%E6%9C%9B",
+            "sources": [
+              {
+                "language": "zh",
+                "label": "ZH Wiktionary: 希望",
+                "url": "https://zh.wiktionary.org/wiki/%E5%B8%8C%E6%9C%9B"
+              },
+              {
+                "language": "ko",
+                "label": "KO Wiktionary: 희망",
+                "url": "https://ko.wiktionary.org/wiki/%ED%9D%AC%EB%A7%9D"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        }
+      ]
     },
     {
       "id": "hope-ja",
       "word": "希望",
       "language": "ja",
-      "translations": { "zh": "希望", "en": "hope", "ja": "希望", "ko": "희망" },
+      "translations": {
+        "zh": "希望",
+        "en": "hope",
+        "ja": "希望",
+        "ko": "희망"
+      },
       "englishTranslation": "hope",
       "reading": "きぼう",
-      "romanization": { "ja": "kibō" },
+      "romanization": {
+        "ja": "kibō"
+      },
       "meaning": "A feeling of wanting something to happen and believing it may.",
       "source": null,
       "verificationStatus": "unverified",
-      "connections": []
+      "connections": [
+        {
+          "id": "candidate-equivalent-hope-ja-ko",
+          "sourceWordId": "hope-ja",
+          "targetWordId": "hope-ko",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://ja.wiktionary.org/wiki/%E5%B8%8C%E6%9C%9B",
+            "sources": [
+              {
+                "language": "ja",
+                "label": "JA Wiktionary: 希望",
+                "url": "https://ja.wiktionary.org/wiki/%E5%B8%8C%E6%9C%9B"
+              },
+              {
+                "language": "ko",
+                "label": "KO Wiktionary: 희망",
+                "url": "https://ko.wiktionary.org/wiki/%ED%9D%AC%EB%A7%9D"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        }
+      ]
     },
     {
       "id": "hope-ko",
       "word": "희망",
       "language": "ko",
-      "translations": { "zh": "希望", "en": "hope", "ja": "希望", "ko": "희망" },
+      "translations": {
+        "zh": "希望",
+        "en": "hope",
+        "ja": "希望",
+        "ko": "희망"
+      },
       "englishTranslation": "hope",
-      "romanization": { "ko": "huimang" },
+      "romanization": {
+        "ko": "huimang"
+      },
       "meaning": "A feeling of wanting something to happen and believing it may.",
       "source": null,
       "verificationStatus": "unverified",
@@ -202,7 +564,12 @@
       "id": "longing-zh",
       "word": "盼望",
       "language": "zh",
-      "translations": { "zh": "盼望", "en": "longing", "ja": "願い", "ko": "바람" },
+      "translations": {
+        "zh": "盼望",
+        "en": "longing",
+        "ja": "願い",
+        "ko": "바람"
+      },
       "englishTranslation": "longing",
       "pinyin": "pàn wàng",
       "romanization": {},
@@ -215,10 +582,17 @@
       "id": "longing-ja",
       "word": "願い",
       "language": "ja",
-      "translations": { "zh": "盼望", "en": "longing", "ja": "願い", "ko": "바람" },
+      "translations": {
+        "zh": "盼望",
+        "en": "longing",
+        "ja": "願い",
+        "ko": "바람"
+      },
       "englishTranslation": "longing",
       "reading": "ねがい",
-      "romanization": { "ja": "negai" },
+      "romanization": {
+        "ja": "negai"
+      },
       "meaning": "A strong feeling of wanting or eagerly expecting something.",
       "source": null,
       "verificationStatus": "unverified",
@@ -228,9 +602,16 @@
       "id": "longing-ko",
       "word": "바람",
       "language": "ko",
-      "translations": { "zh": "盼望", "en": "longing", "ja": "願い", "ko": "바람" },
+      "translations": {
+        "zh": "盼望",
+        "en": "longing",
+        "ja": "願い",
+        "ko": "바람"
+      },
       "englishTranslation": "longing",
-      "romanization": { "ko": "baram" },
+      "romanization": {
+        "ko": "baram"
+      },
       "meaning": "A strong feeling of wanting or eagerly expecting something.",
       "source": null,
       "verificationStatus": "unverified",
@@ -240,45 +621,159 @@
       "id": "day-zh",
       "word": "白天",
       "language": "zh",
-      "translations": { "zh": "白天", "en": "daytime", "ja": "昼", "ko": "낮" },
+      "translations": {
+        "zh": "白天",
+        "en": "daytime",
+        "ja": "昼",
+        "ko": "낮"
+      },
       "englishTranslation": "daytime",
       "pinyin": "bái tiān",
       "romanization": {},
       "meaning": "The lighter part of each 24-hour cycle, between sunrise and sunset.",
       "source": null,
       "verificationStatus": "unverified",
-      "connections": []
+      "connections": [
+        {
+          "id": "candidate-antonym-day-night-zh",
+          "sourceWordId": "day-zh",
+          "targetWordId": "night-zh",
+          "productRelationType": "antonym",
+          "rawRelationType": "dictionary-definition-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://zh.wiktionary.org/wiki/%E7%99%BD%E5%A4%A9",
+            "sources": [
+              {
+                "language": "zh",
+                "label": "ZH Wiktionary: 白天",
+                "url": "https://zh.wiktionary.org/wiki/%E7%99%BD%E5%A4%A9"
+              },
+              {
+                "language": "zh",
+                "label": "ZH Wiktionary: 夜",
+                "url": "https://zh.wiktionary.org/wiki/%E5%A4%9C"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        }
+      ]
     },
     {
       "id": "day-ja",
       "word": "昼",
       "language": "ja",
-      "translations": { "zh": "白天", "en": "daytime", "ja": "昼", "ko": "낮" },
+      "translations": {
+        "zh": "白天",
+        "en": "daytime",
+        "ja": "昼",
+        "ko": "낮"
+      },
       "englishTranslation": "daytime",
       "reading": "ひる",
-      "romanization": { "ja": "hiru" },
+      "romanization": {
+        "ja": "hiru"
+      },
       "meaning": "The lighter part of each 24-hour cycle, between sunrise and sunset.",
       "source": null,
       "verificationStatus": "unverified",
-      "connections": []
+      "connections": [
+        {
+          "id": "candidate-antonym-day-night-ja",
+          "sourceWordId": "day-ja",
+          "targetWordId": "night-ja",
+          "productRelationType": "antonym",
+          "rawRelationType": "dictionary-definition-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://ja.wiktionary.org/wiki/%E6%98%BC",
+            "sources": [
+              {
+                "language": "ja",
+                "label": "JA Wiktionary: 昼",
+                "url": "https://ja.wiktionary.org/wiki/%E6%98%BC"
+              },
+              {
+                "language": "ja",
+                "label": "JA Wiktionary: 夜",
+                "url": "https://ja.wiktionary.org/wiki/%E5%A4%9C"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        }
+      ]
     },
     {
       "id": "day-ko",
       "word": "낮",
       "language": "ko",
-      "translations": { "zh": "白天", "en": "daytime", "ja": "昼", "ko": "낮" },
+      "translations": {
+        "zh": "白天",
+        "en": "daytime",
+        "ja": "昼",
+        "ko": "낮"
+      },
       "englishTranslation": "daytime",
-      "romanization": { "ko": "nat" },
+      "romanization": {
+        "ko": "nat"
+      },
       "meaning": "The lighter part of each 24-hour cycle, between sunrise and sunset.",
       "source": null,
       "verificationStatus": "unverified",
-      "connections": []
+      "connections": [
+        {
+          "id": "candidate-antonym-day-night-ko",
+          "sourceWordId": "day-ko",
+          "targetWordId": "night-ko",
+          "productRelationType": "antonym",
+          "rawRelationType": "dictionary-definition-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://ko.wiktionary.org/wiki/%EB%82%AE",
+            "sources": [
+              {
+                "language": "ko",
+                "label": "KO Wiktionary: 낮",
+                "url": "https://ko.wiktionary.org/wiki/%EB%82%AE"
+              },
+              {
+                "language": "ko",
+                "label": "KO Wiktionary: 밤",
+                "url": "https://ko.wiktionary.org/wiki/%EB%B0%A4"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        }
+      ]
     },
     {
       "id": "night-zh",
       "word": "夜",
       "language": "zh",
-      "translations": { "zh": "夜", "en": "night", "ja": "夜", "ko": "밤" },
+      "translations": {
+        "zh": "夜",
+        "en": "night",
+        "ja": "夜",
+        "ko": "밤"
+      },
       "englishTranslation": "night",
       "pinyin": "yè",
       "romanization": {},
@@ -291,10 +786,17 @@
       "id": "night-ja",
       "word": "夜",
       "language": "ja",
-      "translations": { "zh": "夜", "en": "night", "ja": "夜", "ko": "밤" },
+      "translations": {
+        "zh": "夜",
+        "en": "night",
+        "ja": "夜",
+        "ko": "밤"
+      },
       "englishTranslation": "night",
       "reading": "よる",
-      "romanization": { "ja": "yoru" },
+      "romanization": {
+        "ja": "yoru"
+      },
       "meaning": "The dark part of each 24-hour cycle, from sunset to sunrise.",
       "source": null,
       "verificationStatus": "unverified",
@@ -304,9 +806,16 @@
       "id": "night-ko",
       "word": "밤",
       "language": "ko",
-      "translations": { "zh": "夜", "en": "night", "ja": "夜", "ko": "밤" },
+      "translations": {
+        "zh": "夜",
+        "en": "night",
+        "ja": "夜",
+        "ko": "밤"
+      },
       "englishTranslation": "night",
-      "romanization": { "ko": "bam" },
+      "romanization": {
+        "ko": "bam"
+      },
       "meaning": "The dark part of each 24-hour cycle, from sunset to sunrise.",
       "source": null,
       "verificationStatus": "unverified",
@@ -316,7 +825,12 @@
       "id": "soil-zh",
       "word": "土",
       "language": "zh",
-      "translations": { "zh": "土", "en": "soil", "ja": "土", "ko": "흙" },
+      "translations": {
+        "zh": "土",
+        "en": "soil",
+        "ja": "土",
+        "ko": "흙"
+      },
       "englishTranslation": "soil",
       "pinyin": "tǔ",
       "romanization": {},
@@ -329,10 +843,17 @@
       "id": "soil-ja",
       "word": "土",
       "language": "ja",
-      "translations": { "zh": "土", "en": "soil", "ja": "土", "ko": "흙" },
+      "translations": {
+        "zh": "土",
+        "en": "soil",
+        "ja": "土",
+        "ko": "흙"
+      },
       "englishTranslation": "soil",
       "reading": "つち",
-      "romanization": { "ja": "tsuchi" },
+      "romanization": {
+        "ja": "tsuchi"
+      },
       "meaning": "The upper layer of earth where plants grow.",
       "source": null,
       "verificationStatus": "unverified",
@@ -342,9 +863,16 @@
       "id": "soil-ko",
       "word": "흙",
       "language": "ko",
-      "translations": { "zh": "土", "en": "soil", "ja": "土", "ko": "흙" },
+      "translations": {
+        "zh": "土",
+        "en": "soil",
+        "ja": "土",
+        "ko": "흙"
+      },
       "englishTranslation": "soil",
-      "romanization": { "ko": "heuk" },
+      "romanization": {
+        "ko": "heuk"
+      },
       "meaning": "The upper layer of earth where plants grow.",
       "source": null,
       "verificationStatus": "unverified",
@@ -354,7 +882,12 @@
       "id": "scholar-zh",
       "word": "士",
       "language": "zh",
-      "translations": { "zh": "士", "en": "scholar", "ja": "士", "ko": "선비" },
+      "translations": {
+        "zh": "士",
+        "en": "scholar",
+        "ja": "士",
+        "ko": "선비"
+      },
       "englishTranslation": "scholar",
       "pinyin": "shì",
       "romanization": {},
@@ -367,10 +900,17 @@
       "id": "scholar-ja",
       "word": "士",
       "language": "ja",
-      "translations": { "zh": "士", "en": "scholar", "ja": "士", "ko": "선비" },
+      "translations": {
+        "zh": "士",
+        "en": "scholar",
+        "ja": "士",
+        "ko": "선비"
+      },
       "englishTranslation": "scholar",
       "reading": "し",
-      "romanization": { "ja": "shi" },
+      "romanization": {
+        "ja": "shi"
+      },
       "meaning": "A learned person; in Chinese, 士 can also refer to a person of a particular rank or role.",
       "source": null,
       "verificationStatus": "unverified",
@@ -380,11 +920,1797 @@
       "id": "scholar-ko",
       "word": "선비",
       "language": "ko",
-      "translations": { "zh": "士", "en": "scholar", "ja": "士", "ko": "선비" },
+      "translations": {
+        "zh": "士",
+        "en": "scholar",
+        "ja": "士",
+        "ko": "선비"
+      },
       "englishTranslation": "scholar",
-      "romanization": { "ko": "seonbi" },
+      "romanization": {
+        "ko": "seonbi"
+      },
       "meaning": "A learned person; in Chinese, 士 can also refer to a person of a particular rank or role.",
       "source": null,
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "fire-zh",
+      "word": "火",
+      "language": "zh",
+      "translations": {
+        "zh": "火",
+        "ja": "火",
+        "ko": "불",
+        "en": "fire"
+      },
+      "englishTranslation": "fire",
+      "romanization": {},
+      "meaning": "The common ZH word for fire.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E7%81%AB"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "fire-ja",
+      "word": "火",
+      "language": "ja",
+      "translations": {
+        "zh": "火",
+        "ja": "火",
+        "ko": "불",
+        "en": "fire"
+      },
+      "englishTranslation": "fire",
+      "romanization": {
+        "ja": "hi"
+      },
+      "meaning": "The common JA word for fire.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E7%81%AB"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "ひ"
+    },
+    {
+      "id": "fire-ko",
+      "word": "불",
+      "language": "ko",
+      "translations": {
+        "zh": "火",
+        "ja": "火",
+        "ko": "불",
+        "en": "fire"
+      },
+      "englishTranslation": "fire",
+      "romanization": {},
+      "meaning": "The common KO word for fire.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EB%B6%88"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "wind-zh",
+      "word": "风",
+      "language": "zh",
+      "translations": {
+        "zh": "风",
+        "ja": "風",
+        "ko": "바람",
+        "en": "wind"
+      },
+      "englishTranslation": "wind",
+      "romanization": {},
+      "meaning": "The common ZH word for wind.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E9%A3%8E"
+      },
+      "verificationStatus": "unverified",
+      "connections": [
+        {
+          "id": "candidate-equivalent-wind-zh-ja",
+          "sourceWordId": "wind-zh",
+          "targetWordId": "wind-ja",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://zh.wiktionary.org/wiki/%E9%A3%8E",
+            "sources": [
+              {
+                "language": "zh",
+                "label": "ZH Wiktionary: 风",
+                "url": "https://zh.wiktionary.org/wiki/%E9%A3%8E"
+              },
+              {
+                "language": "ja",
+                "label": "JA Wiktionary: 風",
+                "url": "https://ja.wiktionary.org/wiki/%E9%A2%A8"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        },
+        {
+          "id": "candidate-equivalent-wind-zh-ko",
+          "sourceWordId": "wind-zh",
+          "targetWordId": "wind-ko",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://zh.wiktionary.org/wiki/%E9%A3%8E",
+            "sources": [
+              {
+                "language": "zh",
+                "label": "ZH Wiktionary: 风",
+                "url": "https://zh.wiktionary.org/wiki/%E9%A3%8E"
+              },
+              {
+                "language": "ko",
+                "label": "KO Wiktionary: 바람",
+                "url": "https://ko.wiktionary.org/wiki/%EB%B0%94%EB%9E%8C"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wind-ja",
+      "word": "風",
+      "language": "ja",
+      "translations": {
+        "zh": "风",
+        "ja": "風",
+        "ko": "바람",
+        "en": "wind"
+      },
+      "englishTranslation": "wind",
+      "romanization": {
+        "ja": "kaze"
+      },
+      "meaning": "The common JA word for wind.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E9%A2%A8"
+      },
+      "verificationStatus": "unverified",
+      "connections": [
+        {
+          "id": "candidate-equivalent-wind-ja-ko",
+          "sourceWordId": "wind-ja",
+          "targetWordId": "wind-ko",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://ja.wiktionary.org/wiki/%E9%A2%A8",
+            "sources": [
+              {
+                "language": "ja",
+                "label": "JA Wiktionary: 風",
+                "url": "https://ja.wiktionary.org/wiki/%E9%A2%A8"
+              },
+              {
+                "language": "ko",
+                "label": "KO Wiktionary: 바람",
+                "url": "https://ko.wiktionary.org/wiki/%EB%B0%94%EB%9E%8C"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        }
+      ],
+      "reading": "かぜ"
+    },
+    {
+      "id": "wind-ko",
+      "word": "바람",
+      "language": "ko",
+      "translations": {
+        "zh": "风",
+        "ja": "風",
+        "ko": "바람",
+        "en": "wind"
+      },
+      "englishTranslation": "wind",
+      "romanization": {},
+      "meaning": "The common KO word for wind.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EB%B0%94%EB%9E%8C"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "snow-zh",
+      "word": "雪",
+      "language": "zh",
+      "translations": {
+        "zh": "雪",
+        "ja": "雪",
+        "ko": "눈",
+        "en": "snow"
+      },
+      "englishTranslation": "snow",
+      "romanization": {},
+      "meaning": "The common ZH word for snow.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E9%9B%AA"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "snow-ja",
+      "word": "雪",
+      "language": "ja",
+      "translations": {
+        "zh": "雪",
+        "ja": "雪",
+        "ko": "눈",
+        "en": "snow"
+      },
+      "englishTranslation": "snow",
+      "romanization": {
+        "ja": "yuki"
+      },
+      "meaning": "The common JA word for snow.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E9%9B%AA"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "ゆき"
+    },
+    {
+      "id": "snow-ko",
+      "word": "눈",
+      "language": "ko",
+      "translations": {
+        "zh": "雪",
+        "ja": "雪",
+        "ko": "눈",
+        "en": "snow"
+      },
+      "englishTranslation": "snow",
+      "romanization": {},
+      "meaning": "The common KO word for snow.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EB%88%88"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "mountain-zh",
+      "word": "山",
+      "language": "zh",
+      "translations": {
+        "zh": "山",
+        "ja": "山",
+        "ko": "산",
+        "en": "mountain"
+      },
+      "englishTranslation": "mountain",
+      "romanization": {},
+      "meaning": "The common ZH word for mountain.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E5%B1%B1"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "mountain-ja",
+      "word": "山",
+      "language": "ja",
+      "translations": {
+        "zh": "山",
+        "ja": "山",
+        "ko": "산",
+        "en": "mountain"
+      },
+      "englishTranslation": "mountain",
+      "romanization": {
+        "ja": "yama"
+      },
+      "meaning": "The common JA word for mountain.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E5%B1%B1"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "やま"
+    },
+    {
+      "id": "mountain-ko",
+      "word": "산",
+      "language": "ko",
+      "translations": {
+        "zh": "山",
+        "ja": "山",
+        "ko": "산",
+        "en": "mountain"
+      },
+      "englishTranslation": "mountain",
+      "romanization": {},
+      "meaning": "The common KO word for mountain.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EC%82%B0"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "sea-zh",
+      "word": "海",
+      "language": "zh",
+      "translations": {
+        "zh": "海",
+        "ja": "海",
+        "ko": "바다",
+        "en": "sea"
+      },
+      "englishTranslation": "sea",
+      "romanization": {},
+      "meaning": "The common ZH word for sea.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E6%B5%B7"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "sea-ja",
+      "word": "海",
+      "language": "ja",
+      "translations": {
+        "zh": "海",
+        "ja": "海",
+        "ko": "바다",
+        "en": "sea"
+      },
+      "englishTranslation": "sea",
+      "romanization": {
+        "ja": "umi"
+      },
+      "meaning": "The common JA word for sea.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E6%B5%B7"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "うみ"
+    },
+    {
+      "id": "sea-ko",
+      "word": "바다",
+      "language": "ko",
+      "translations": {
+        "zh": "海",
+        "ja": "海",
+        "ko": "바다",
+        "en": "sea"
+      },
+      "englishTranslation": "sea",
+      "romanization": {},
+      "meaning": "The common KO word for sea.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EB%B0%94%EB%8B%A4"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "sun-zh",
+      "word": "太阳",
+      "language": "zh",
+      "translations": {
+        "zh": "太阳",
+        "ja": "太陽",
+        "ko": "태양",
+        "en": "sun"
+      },
+      "englishTranslation": "sun",
+      "romanization": {},
+      "meaning": "The common ZH word for sun.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E5%A4%AA%E9%98%B3"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "sun-ja",
+      "word": "太陽",
+      "language": "ja",
+      "translations": {
+        "zh": "太阳",
+        "ja": "太陽",
+        "ko": "태양",
+        "en": "sun"
+      },
+      "englishTranslation": "sun",
+      "romanization": {
+        "ja": "taiyou"
+      },
+      "meaning": "The common JA word for sun.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E5%A4%AA%E9%99%BD"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "たいよう"
+    },
+    {
+      "id": "sun-ko",
+      "word": "태양",
+      "language": "ko",
+      "translations": {
+        "zh": "太阳",
+        "ja": "太陽",
+        "ko": "태양",
+        "en": "sun"
+      },
+      "englishTranslation": "sun",
+      "romanization": {},
+      "meaning": "The common KO word for sun.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%ED%83%9C%EC%96%91"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "moon-zh",
+      "word": "月亮",
+      "language": "zh",
+      "translations": {
+        "zh": "月亮",
+        "ja": "月",
+        "ko": "달",
+        "en": "moon"
+      },
+      "englishTranslation": "moon",
+      "romanization": {},
+      "meaning": "The common ZH word for moon.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E6%9C%88%E4%BA%AE"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "moon-ja",
+      "word": "月",
+      "language": "ja",
+      "translations": {
+        "zh": "月亮",
+        "ja": "月",
+        "ko": "달",
+        "en": "moon"
+      },
+      "englishTranslation": "moon",
+      "romanization": {
+        "ja": "tsuki"
+      },
+      "meaning": "The common JA word for moon.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E6%9C%88"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "つき"
+    },
+    {
+      "id": "moon-ko",
+      "word": "달",
+      "language": "ko",
+      "translations": {
+        "zh": "月亮",
+        "ja": "月",
+        "ko": "달",
+        "en": "moon"
+      },
+      "englishTranslation": "moon",
+      "romanization": {},
+      "meaning": "The common KO word for moon.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EB%8B%AC"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "sky-zh",
+      "word": "天空",
+      "language": "zh",
+      "translations": {
+        "zh": "天空",
+        "ja": "空",
+        "ko": "하늘",
+        "en": "sky"
+      },
+      "englishTranslation": "sky",
+      "romanization": {},
+      "meaning": "The common ZH word for sky.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E5%A4%A9%E7%A9%BA"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "sky-ja",
+      "word": "空",
+      "language": "ja",
+      "translations": {
+        "zh": "天空",
+        "ja": "空",
+        "ko": "하늘",
+        "en": "sky"
+      },
+      "englishTranslation": "sky",
+      "romanization": {
+        "ja": "sora"
+      },
+      "meaning": "The common JA word for sky.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E7%A9%BA"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "そら"
+    },
+    {
+      "id": "sky-ko",
+      "word": "하늘",
+      "language": "ko",
+      "translations": {
+        "zh": "天空",
+        "ja": "空",
+        "ko": "하늘",
+        "en": "sky"
+      },
+      "englishTranslation": "sky",
+      "romanization": {},
+      "meaning": "The common KO word for sky.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%ED%95%98%EB%8A%98"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "morning-zh",
+      "word": "早晨",
+      "language": "zh",
+      "translations": {
+        "zh": "早晨",
+        "ja": "朝",
+        "ko": "아침",
+        "en": "morning"
+      },
+      "englishTranslation": "morning",
+      "romanization": {},
+      "meaning": "The common ZH word for morning.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E6%97%A9%E6%99%A8"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "morning-ja",
+      "word": "朝",
+      "language": "ja",
+      "translations": {
+        "zh": "早晨",
+        "ja": "朝",
+        "ko": "아침",
+        "en": "morning"
+      },
+      "englishTranslation": "morning",
+      "romanization": {
+        "ja": "asa"
+      },
+      "meaning": "The common JA word for morning.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E6%9C%9D"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "あさ"
+    },
+    {
+      "id": "morning-ko",
+      "word": "아침",
+      "language": "ko",
+      "translations": {
+        "zh": "早晨",
+        "ja": "朝",
+        "ko": "아침",
+        "en": "morning"
+      },
+      "englishTranslation": "morning",
+      "romanization": {},
+      "meaning": "The common KO word for morning.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EC%95%84%EC%B9%A8"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "today-zh",
+      "word": "今天",
+      "language": "zh",
+      "translations": {
+        "zh": "今天",
+        "ja": "今日",
+        "ko": "오늘",
+        "en": "today"
+      },
+      "englishTranslation": "today",
+      "romanization": {},
+      "meaning": "The common ZH word for today.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E4%BB%8A%E5%A4%A9"
+      },
+      "verificationStatus": "unverified",
+      "connections": [
+        {
+          "id": "candidate-equivalent-today-zh-ja",
+          "sourceWordId": "today-zh",
+          "targetWordId": "today-ja",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://zh.wiktionary.org/wiki/%E4%BB%8A%E5%A4%A9",
+            "sources": [
+              {
+                "language": "zh",
+                "label": "ZH Wiktionary: 今天",
+                "url": "https://zh.wiktionary.org/wiki/%E4%BB%8A%E5%A4%A9"
+              },
+              {
+                "language": "ja",
+                "label": "JA Wiktionary: 今日",
+                "url": "https://ja.wiktionary.org/wiki/%E4%BB%8A%E6%97%A5"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        },
+        {
+          "id": "candidate-equivalent-today-zh-ko",
+          "sourceWordId": "today-zh",
+          "targetWordId": "today-ko",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://zh.wiktionary.org/wiki/%E4%BB%8A%E5%A4%A9",
+            "sources": [
+              {
+                "language": "zh",
+                "label": "ZH Wiktionary: 今天",
+                "url": "https://zh.wiktionary.org/wiki/%E4%BB%8A%E5%A4%A9"
+              },
+              {
+                "language": "ko",
+                "label": "KO Wiktionary: 오늘",
+                "url": "https://ko.wiktionary.org/wiki/%EC%98%A4%EB%8A%98"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        }
+      ]
+    },
+    {
+      "id": "today-ja",
+      "word": "今日",
+      "language": "ja",
+      "translations": {
+        "zh": "今天",
+        "ja": "今日",
+        "ko": "오늘",
+        "en": "today"
+      },
+      "englishTranslation": "today",
+      "romanization": {
+        "ja": "kyou"
+      },
+      "meaning": "The common JA word for today.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E4%BB%8A%E6%97%A5"
+      },
+      "verificationStatus": "unverified",
+      "connections": [
+        {
+          "id": "candidate-equivalent-today-ja-ko",
+          "sourceWordId": "today-ja",
+          "targetWordId": "today-ko",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://ja.wiktionary.org/wiki/%E4%BB%8A%E6%97%A5",
+            "sources": [
+              {
+                "language": "ja",
+                "label": "JA Wiktionary: 今日",
+                "url": "https://ja.wiktionary.org/wiki/%E4%BB%8A%E6%97%A5"
+              },
+              {
+                "language": "ko",
+                "label": "KO Wiktionary: 오늘",
+                "url": "https://ko.wiktionary.org/wiki/%EC%98%A4%EB%8A%98"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        }
+      ],
+      "reading": "きょう"
+    },
+    {
+      "id": "today-ko",
+      "word": "오늘",
+      "language": "ko",
+      "translations": {
+        "zh": "今天",
+        "ja": "今日",
+        "ko": "오늘",
+        "en": "today"
+      },
+      "englishTranslation": "today",
+      "romanization": {},
+      "meaning": "The common KO word for today.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EC%98%A4%EB%8A%98"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "tomorrow-zh",
+      "word": "明天",
+      "language": "zh",
+      "translations": {
+        "zh": "明天",
+        "ja": "明日",
+        "ko": "내일",
+        "en": "tomorrow"
+      },
+      "englishTranslation": "tomorrow",
+      "romanization": {},
+      "meaning": "The common ZH word for tomorrow.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E6%98%8E%E5%A4%A9"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "tomorrow-ja",
+      "word": "明日",
+      "language": "ja",
+      "translations": {
+        "zh": "明天",
+        "ja": "明日",
+        "ko": "내일",
+        "en": "tomorrow"
+      },
+      "englishTranslation": "tomorrow",
+      "romanization": {
+        "ja": "ashita"
+      },
+      "meaning": "The common JA word for tomorrow.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E6%98%8E%E6%97%A5"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "あした"
+    },
+    {
+      "id": "tomorrow-ko",
+      "word": "내일",
+      "language": "ko",
+      "translations": {
+        "zh": "明天",
+        "ja": "明日",
+        "ko": "내일",
+        "en": "tomorrow"
+      },
+      "englishTranslation": "tomorrow",
+      "romanization": {},
+      "meaning": "The common KO word for tomorrow.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EB%82%B4%EC%9D%BC"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "yesterday-zh",
+      "word": "昨天",
+      "language": "zh",
+      "translations": {
+        "zh": "昨天",
+        "ja": "昨日",
+        "ko": "어제",
+        "en": "yesterday"
+      },
+      "englishTranslation": "yesterday",
+      "romanization": {},
+      "meaning": "The common ZH word for yesterday.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E6%98%A8%E5%A4%A9"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "yesterday-ja",
+      "word": "昨日",
+      "language": "ja",
+      "translations": {
+        "zh": "昨天",
+        "ja": "昨日",
+        "ko": "어제",
+        "en": "yesterday"
+      },
+      "englishTranslation": "yesterday",
+      "romanization": {
+        "ja": "kinou"
+      },
+      "meaning": "The common JA word for yesterday.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E6%98%A8%E6%97%A5"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "きのう"
+    },
+    {
+      "id": "yesterday-ko",
+      "word": "어제",
+      "language": "ko",
+      "translations": {
+        "zh": "昨天",
+        "ja": "昨日",
+        "ko": "어제",
+        "en": "yesterday"
+      },
+      "englishTranslation": "yesterday",
+      "romanization": {},
+      "meaning": "The common KO word for yesterday.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EC%96%B4%EC%A0%9C"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "spring-zh",
+      "word": "春天",
+      "language": "zh",
+      "translations": {
+        "zh": "春天",
+        "ja": "春",
+        "ko": "봄",
+        "en": "spring"
+      },
+      "englishTranslation": "spring",
+      "romanization": {},
+      "meaning": "The common ZH word for spring.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E6%98%A5%E5%A4%A9"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "spring-ja",
+      "word": "春",
+      "language": "ja",
+      "translations": {
+        "zh": "春天",
+        "ja": "春",
+        "ko": "봄",
+        "en": "spring"
+      },
+      "englishTranslation": "spring",
+      "romanization": {
+        "ja": "haru"
+      },
+      "meaning": "The common JA word for spring.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E6%98%A5"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "はる"
+    },
+    {
+      "id": "spring-ko",
+      "word": "봄",
+      "language": "ko",
+      "translations": {
+        "zh": "春天",
+        "ja": "春",
+        "ko": "봄",
+        "en": "spring"
+      },
+      "englishTranslation": "spring",
+      "romanization": {},
+      "meaning": "The common KO word for spring.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EB%B4%84"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "summer-zh",
+      "word": "夏天",
+      "language": "zh",
+      "translations": {
+        "zh": "夏天",
+        "ja": "夏",
+        "ko": "여름",
+        "en": "summer"
+      },
+      "englishTranslation": "summer",
+      "romanization": {},
+      "meaning": "The common ZH word for summer.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E5%A4%8F%E5%A4%A9"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "summer-ja",
+      "word": "夏",
+      "language": "ja",
+      "translations": {
+        "zh": "夏天",
+        "ja": "夏",
+        "ko": "여름",
+        "en": "summer"
+      },
+      "englishTranslation": "summer",
+      "romanization": {
+        "ja": "natsu"
+      },
+      "meaning": "The common JA word for summer.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E5%A4%8F"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "なつ"
+    },
+    {
+      "id": "summer-ko",
+      "word": "여름",
+      "language": "ko",
+      "translations": {
+        "zh": "夏天",
+        "ja": "夏",
+        "ko": "여름",
+        "en": "summer"
+      },
+      "englishTranslation": "summer",
+      "romanization": {},
+      "meaning": "The common KO word for summer.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EC%97%AC%EB%A6%84"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "autumn-zh",
+      "word": "秋天",
+      "language": "zh",
+      "translations": {
+        "zh": "秋天",
+        "ja": "秋",
+        "ko": "가을",
+        "en": "autumn"
+      },
+      "englishTranslation": "autumn",
+      "romanization": {},
+      "meaning": "The common ZH word for autumn.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E7%A7%8B%E5%A4%A9"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "autumn-ja",
+      "word": "秋",
+      "language": "ja",
+      "translations": {
+        "zh": "秋天",
+        "ja": "秋",
+        "ko": "가을",
+        "en": "autumn"
+      },
+      "englishTranslation": "autumn",
+      "romanization": {
+        "ja": "aki"
+      },
+      "meaning": "The common JA word for autumn.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E7%A7%8B"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "あき"
+    },
+    {
+      "id": "autumn-ko",
+      "word": "가을",
+      "language": "ko",
+      "translations": {
+        "zh": "秋天",
+        "ja": "秋",
+        "ko": "가을",
+        "en": "autumn"
+      },
+      "englishTranslation": "autumn",
+      "romanization": {},
+      "meaning": "The common KO word for autumn.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EA%B0%80%EC%9D%84"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "winter-zh",
+      "word": "冬天",
+      "language": "zh",
+      "translations": {
+        "zh": "冬天",
+        "ja": "冬",
+        "ko": "겨울",
+        "en": "winter"
+      },
+      "englishTranslation": "winter",
+      "romanization": {},
+      "meaning": "The common ZH word for winter.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E5%86%AC%E5%A4%A9"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "winter-ja",
+      "word": "冬",
+      "language": "ja",
+      "translations": {
+        "zh": "冬天",
+        "ja": "冬",
+        "ko": "겨울",
+        "en": "winter"
+      },
+      "englishTranslation": "winter",
+      "romanization": {
+        "ja": "fuyu"
+      },
+      "meaning": "The common JA word for winter.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E5%86%AC"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "ふゆ"
+    },
+    {
+      "id": "winter-ko",
+      "word": "겨울",
+      "language": "ko",
+      "translations": {
+        "zh": "冬天",
+        "ja": "冬",
+        "ko": "겨울",
+        "en": "winter"
+      },
+      "englishTranslation": "winter",
+      "romanization": {},
+      "meaning": "The common KO word for winter.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EA%B2%A8%EC%9A%B8"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "person-zh",
+      "word": "人",
+      "language": "zh",
+      "translations": {
+        "zh": "人",
+        "ja": "人",
+        "ko": "사람",
+        "en": "person"
+      },
+      "englishTranslation": "person",
+      "romanization": {},
+      "meaning": "The common ZH word for person.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E4%BA%BA"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "person-ja",
+      "word": "人",
+      "language": "ja",
+      "translations": {
+        "zh": "人",
+        "ja": "人",
+        "ko": "사람",
+        "en": "person"
+      },
+      "englishTranslation": "person",
+      "romanization": {
+        "ja": "hito"
+      },
+      "meaning": "The common JA word for person.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E4%BA%BA"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "ひと"
+    },
+    {
+      "id": "person-ko",
+      "word": "사람",
+      "language": "ko",
+      "translations": {
+        "zh": "人",
+        "ja": "人",
+        "ko": "사람",
+        "en": "person"
+      },
+      "englishTranslation": "person",
+      "romanization": {},
+      "meaning": "The common KO word for person.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EC%82%AC%EB%9E%8C"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "friend-zh",
+      "word": "朋友",
+      "language": "zh",
+      "translations": {
+        "zh": "朋友",
+        "ja": "友達",
+        "ko": "친구",
+        "en": "friend"
+      },
+      "englishTranslation": "friend",
+      "romanization": {},
+      "meaning": "The common ZH word for friend.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E6%9C%8B%E5%8F%8B"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "friend-ja",
+      "word": "友達",
+      "language": "ja",
+      "translations": {
+        "zh": "朋友",
+        "ja": "友達",
+        "ko": "친구",
+        "en": "friend"
+      },
+      "englishTranslation": "friend",
+      "romanization": {
+        "ja": "tomodachi"
+      },
+      "meaning": "The common JA word for friend.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E5%8F%8B%E9%81%94"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "ともだち"
+    },
+    {
+      "id": "friend-ko",
+      "word": "친구",
+      "language": "ko",
+      "translations": {
+        "zh": "朋友",
+        "ja": "友達",
+        "ko": "친구",
+        "en": "friend"
+      },
+      "englishTranslation": "friend",
+      "romanization": {},
+      "meaning": "The common KO word for friend.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EC%B9%9C%EA%B5%AC"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "father-zh",
+      "word": "父亲",
+      "language": "zh",
+      "translations": {
+        "zh": "父亲",
+        "ja": "父",
+        "ko": "아버지",
+        "en": "father"
+      },
+      "englishTranslation": "father",
+      "romanization": {},
+      "meaning": "The common ZH word for father.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E7%88%B6%E4%BA%B2"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "father-ja",
+      "word": "父",
+      "language": "ja",
+      "translations": {
+        "zh": "父亲",
+        "ja": "父",
+        "ko": "아버지",
+        "en": "father"
+      },
+      "englishTranslation": "father",
+      "romanization": {
+        "ja": "chichi"
+      },
+      "meaning": "The common JA word for father.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E7%88%B6"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "ちち"
+    },
+    {
+      "id": "father-ko",
+      "word": "아버지",
+      "language": "ko",
+      "translations": {
+        "zh": "父亲",
+        "ja": "父",
+        "ko": "아버지",
+        "en": "father"
+      },
+      "englishTranslation": "father",
+      "romanization": {},
+      "meaning": "The common KO word for father.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EC%95%84%EB%B2%84%EC%A7%80"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "mother-zh",
+      "word": "母亲",
+      "language": "zh",
+      "translations": {
+        "zh": "母亲",
+        "ja": "母",
+        "ko": "어머니",
+        "en": "mother"
+      },
+      "englishTranslation": "mother",
+      "romanization": {},
+      "meaning": "The common ZH word for mother.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E6%AF%8D%E4%BA%B2"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "mother-ja",
+      "word": "母",
+      "language": "ja",
+      "translations": {
+        "zh": "母亲",
+        "ja": "母",
+        "ko": "어머니",
+        "en": "mother"
+      },
+      "englishTranslation": "mother",
+      "romanization": {
+        "ja": "haha"
+      },
+      "meaning": "The common JA word for mother.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E6%AF%8D"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "はは"
+    },
+    {
+      "id": "mother-ko",
+      "word": "어머니",
+      "language": "ko",
+      "translations": {
+        "zh": "母亲",
+        "ja": "母",
+        "ko": "어머니",
+        "en": "mother"
+      },
+      "englishTranslation": "mother",
+      "romanization": {},
+      "meaning": "The common KO word for mother.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EC%96%B4%EB%A8%B8%EB%8B%88"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "home-zh",
+      "word": "家",
+      "language": "zh",
+      "translations": {
+        "zh": "家",
+        "ja": "家",
+        "ko": "집",
+        "en": "home"
+      },
+      "englishTranslation": "home",
+      "romanization": {},
+      "meaning": "The common ZH word for home.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E5%AE%B6"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "home-ja",
+      "word": "家",
+      "language": "ja",
+      "translations": {
+        "zh": "家",
+        "ja": "家",
+        "ko": "집",
+        "en": "home"
+      },
+      "englishTranslation": "home",
+      "romanization": {
+        "ja": "ie"
+      },
+      "meaning": "The common JA word for home.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E5%AE%B6"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "いえ"
+    },
+    {
+      "id": "home-ko",
+      "word": "집",
+      "language": "ko",
+      "translations": {
+        "zh": "家",
+        "ja": "家",
+        "ko": "집",
+        "en": "home"
+      },
+      "englishTranslation": "home",
+      "romanization": {},
+      "meaning": "The common KO word for home.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EC%A7%91"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "school-zh",
+      "word": "学校",
+      "language": "zh",
+      "translations": {
+        "zh": "学校",
+        "ja": "学校",
+        "ko": "학교",
+        "en": "school"
+      },
+      "englishTranslation": "school",
+      "romanization": {},
+      "meaning": "The common ZH word for school.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E5%AD%A6%E6%A0%A1"
+      },
+      "verificationStatus": "unverified",
+      "connections": [
+        {
+          "id": "candidate-equivalent-school-zh-ja",
+          "sourceWordId": "school-zh",
+          "targetWordId": "school-ja",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://zh.wiktionary.org/wiki/%E5%AD%A6%E6%A0%A1",
+            "sources": [
+              {
+                "language": "zh",
+                "label": "ZH Wiktionary: 学校",
+                "url": "https://zh.wiktionary.org/wiki/%E5%AD%A6%E6%A0%A1"
+              },
+              {
+                "language": "ja",
+                "label": "JA Wiktionary: 学校",
+                "url": "https://ja.wiktionary.org/wiki/%E5%AD%A6%E6%A0%A1"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        },
+        {
+          "id": "candidate-equivalent-school-zh-ko",
+          "sourceWordId": "school-zh",
+          "targetWordId": "school-ko",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://zh.wiktionary.org/wiki/%E5%AD%A6%E6%A0%A1",
+            "sources": [
+              {
+                "language": "zh",
+                "label": "ZH Wiktionary: 学校",
+                "url": "https://zh.wiktionary.org/wiki/%E5%AD%A6%E6%A0%A1"
+              },
+              {
+                "language": "ko",
+                "label": "KO Wiktionary: 학교",
+                "url": "https://ko.wiktionary.org/wiki/%ED%95%99%EA%B5%90"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        }
+      ]
+    },
+    {
+      "id": "school-ja",
+      "word": "学校",
+      "language": "ja",
+      "translations": {
+        "zh": "学校",
+        "ja": "学校",
+        "ko": "학교",
+        "en": "school"
+      },
+      "englishTranslation": "school",
+      "romanization": {
+        "ja": "gakkou"
+      },
+      "meaning": "The common JA word for school.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E5%AD%A6%E6%A0%A1"
+      },
+      "verificationStatus": "unverified",
+      "connections": [
+        {
+          "id": "candidate-equivalent-school-ja-ko",
+          "sourceWordId": "school-ja",
+          "targetWordId": "school-ko",
+          "productRelationType": "equivalent",
+          "rawRelationType": "dictionary-entry-comparison",
+          "directionality": "symmetric",
+          "source": {
+            "label": "Wiktionary entry comparison; human review required",
+            "url": "https://ja.wiktionary.org/wiki/%E5%AD%A6%E6%A0%A1",
+            "sources": [
+              {
+                "language": "ja",
+                "label": "JA Wiktionary: 学校",
+                "url": "https://ja.wiktionary.org/wiki/%E5%AD%A6%E6%A0%A1"
+              },
+              {
+                "language": "ko",
+                "label": "KO Wiktionary: 학교",
+                "url": "https://ko.wiktionary.org/wiki/%ED%95%99%EA%B5%90"
+              }
+            ]
+          },
+          "description": "User-reviewed and confirmed on 2026-10-30; see cited dictionary entries.",
+          "verificationStatus": "verified",
+          "metadata": {
+            "reviewedAt": "2026-10-30"
+          }
+        }
+      ],
+      "reading": "がっこう"
+    },
+    {
+      "id": "school-ko",
+      "word": "학교",
+      "language": "ko",
+      "translations": {
+        "zh": "学校",
+        "ja": "学校",
+        "ko": "학교",
+        "en": "school"
+      },
+      "englishTranslation": "school",
+      "romanization": {},
+      "meaning": "The common KO word for school.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%ED%95%99%EA%B5%90"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "room-zh",
+      "word": "房间",
+      "language": "zh",
+      "translations": {
+        "zh": "房间",
+        "ja": "部屋",
+        "ko": "방",
+        "en": "room"
+      },
+      "englishTranslation": "room",
+      "romanization": {},
+      "meaning": "The common ZH word for room.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E6%88%BF%E9%97%B4"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "room-ja",
+      "word": "部屋",
+      "language": "ja",
+      "translations": {
+        "zh": "房间",
+        "ja": "部屋",
+        "ko": "방",
+        "en": "room"
+      },
+      "englishTranslation": "room",
+      "romanization": {
+        "ja": "heya"
+      },
+      "meaning": "The common JA word for room.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E9%83%A8%E5%B1%8B"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "へや"
+    },
+    {
+      "id": "room-ko",
+      "word": "방",
+      "language": "ko",
+      "translations": {
+        "zh": "房间",
+        "ja": "部屋",
+        "ko": "방",
+        "en": "room"
+      },
+      "englishTranslation": "room",
+      "romanization": {},
+      "meaning": "The common KO word for room.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EB%B0%A9"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "book-zh",
+      "word": "书",
+      "language": "zh",
+      "translations": {
+        "zh": "书",
+        "ja": "本",
+        "ko": "책",
+        "en": "book"
+      },
+      "englishTranslation": "book",
+      "romanization": {},
+      "meaning": "The common ZH word for book.",
+      "source": {
+        "label": "ZH Wiktionary entry",
+        "url": "https://zh.wiktionary.org/wiki/%E4%B9%A6"
+      },
+      "verificationStatus": "unverified",
+      "connections": []
+    },
+    {
+      "id": "book-ja",
+      "word": "本",
+      "language": "ja",
+      "translations": {
+        "zh": "书",
+        "ja": "本",
+        "ko": "책",
+        "en": "book"
+      },
+      "englishTranslation": "book",
+      "romanization": {
+        "ja": "hon"
+      },
+      "meaning": "The common JA word for book.",
+      "source": {
+        "label": "JA Wiktionary entry",
+        "url": "https://ja.wiktionary.org/wiki/%E6%9C%AC"
+      },
+      "verificationStatus": "unverified",
+      "connections": [],
+      "reading": "ほん"
+    },
+    {
+      "id": "book-ko",
+      "word": "책",
+      "language": "ko",
+      "translations": {
+        "zh": "书",
+        "ja": "本",
+        "ko": "책",
+        "en": "book"
+      },
+      "englishTranslation": "book",
+      "romanization": {},
+      "meaning": "The common KO word for book.",
+      "source": {
+        "label": "KO Wiktionary entry",
+        "url": "https://ko.wiktionary.org/wiki/%EC%B1%85"
+      },
       "verificationStatus": "unverified",
       "connections": []
     }

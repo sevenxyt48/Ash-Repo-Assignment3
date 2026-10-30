@@ -1,4 +1,2033 @@
 {
-  "purpose": "Unreviewed relationship candidates only. This file is never loaded into the user graph.",
-  "relationships": []
+  "purpose": "Unreviewed candidates for human inspection only. Dictionary entry links identify the words and possible senses; they do not prove the proposed relationship.",
+  "relationships": [
+    {
+      "id": "candidate-equivalent-fire-zh-ja",
+      "sourceWordId": "fire-zh",
+      "targetWordId": "fire-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E7%81%AB",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 火",
+            "url": "https://zh.wiktionary.org/wiki/%E7%81%AB"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 火",
+            "url": "https://ja.wiktionary.org/wiki/%E7%81%AB"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-fire-zh-ko",
+      "sourceWordId": "fire-zh",
+      "targetWordId": "fire-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E7%81%AB",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 火",
+            "url": "https://zh.wiktionary.org/wiki/%E7%81%AB"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 불",
+            "url": "https://ko.wiktionary.org/wiki/%EB%B6%88"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-fire-ja-ko",
+      "sourceWordId": "fire-ja",
+      "targetWordId": "fire-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E7%81%AB",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 火",
+            "url": "https://ja.wiktionary.org/wiki/%E7%81%AB"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 불",
+            "url": "https://ko.wiktionary.org/wiki/%EB%B6%88"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-snow-zh-ja",
+      "sourceWordId": "snow-zh",
+      "targetWordId": "snow-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E9%9B%AA",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 雪",
+            "url": "https://zh.wiktionary.org/wiki/%E9%9B%AA"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 雪",
+            "url": "https://ja.wiktionary.org/wiki/%E9%9B%AA"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-snow-zh-ko",
+      "sourceWordId": "snow-zh",
+      "targetWordId": "snow-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E9%9B%AA",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 雪",
+            "url": "https://zh.wiktionary.org/wiki/%E9%9B%AA"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 눈",
+            "url": "https://ko.wiktionary.org/wiki/%EB%88%88"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-snow-ja-ko",
+      "sourceWordId": "snow-ja",
+      "targetWordId": "snow-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E9%9B%AA",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 雪",
+            "url": "https://ja.wiktionary.org/wiki/%E9%9B%AA"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 눈",
+            "url": "https://ko.wiktionary.org/wiki/%EB%88%88"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-mountain-zh-ja",
+      "sourceWordId": "mountain-zh",
+      "targetWordId": "mountain-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E5%B1%B1",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 山",
+            "url": "https://zh.wiktionary.org/wiki/%E5%B1%B1"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 山",
+            "url": "https://ja.wiktionary.org/wiki/%E5%B1%B1"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-mountain-zh-ko",
+      "sourceWordId": "mountain-zh",
+      "targetWordId": "mountain-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E5%B1%B1",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 山",
+            "url": "https://zh.wiktionary.org/wiki/%E5%B1%B1"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 산",
+            "url": "https://ko.wiktionary.org/wiki/%EC%82%B0"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-mountain-ja-ko",
+      "sourceWordId": "mountain-ja",
+      "targetWordId": "mountain-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E5%B1%B1",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 山",
+            "url": "https://ja.wiktionary.org/wiki/%E5%B1%B1"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 산",
+            "url": "https://ko.wiktionary.org/wiki/%EC%82%B0"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-sea-zh-ja",
+      "sourceWordId": "sea-zh",
+      "targetWordId": "sea-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%B5%B7",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 海",
+            "url": "https://zh.wiktionary.org/wiki/%E6%B5%B7"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 海",
+            "url": "https://ja.wiktionary.org/wiki/%E6%B5%B7"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-sea-zh-ko",
+      "sourceWordId": "sea-zh",
+      "targetWordId": "sea-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%B5%B7",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 海",
+            "url": "https://zh.wiktionary.org/wiki/%E6%B5%B7"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 바다",
+            "url": "https://ko.wiktionary.org/wiki/%EB%B0%94%EB%8B%A4"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-sea-ja-ko",
+      "sourceWordId": "sea-ja",
+      "targetWordId": "sea-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E6%B5%B7",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 海",
+            "url": "https://ja.wiktionary.org/wiki/%E6%B5%B7"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 바다",
+            "url": "https://ko.wiktionary.org/wiki/%EB%B0%94%EB%8B%A4"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-sun-zh-ja",
+      "sourceWordId": "sun-zh",
+      "targetWordId": "sun-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E5%A4%AA%E9%98%B3",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 太阳",
+            "url": "https://zh.wiktionary.org/wiki/%E5%A4%AA%E9%98%B3"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 太陽",
+            "url": "https://ja.wiktionary.org/wiki/%E5%A4%AA%E9%99%BD"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-sun-zh-ko",
+      "sourceWordId": "sun-zh",
+      "targetWordId": "sun-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E5%A4%AA%E9%98%B3",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 太阳",
+            "url": "https://zh.wiktionary.org/wiki/%E5%A4%AA%E9%98%B3"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 태양",
+            "url": "https://ko.wiktionary.org/wiki/%ED%83%9C%EC%96%91"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-sun-ja-ko",
+      "sourceWordId": "sun-ja",
+      "targetWordId": "sun-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E5%A4%AA%E9%99%BD",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 太陽",
+            "url": "https://ja.wiktionary.org/wiki/%E5%A4%AA%E9%99%BD"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 태양",
+            "url": "https://ko.wiktionary.org/wiki/%ED%83%9C%EC%96%91"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-moon-zh-ja",
+      "sourceWordId": "moon-zh",
+      "targetWordId": "moon-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%9C%88%E4%BA%AE",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 月亮",
+            "url": "https://zh.wiktionary.org/wiki/%E6%9C%88%E4%BA%AE"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 月",
+            "url": "https://ja.wiktionary.org/wiki/%E6%9C%88"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-moon-zh-ko",
+      "sourceWordId": "moon-zh",
+      "targetWordId": "moon-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%9C%88%E4%BA%AE",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 月亮",
+            "url": "https://zh.wiktionary.org/wiki/%E6%9C%88%E4%BA%AE"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 달",
+            "url": "https://ko.wiktionary.org/wiki/%EB%8B%AC"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-moon-ja-ko",
+      "sourceWordId": "moon-ja",
+      "targetWordId": "moon-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E6%9C%88",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 月",
+            "url": "https://ja.wiktionary.org/wiki/%E6%9C%88"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 달",
+            "url": "https://ko.wiktionary.org/wiki/%EB%8B%AC"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-sky-zh-ja",
+      "sourceWordId": "sky-zh",
+      "targetWordId": "sky-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E5%A4%A9%E7%A9%BA",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 天空",
+            "url": "https://zh.wiktionary.org/wiki/%E5%A4%A9%E7%A9%BA"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 空",
+            "url": "https://ja.wiktionary.org/wiki/%E7%A9%BA"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-sky-zh-ko",
+      "sourceWordId": "sky-zh",
+      "targetWordId": "sky-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E5%A4%A9%E7%A9%BA",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 天空",
+            "url": "https://zh.wiktionary.org/wiki/%E5%A4%A9%E7%A9%BA"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 하늘",
+            "url": "https://ko.wiktionary.org/wiki/%ED%95%98%EB%8A%98"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-sky-ja-ko",
+      "sourceWordId": "sky-ja",
+      "targetWordId": "sky-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E7%A9%BA",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 空",
+            "url": "https://ja.wiktionary.org/wiki/%E7%A9%BA"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 하늘",
+            "url": "https://ko.wiktionary.org/wiki/%ED%95%98%EB%8A%98"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-morning-zh-ja",
+      "sourceWordId": "morning-zh",
+      "targetWordId": "morning-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%97%A9%E6%99%A8",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 早晨",
+            "url": "https://zh.wiktionary.org/wiki/%E6%97%A9%E6%99%A8"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 朝",
+            "url": "https://ja.wiktionary.org/wiki/%E6%9C%9D"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-morning-zh-ko",
+      "sourceWordId": "morning-zh",
+      "targetWordId": "morning-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%97%A9%E6%99%A8",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 早晨",
+            "url": "https://zh.wiktionary.org/wiki/%E6%97%A9%E6%99%A8"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 아침",
+            "url": "https://ko.wiktionary.org/wiki/%EC%95%84%EC%B9%A8"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-morning-ja-ko",
+      "sourceWordId": "morning-ja",
+      "targetWordId": "morning-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E6%9C%9D",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 朝",
+            "url": "https://ja.wiktionary.org/wiki/%E6%9C%9D"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 아침",
+            "url": "https://ko.wiktionary.org/wiki/%EC%95%84%EC%B9%A8"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-tomorrow-zh-ja",
+      "sourceWordId": "tomorrow-zh",
+      "targetWordId": "tomorrow-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%98%8E%E5%A4%A9",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 明天",
+            "url": "https://zh.wiktionary.org/wiki/%E6%98%8E%E5%A4%A9"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 明日",
+            "url": "https://ja.wiktionary.org/wiki/%E6%98%8E%E6%97%A5"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-tomorrow-zh-ko",
+      "sourceWordId": "tomorrow-zh",
+      "targetWordId": "tomorrow-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%98%8E%E5%A4%A9",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 明天",
+            "url": "https://zh.wiktionary.org/wiki/%E6%98%8E%E5%A4%A9"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 내일",
+            "url": "https://ko.wiktionary.org/wiki/%EB%82%B4%EC%9D%BC"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-tomorrow-ja-ko",
+      "sourceWordId": "tomorrow-ja",
+      "targetWordId": "tomorrow-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E6%98%8E%E6%97%A5",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 明日",
+            "url": "https://ja.wiktionary.org/wiki/%E6%98%8E%E6%97%A5"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 내일",
+            "url": "https://ko.wiktionary.org/wiki/%EB%82%B4%EC%9D%BC"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-yesterday-zh-ja",
+      "sourceWordId": "yesterday-zh",
+      "targetWordId": "yesterday-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%98%A8%E5%A4%A9",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 昨天",
+            "url": "https://zh.wiktionary.org/wiki/%E6%98%A8%E5%A4%A9"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 昨日",
+            "url": "https://ja.wiktionary.org/wiki/%E6%98%A8%E6%97%A5"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-yesterday-zh-ko",
+      "sourceWordId": "yesterday-zh",
+      "targetWordId": "yesterday-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%98%A8%E5%A4%A9",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 昨天",
+            "url": "https://zh.wiktionary.org/wiki/%E6%98%A8%E5%A4%A9"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 어제",
+            "url": "https://ko.wiktionary.org/wiki/%EC%96%B4%EC%A0%9C"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-yesterday-ja-ko",
+      "sourceWordId": "yesterday-ja",
+      "targetWordId": "yesterday-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E6%98%A8%E6%97%A5",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 昨日",
+            "url": "https://ja.wiktionary.org/wiki/%E6%98%A8%E6%97%A5"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 어제",
+            "url": "https://ko.wiktionary.org/wiki/%EC%96%B4%EC%A0%9C"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-spring-zh-ja",
+      "sourceWordId": "spring-zh",
+      "targetWordId": "spring-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%98%A5%E5%A4%A9",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 春天",
+            "url": "https://zh.wiktionary.org/wiki/%E6%98%A5%E5%A4%A9"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 春",
+            "url": "https://ja.wiktionary.org/wiki/%E6%98%A5"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-spring-zh-ko",
+      "sourceWordId": "spring-zh",
+      "targetWordId": "spring-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%98%A5%E5%A4%A9",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 春天",
+            "url": "https://zh.wiktionary.org/wiki/%E6%98%A5%E5%A4%A9"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 봄",
+            "url": "https://ko.wiktionary.org/wiki/%EB%B4%84"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-spring-ja-ko",
+      "sourceWordId": "spring-ja",
+      "targetWordId": "spring-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E6%98%A5",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 春",
+            "url": "https://ja.wiktionary.org/wiki/%E6%98%A5"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 봄",
+            "url": "https://ko.wiktionary.org/wiki/%EB%B4%84"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-summer-zh-ja",
+      "sourceWordId": "summer-zh",
+      "targetWordId": "summer-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E5%A4%8F%E5%A4%A9",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 夏天",
+            "url": "https://zh.wiktionary.org/wiki/%E5%A4%8F%E5%A4%A9"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 夏",
+            "url": "https://ja.wiktionary.org/wiki/%E5%A4%8F"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-summer-zh-ko",
+      "sourceWordId": "summer-zh",
+      "targetWordId": "summer-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E5%A4%8F%E5%A4%A9",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 夏天",
+            "url": "https://zh.wiktionary.org/wiki/%E5%A4%8F%E5%A4%A9"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 여름",
+            "url": "https://ko.wiktionary.org/wiki/%EC%97%AC%EB%A6%84"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-summer-ja-ko",
+      "sourceWordId": "summer-ja",
+      "targetWordId": "summer-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E5%A4%8F",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 夏",
+            "url": "https://ja.wiktionary.org/wiki/%E5%A4%8F"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 여름",
+            "url": "https://ko.wiktionary.org/wiki/%EC%97%AC%EB%A6%84"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-autumn-zh-ja",
+      "sourceWordId": "autumn-zh",
+      "targetWordId": "autumn-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E7%A7%8B%E5%A4%A9",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 秋天",
+            "url": "https://zh.wiktionary.org/wiki/%E7%A7%8B%E5%A4%A9"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 秋",
+            "url": "https://ja.wiktionary.org/wiki/%E7%A7%8B"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-autumn-zh-ko",
+      "sourceWordId": "autumn-zh",
+      "targetWordId": "autumn-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E7%A7%8B%E5%A4%A9",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 秋天",
+            "url": "https://zh.wiktionary.org/wiki/%E7%A7%8B%E5%A4%A9"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 가을",
+            "url": "https://ko.wiktionary.org/wiki/%EA%B0%80%EC%9D%84"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-autumn-ja-ko",
+      "sourceWordId": "autumn-ja",
+      "targetWordId": "autumn-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E7%A7%8B",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 秋",
+            "url": "https://ja.wiktionary.org/wiki/%E7%A7%8B"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 가을",
+            "url": "https://ko.wiktionary.org/wiki/%EA%B0%80%EC%9D%84"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-winter-zh-ja",
+      "sourceWordId": "winter-zh",
+      "targetWordId": "winter-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E5%86%AC%E5%A4%A9",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 冬天",
+            "url": "https://zh.wiktionary.org/wiki/%E5%86%AC%E5%A4%A9"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 冬",
+            "url": "https://ja.wiktionary.org/wiki/%E5%86%AC"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-winter-zh-ko",
+      "sourceWordId": "winter-zh",
+      "targetWordId": "winter-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E5%86%AC%E5%A4%A9",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 冬天",
+            "url": "https://zh.wiktionary.org/wiki/%E5%86%AC%E5%A4%A9"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 겨울",
+            "url": "https://ko.wiktionary.org/wiki/%EA%B2%A8%EC%9A%B8"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-winter-ja-ko",
+      "sourceWordId": "winter-ja",
+      "targetWordId": "winter-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E5%86%AC",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 冬",
+            "url": "https://ja.wiktionary.org/wiki/%E5%86%AC"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 겨울",
+            "url": "https://ko.wiktionary.org/wiki/%EA%B2%A8%EC%9A%B8"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-person-zh-ja",
+      "sourceWordId": "person-zh",
+      "targetWordId": "person-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E4%BA%BA",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 人",
+            "url": "https://zh.wiktionary.org/wiki/%E4%BA%BA"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 人",
+            "url": "https://ja.wiktionary.org/wiki/%E4%BA%BA"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-person-zh-ko",
+      "sourceWordId": "person-zh",
+      "targetWordId": "person-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E4%BA%BA",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 人",
+            "url": "https://zh.wiktionary.org/wiki/%E4%BA%BA"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 사람",
+            "url": "https://ko.wiktionary.org/wiki/%EC%82%AC%EB%9E%8C"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-person-ja-ko",
+      "sourceWordId": "person-ja",
+      "targetWordId": "person-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E4%BA%BA",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 人",
+            "url": "https://ja.wiktionary.org/wiki/%E4%BA%BA"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 사람",
+            "url": "https://ko.wiktionary.org/wiki/%EC%82%AC%EB%9E%8C"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-friend-zh-ja",
+      "sourceWordId": "friend-zh",
+      "targetWordId": "friend-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%9C%8B%E5%8F%8B",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 朋友",
+            "url": "https://zh.wiktionary.org/wiki/%E6%9C%8B%E5%8F%8B"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 友達",
+            "url": "https://ja.wiktionary.org/wiki/%E5%8F%8B%E9%81%94"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-friend-zh-ko",
+      "sourceWordId": "friend-zh",
+      "targetWordId": "friend-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%9C%8B%E5%8F%8B",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 朋友",
+            "url": "https://zh.wiktionary.org/wiki/%E6%9C%8B%E5%8F%8B"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 친구",
+            "url": "https://ko.wiktionary.org/wiki/%EC%B9%9C%EA%B5%AC"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-friend-ja-ko",
+      "sourceWordId": "friend-ja",
+      "targetWordId": "friend-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E5%8F%8B%E9%81%94",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 友達",
+            "url": "https://ja.wiktionary.org/wiki/%E5%8F%8B%E9%81%94"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 친구",
+            "url": "https://ko.wiktionary.org/wiki/%EC%B9%9C%EA%B5%AC"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-father-zh-ja",
+      "sourceWordId": "father-zh",
+      "targetWordId": "father-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E7%88%B6%E4%BA%B2",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 父亲",
+            "url": "https://zh.wiktionary.org/wiki/%E7%88%B6%E4%BA%B2"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 父",
+            "url": "https://ja.wiktionary.org/wiki/%E7%88%B6"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-father-zh-ko",
+      "sourceWordId": "father-zh",
+      "targetWordId": "father-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E7%88%B6%E4%BA%B2",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 父亲",
+            "url": "https://zh.wiktionary.org/wiki/%E7%88%B6%E4%BA%B2"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 아버지",
+            "url": "https://ko.wiktionary.org/wiki/%EC%95%84%EB%B2%84%EC%A7%80"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-father-ja-ko",
+      "sourceWordId": "father-ja",
+      "targetWordId": "father-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E7%88%B6",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 父",
+            "url": "https://ja.wiktionary.org/wiki/%E7%88%B6"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 아버지",
+            "url": "https://ko.wiktionary.org/wiki/%EC%95%84%EB%B2%84%EC%A7%80"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-mother-zh-ja",
+      "sourceWordId": "mother-zh",
+      "targetWordId": "mother-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%AF%8D%E4%BA%B2",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 母亲",
+            "url": "https://zh.wiktionary.org/wiki/%E6%AF%8D%E4%BA%B2"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 母",
+            "url": "https://ja.wiktionary.org/wiki/%E6%AF%8D"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-mother-zh-ko",
+      "sourceWordId": "mother-zh",
+      "targetWordId": "mother-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%AF%8D%E4%BA%B2",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 母亲",
+            "url": "https://zh.wiktionary.org/wiki/%E6%AF%8D%E4%BA%B2"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 어머니",
+            "url": "https://ko.wiktionary.org/wiki/%EC%96%B4%EB%A8%B8%EB%8B%88"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-mother-ja-ko",
+      "sourceWordId": "mother-ja",
+      "targetWordId": "mother-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E6%AF%8D",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 母",
+            "url": "https://ja.wiktionary.org/wiki/%E6%AF%8D"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 어머니",
+            "url": "https://ko.wiktionary.org/wiki/%EC%96%B4%EB%A8%B8%EB%8B%88"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-home-zh-ja",
+      "sourceWordId": "home-zh",
+      "targetWordId": "home-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E5%AE%B6",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 家",
+            "url": "https://zh.wiktionary.org/wiki/%E5%AE%B6"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 家",
+            "url": "https://ja.wiktionary.org/wiki/%E5%AE%B6"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-home-zh-ko",
+      "sourceWordId": "home-zh",
+      "targetWordId": "home-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E5%AE%B6",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 家",
+            "url": "https://zh.wiktionary.org/wiki/%E5%AE%B6"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 집",
+            "url": "https://ko.wiktionary.org/wiki/%EC%A7%91"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-home-ja-ko",
+      "sourceWordId": "home-ja",
+      "targetWordId": "home-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E5%AE%B6",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 家",
+            "url": "https://ja.wiktionary.org/wiki/%E5%AE%B6"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 집",
+            "url": "https://ko.wiktionary.org/wiki/%EC%A7%91"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-room-zh-ja",
+      "sourceWordId": "room-zh",
+      "targetWordId": "room-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%88%BF%E9%97%B4",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 房间",
+            "url": "https://zh.wiktionary.org/wiki/%E6%88%BF%E9%97%B4"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 部屋",
+            "url": "https://ja.wiktionary.org/wiki/%E9%83%A8%E5%B1%8B"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-room-zh-ko",
+      "sourceWordId": "room-zh",
+      "targetWordId": "room-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%88%BF%E9%97%B4",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 房间",
+            "url": "https://zh.wiktionary.org/wiki/%E6%88%BF%E9%97%B4"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 방",
+            "url": "https://ko.wiktionary.org/wiki/%EB%B0%A9"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-room-ja-ko",
+      "sourceWordId": "room-ja",
+      "targetWordId": "room-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E9%83%A8%E5%B1%8B",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 部屋",
+            "url": "https://ja.wiktionary.org/wiki/%E9%83%A8%E5%B1%8B"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 방",
+            "url": "https://ko.wiktionary.org/wiki/%EB%B0%A9"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-book-zh-ja",
+      "sourceWordId": "book-zh",
+      "targetWordId": "book-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E4%B9%A6",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 书",
+            "url": "https://zh.wiktionary.org/wiki/%E4%B9%A6"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 本",
+            "url": "https://ja.wiktionary.org/wiki/%E6%9C%AC"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-book-zh-ko",
+      "sourceWordId": "book-zh",
+      "targetWordId": "book-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E4%B9%A6",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 书",
+            "url": "https://zh.wiktionary.org/wiki/%E4%B9%A6"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 책",
+            "url": "https://ko.wiktionary.org/wiki/%EC%B1%85"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-book-ja-ko",
+      "sourceWordId": "book-ja",
+      "targetWordId": "book-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E6%9C%AC",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 本",
+            "url": "https://ja.wiktionary.org/wiki/%E6%9C%AC"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 책",
+            "url": "https://ko.wiktionary.org/wiki/%EC%B1%85"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-liquid-zh-ja",
+      "sourceWordId": "liquid-zh",
+      "targetWordId": "liquid-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%B6%B2%E4%BD%93",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 液体",
+            "url": "https://zh.wiktionary.org/wiki/%E6%B6%B2%E4%BD%93"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 液体",
+            "url": "https://ja.wiktionary.org/wiki/%E6%B6%B2%E4%BD%93"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-liquid-zh-ko",
+      "sourceWordId": "liquid-zh",
+      "targetWordId": "liquid-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E6%B6%B2%E4%BD%93",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 液体",
+            "url": "https://zh.wiktionary.org/wiki/%E6%B6%B2%E4%BD%93"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 액체",
+            "url": "https://ko.wiktionary.org/wiki/%EC%95%A1%EC%B2%B4"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-liquid-ja-ko",
+      "sourceWordId": "liquid-ja",
+      "targetWordId": "liquid-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E6%B6%B2%E4%BD%93",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 液体",
+            "url": "https://ja.wiktionary.org/wiki/%E6%B6%B2%E4%BD%93"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 액체",
+            "url": "https://ko.wiktionary.org/wiki/%EC%95%A1%EC%B2%B4"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-rain-zh-ja",
+      "sourceWordId": "rain-zh",
+      "targetWordId": "rain-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E9%9B%A8",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 雨",
+            "url": "https://zh.wiktionary.org/wiki/%E9%9B%A8"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 雨",
+            "url": "https://ja.wiktionary.org/wiki/%E9%9B%A8"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-rain-zh-ko",
+      "sourceWordId": "rain-zh",
+      "targetWordId": "rain-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E9%9B%A8",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 雨",
+            "url": "https://zh.wiktionary.org/wiki/%E9%9B%A8"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 비",
+            "url": "https://ko.wiktionary.org/wiki/%EB%B9%84"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-rain-ja-ko",
+      "sourceWordId": "rain-ja",
+      "targetWordId": "rain-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E9%9B%A8",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 雨",
+            "url": "https://ja.wiktionary.org/wiki/%E9%9B%A8"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 비",
+            "url": "https://ko.wiktionary.org/wiki/%EB%B9%84"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-day-zh-ja",
+      "sourceWordId": "day-zh",
+      "targetWordId": "day-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E7%99%BD%E5%A4%A9",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 白天",
+            "url": "https://zh.wiktionary.org/wiki/%E7%99%BD%E5%A4%A9"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 昼",
+            "url": "https://ja.wiktionary.org/wiki/%E6%98%BC"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-day-zh-ko",
+      "sourceWordId": "day-zh",
+      "targetWordId": "day-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E7%99%BD%E5%A4%A9",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 白天",
+            "url": "https://zh.wiktionary.org/wiki/%E7%99%BD%E5%A4%A9"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 낮",
+            "url": "https://ko.wiktionary.org/wiki/%EB%82%AE"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-day-ja-ko",
+      "sourceWordId": "day-ja",
+      "targetWordId": "day-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E6%98%BC",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 昼",
+            "url": "https://ja.wiktionary.org/wiki/%E6%98%BC"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 낮",
+            "url": "https://ko.wiktionary.org/wiki/%EB%82%AE"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-night-zh-ja",
+      "sourceWordId": "night-zh",
+      "targetWordId": "night-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E5%A4%9C",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 夜",
+            "url": "https://zh.wiktionary.org/wiki/%E5%A4%9C"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 夜",
+            "url": "https://ja.wiktionary.org/wiki/%E5%A4%9C"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-night-zh-ko",
+      "sourceWordId": "night-zh",
+      "targetWordId": "night-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E5%A4%9C",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 夜",
+            "url": "https://zh.wiktionary.org/wiki/%E5%A4%9C"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 밤",
+            "url": "https://ko.wiktionary.org/wiki/%EB%B0%A4"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-night-ja-ko",
+      "sourceWordId": "night-ja",
+      "targetWordId": "night-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E5%A4%9C",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 夜",
+            "url": "https://ja.wiktionary.org/wiki/%E5%A4%9C"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 밤",
+            "url": "https://ko.wiktionary.org/wiki/%EB%B0%A4"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-soil-zh-ja",
+      "sourceWordId": "soil-zh",
+      "targetWordId": "soil-ja",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E5%9C%9F",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 土",
+            "url": "https://zh.wiktionary.org/wiki/%E5%9C%9F"
+          },
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 土",
+            "url": "https://ja.wiktionary.org/wiki/%E5%9C%9F"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-soil-zh-ko",
+      "sourceWordId": "soil-zh",
+      "targetWordId": "soil-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://zh.wiktionary.org/wiki/%E5%9C%9F",
+        "sources": [
+          {
+            "language": "zh",
+            "label": "ZH Wiktionary: 土",
+            "url": "https://zh.wiktionary.org/wiki/%E5%9C%9F"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 흙",
+            "url": "https://ko.wiktionary.org/wiki/%ED%9D%99"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    },
+    {
+      "id": "candidate-equivalent-soil-ja-ko",
+      "sourceWordId": "soil-ja",
+      "targetWordId": "soil-ko",
+      "productRelationType": "equivalent",
+      "rawRelationType": "dictionary-entry-comparison",
+      "directionality": "symmetric",
+      "source": {
+        "label": "Wiktionary entry comparison; human review required",
+        "url": "https://ja.wiktionary.org/wiki/%E5%9C%9F",
+        "sources": [
+          {
+            "language": "ja",
+            "label": "JA Wiktionary: 土",
+            "url": "https://ja.wiktionary.org/wiki/%E5%9C%9F"
+          },
+          {
+            "language": "ko",
+            "label": "KO Wiktionary: 흙",
+            "url": "https://ko.wiktionary.org/wiki/%ED%9D%99"
+          }
+        ]
+      },
+      "description": "Unverified cross-language candidate. Compare the cited entry senses and usage; the pages are review evidence, not an assertion that the words are interchangeable.",
+      "verificationStatus": "candidate"
+    }
+  ]
 }
