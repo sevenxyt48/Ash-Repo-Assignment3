@@ -81,11 +81,13 @@ export function renderDetails(container, word, data, language, relation, connect
             })
         : relation.description)
     );
-    const status = relation.verificationStatus === "verified"
-      ? translate(language, "details.verified")
-      : relation.verificationStatus === "demo"
-        ? translate(language, "details.demo")
-        : translate(language, "details.unverified");
+    const status = relation.verificationStatus === "adopted"
+      ? translate(language, "details.adopted")
+      : relation.verificationStatus === "verified"
+        ? translate(language, "details.verified")
+        : relation.verificationStatus === "demo"
+          ? translate(language, "details.demo")
+          : translate(language, "details.unverified");
     const sourceLabel = relation.source?.label ?? translate(language, "details.sourceMissing");
     const licenseLabel = relation.source?.licenseId?.startsWith("cc:")
       ? `CC ${relation.source.licenseId.slice(3).replace("/", " ").toUpperCase()}`

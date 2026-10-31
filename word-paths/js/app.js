@@ -17,6 +17,7 @@ const searchForm = document.querySelector("#search-form");
 const searchInput = document.querySelector("#search");
 const searchMessage = document.querySelector("#search-message");
 const searchCandidates = document.querySelector("#search-candidates");
+const searchLanguageOptions = [...document.querySelectorAll("[data-search-language-option]")];
 const languageSelect = document.querySelector("#language");
 const randomButton = document.querySelector("#random");
 const detailsPanel = document.querySelector("#details");
@@ -63,9 +64,9 @@ function getConnections(word, activeTypes = state.activeTypes, data = state.data
     for (const connection of item.connections) {
       const hasProductType = connection.productRelationType &&
         Object.prototype.hasOwnProperty.call(data.relationshipTypes, connection.productRelationType);
-      if ((!includeDemo && connection.verificationStatus !== "verified") ||
+      if ((!includeDemo && !["verified", "adopted"].includes(connection.verificationStatus)) ||
           (includeDemo &&
-           !["verified", "demo"].includes(connection.verificationStatus)) ||
+           !["verified", "adopted", "demo"].includes(connection.verificationStatus)) ||
           !hasProductType ||
           !activeTypes.has(connection.productRelationType)) continue;
       const isOutgoing = item.id === word.id;
@@ -93,20 +94,21 @@ function getConnections(word, activeTypes = state.activeTypes, data = state.data
 
 function countDisplayableRelationships(data) {
   const wordIds = new Set(data.words.map((word) => word.id));
-  const relationshipIds = new Set();
-  const counts = { total: 0, equivalents: 0, semantic: 0 };
+  const relationshipIds = new Map();
+  const counts = { total: 0, verified: 0, adopted: 0, equivalents: 0, semantic: 0 };
   for (const word of data.words) {
     for (const connection of word.connections) {
-      if (connection.verificationStatus === "verified" &&
+      if (["verified", "adopted"].includes(connection.verificationStatus) &&
           connection.productRelationType &&
           Object.prototype.hasOwnProperty.call(data.relationshipTypes, connection.productRelationType) &&
           connection.sourceWordId === word.id &&
           wordIds.has(connection.targetWordId)) {
-        relationshipIds.add(relationshipIdentityKey(connection));
+        relationshipIds.set(relationshipIdentityKey(connection), connection.verificationStatus);
       }
     }
   }
-  for (const key of relationshipIds) {
+  for (const [key, status] of relationshipIds) {
+    counts[status] += 1;
     const type = key.slice(key.lastIndexOf("\u0000") + 1);
     if (type === "equivalent") counts.equivalents += 1;
     else counts.semantic += 1;
@@ -160,6 +162,7 @@ function selectWord(id, relation = null) {
   state.selectedRelation = relation;
   state.query = "";
   searchInput.value = "";
+  updateSearchLanguageOptions("");
   showMessage("");
   clearSearchCandidates();
   render();
@@ -208,6 +211,8 @@ function render() {
   datasetStats.textContent = translate(state.language, "search.datasetStats", {
     words: formattedWordCount,
     relations: formatCount(datasetRelationshipCounts.total),
+    verified: formatCount(datasetRelationshipCounts.verified),
+    adopted: formatCount(datasetRelationshipCounts.adopted),
     equivalents: formatCount(datasetRelationshipCounts.equivalents),
     semantic: formatCount(datasetRelationshipCounts.semantic)
   });
@@ -249,10 +254,50 @@ function queryLanguages(query) {
   return [];
 }
 
+function selectedSearchLanguages() {
+  return new Set(searchLanguageOptions
+    .filter((option) => option.querySelector("input").checked)
+    .map((option) => option.dataset.searchLanguageOption));
+}
+
+function lockedSearchLanguages(query) {
+  const detectedLanguages = query ? queryLanguages(query) : [];
+  if (detectedLanguages.length !== 2 ||
+      !/\p{Script=Han}/u.test(query) ||
+      !state.localData) return new Set(detectedLanguages);
+
+  const term = normalized(query);
+  const matchingLanguages = new Set(state.localData.words
+    .filter((word) => detectedLanguages.includes(word.language) &&
+      normalized(word.word).startsWith(term))
+    .map((word) => word.language));
+  return matchingLanguages.size === 1
+    ? matchingLanguages
+    : new Set(detectedLanguages);
+}
+
+function updateSearchLanguageOptions(query) {
+  const detectedLanguages = lockedSearchLanguages(query);
+  for (const option of searchLanguageOptions) {
+    const input = option.querySelector("input");
+    const isLocked = detectedLanguages.has(input.value);
+    if (!query) input.checked = true;
+    else if (isLocked) input.checked = true;
+    input.disabled = isLocked;
+    option.classList.toggle("is-selected", input.checked);
+    option.classList.toggle("is-locked", isLocked);
+    option.querySelector(".search-language-lock").hidden = !isLocked;
+  }
+}
+
 function findMatchesIn(query, data) {
   const term = normalized(query);
   if (!term) return [];
-  const languages = queryLanguages(query);
+  const selectedLanguages = selectedSearchLanguages();
+  const detectedLanguages = queryLanguages(query);
+  const languages = detectedLanguages.length
+    ? detectedLanguages.filter((language) => selectedLanguages.has(language))
+    : [...selectedLanguages];
   return data.words.filter((word) => {
     if (languages.length) {
       return languages.includes(word.language) &&
@@ -330,6 +375,7 @@ function selectSearchCandidate(word, dataset = state.data ?? state.localData) {
   state.selectedRelation = null;
   state.query = "";
   searchInput.value = "";
+  updateSearchLanguageOptions("");
   showMessage("");
   clearSearchCandidates();
   render();
@@ -345,7 +391,8 @@ async function exploreSearch(query) {
   }
   clearSearchCandidates();
   const matches = findMatchesIn(query, state.localData);
-  const languages = queryLanguages(query);
+  const languages = queryLanguages(query)
+    .filter((language) => selectedSearchLanguages().has(language));
   if (matches.length > 0 && languages.length < 2) {
     if (matches.length === 1) {
       selectSearchCandidate(matches[0]);
@@ -403,10 +450,12 @@ async function exploreSearch(query) {
     state.data = data;
     validateWordDataset(state.data);
     for (const type of Object.keys(state.data.relationshipTypes)) state.activeTypes.add(type);
+    const selectedLanguages = selectedSearchLanguages();
     const candidates = [...new Map([
       ...matches,
       ...matchedRemoteDatasets.map((dataset) => dataset.words[0])
-    ].map((word) => [word.id, word])).values()];
+    ].filter((word) => selectedLanguages.has(word.language))
+      .map((word) => [word.id, word])).values()];
     if (candidates.length === 1 && languages.length === 1) {
       selectSearchCandidate(candidates[0], data);
       return;
@@ -459,6 +508,7 @@ searchForm.addEventListener("submit", (event) => {
 searchInput.addEventListener("input", () => {
   state.searchRequest += 1;
   const query = searchInput.value.trim();
+  updateSearchLanguageOptions(query);
   if (!query) {
     showMessage("");
     clearSearchCandidates();
@@ -469,7 +519,7 @@ searchInput.addEventListener("input", () => {
     showMessage("search.loadingInput");
     return;
   }
-  const matches = findMatches(query);
+  const matches = findMatchesIn(query, state.data ?? state.localData);
   renderSearchCandidates(matches, (word) => selectSearchCandidate(word));
   if (matches.length > 1) {
     showMessage("search.multiple", false, { count: matches.length });
@@ -479,6 +529,30 @@ searchInput.addEventListener("input", () => {
     showMessage("search.pressEnter");
   }
 });
+
+for (const option of searchLanguageOptions) {
+  const input = option.querySelector("input");
+  input.addEventListener("change", () => {
+    if (input.disabled) {
+      input.checked = true;
+      return;
+    }
+    option.classList.toggle("is-selected", input.checked);
+    const query = searchInput.value.trim();
+    if (!query || !state.localData) return;
+    const matches = findMatchesIn(query, state.data ?? state.localData);
+    renderSearchCandidates(matches, (word) => selectSearchCandidate(word));
+    if (matches.length > 1) {
+      showMessage("search.multiple", false, { count: matches.length });
+    } else if (matches.length === 1) {
+      showMessage("search.one", false, {
+        language: languageName(matches[0].language, state.language)
+      });
+    } else {
+      showMessage("search.pressEnter");
+    }
+  });
+}
 
 languageSelect.addEventListener("change", () => {
   state.language = languageSelect.value;
@@ -530,6 +604,7 @@ document.addEventListener("keydown", (event) => {
     searchInput.value = "";
     state.query = "";
     state.searchRequest += 1;
+    updateSearchLanguageOptions("");
     showMessage("");
     clearSearchCandidates();
     searchInput.blur();

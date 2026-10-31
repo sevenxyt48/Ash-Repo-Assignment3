@@ -25,7 +25,7 @@ The intended interaction loop is **search or discover → inspect relationships 
 - **Change the interface language:** The interface supports Chinese, English, Japanese, and Korean. This changes the interface text, not the dictionary scope: the core vocabulary remains Chinese, Japanese, and Korean.
 - **Understand the data scope:** The page reports the actual number of available entries and relationships, with a note that coverage is limited.
 
-The graph separates cross-language equivalents from semantic relationships. Semantic relationships are etymology, similar meaning, easily confused, and antonyms. Corresponding words across Chinese, Japanese, and Korean are not automatically synonyms. Only reviewed relationships are shown in production.
+The graph separates cross-language equivalents from semantic relationships. Semantic relationships are etymology, similar meaning, easily confused, and antonyms. Corresponding words across Chinese, Japanese, and Korean are not automatically synonyms. Production displays individually reviewed `verified` relationships and the explicitly batch-adopted `adopted` relationships; adopted records are not presented as individually reviewed.
 
 ## Preview
 
@@ -96,7 +96,7 @@ The actual repository may differ as development continues. Keep this tree synchr
 - ConceptNet or another external source may be unavailable or return errors. The app should continue to provide the local data experience where possible.
 - English is used only as a helper translation; it is not a fourth core dictionary language.
 - The dataset is intentionally small. Word Paths does not claim to cover all Chinese, Japanese, or Korean vocabulary.
-- Production relationships use `verified` status. `candidate` records belong in `data/candidate-relationships.json`; `demo` fixtures belong in `data/demo-relationships.json`; rejected records are retained with `rejected` status and are never displayed.
+- Individually reviewed production relationships use `verified` status. The 2026-10-30 owner-authorized batch uses `adopted` status and records `metadata.batchAdoption.individuallyReviewed: false`; these records are included in the production graph but are not claimed to have been individually reviewed. `candidate` records belong in `data/candidate-relationships.json`; `demo` fixtures belong in `data/demo-relationships.json`; rejected records use `rejected` status and are never displayed.
 - Relationship types are `equivalent` (cross-language correspondence) and the four semantic types `origin`, `similar`, `confusable`, and `antonym`. `directionality` is `directed` for `origin` and `symmetric` for the other four types.
 
 ## Candidate relationship review
@@ -111,7 +111,7 @@ node word-paths/js/auditCandidates.mjs
 
 The checker verifies endpoint IDs/languages, self-loops, duplicate IDs and relationships, allowed types/statuses, directionality, cross-language constraints, and source/description fields. A clean check is a structural check only: a person must still confirm the meaning, etymology, confusion risk, antonymy, or cross-language correspondence against the cited evidence.
 
-After review, manually move an accepted record into the `connections` array of its source word in `word-paths/data/words.json`, assign its confirmed `productRelationType`, set `verificationStatus` to `verified`, and retain its evidence and raw source type. Move rejected records out of the candidate queue and preserve them with `verificationStatus: "rejected"` in the local relationship records if an audit trail is needed. Never copy candidate or demo data into production as verified without review. Run the checker again after editing the queue.
+After individual review, move an accepted record into the `connections` array of its source word in `word-paths/data/words.json`, assign its confirmed `productRelationType`, set `verificationStatus` to `verified`, and retain its evidence and raw source type. The current bulk-adopted records instead use `verificationStatus: "adopted"` and explicit batch metadata; this status must not be used to imply individual review. Move rejected records out of the candidate queue and preserve them with `verificationStatus: "rejected"` in the local relationship records if an audit trail is needed. Never copy candidate or demo data into production as verified without review. Run the checker again after editing the queue.
 
 ## Error Handling and Known Limitations
 

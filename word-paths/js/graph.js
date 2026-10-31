@@ -21,9 +21,10 @@ function getConnections(word, words, activeTypes, developmentGraph) {
   const connections = new Map();
   for (const item of words) {
     for (const connection of item.connections) {
-      if ((!developmentGraph && connection.verificationStatus !== "verified") ||
+      if ((!developmentGraph &&
+           !["verified", "adopted"].includes(connection.verificationStatus)) ||
           (developmentGraph &&
-           !["verified", "demo"].includes(connection.verificationStatus)) ||
+           !["verified", "adopted", "demo"].includes(connection.verificationStatus)) ||
           !connection.productRelationType ||
           !activeTypes.has(connection.productRelationType)) continue;
       const isOutgoing = item.id === word.id;

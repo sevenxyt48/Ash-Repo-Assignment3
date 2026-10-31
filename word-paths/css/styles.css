@@ -139,6 +139,44 @@ button { -webkit-tap-highlight-color: transparent; }
 .search-box input::placeholder { color: #a1a59f; }
 .search-box kbd { padding: 2px 5px; border: 1px solid #e7e9e3; border-radius: 5px; color: #969b93; font: 10px "DM Mono", monospace; }
 
+.search-language-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  margin: 10px 0 0;
+  padding: 0;
+  border: 0;
+}
+.search-language-row legend { float: left; margin-right: 5px; color: #92978f; font-size: 11px; }
+.search-language-option {
+  position: relative;
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  border: 1px solid #e8e9e3;
+  border-radius: 18px;
+  background: #fff;
+  color: #717871;
+  cursor: pointer;
+  font-size: 10px;
+  transition: color .16s ease, background .16s ease, border-color .16s ease;
+}
+.search-language-option:hover { border-color: #cddbcf; }
+.search-language-option input {
+  width: 13px;
+  height: 13px;
+  margin: 0;
+  accent-color: var(--green-dark);
+}
+.search-language-option.is-selected { border-color: #c8e1c9; background: var(--pale-green); color: #39764a; }
+.search-language-option.is-locked { cursor: not-allowed; }
+.search-language-option input:focus-visible { outline: 2px solid var(--green-dark); outline-offset: 2px; }
+.search-language-option input:disabled { cursor: not-allowed; }
+.search-language-lock { color: #69836b; font-size: 9px; }
+
 .random-button {
   width: 48px;
   height: 48px;
@@ -323,6 +361,9 @@ button { -webkit-tap-highlight-color: transparent; }
   .welcome-copy { max-width: 340px; font-size: 12px; line-height: 1.6; }
   .welcome-mark { padding-right: 1%; }
   .explorer { padding: 14px 11px 13px; border-radius: 14px; }
+  .search-language-row { gap: 5px; }
+  .search-language-row legend { width: 100%; margin: 0 0 2px; }
+  .search-language-option { min-height: 30px; padding: 0 8px; }
   .filter-row { gap: 6px; }
   .filter-chip { min-height: 30px; padding: 0 8px; font-size: 9px; }
   .filter-label { margin-bottom: 2px; }

@@ -56,6 +56,24 @@
               <span aria-hidden="true">⚄</span>
             </button>
           </form>
+          <fieldset id="search-languages" class="search-language-row">
+            <legend data-i18n="search.languages">搜索语言</legend>
+            <label class="search-language-option is-selected" data-search-language-option="zh">
+              <input type="checkbox" value="zh" checked>
+              <span data-i18n="search.language.zh">中文（中）</span>
+              <span class="search-language-lock" data-i18n="search.languageLocked" hidden>当前</span>
+            </label>
+            <label class="search-language-option is-selected" data-search-language-option="ko">
+              <input type="checkbox" value="ko" checked>
+              <span data-i18n="search.language.ko">韩语（韩）</span>
+              <span class="search-language-lock" data-i18n="search.languageLocked" hidden>当前</span>
+            </label>
+            <label class="search-language-option is-selected" data-search-language-option="ja">
+              <input type="checkbox" value="ja" checked>
+              <span data-i18n="search.language.ja">日语（日）</span>
+              <span class="search-language-lock" data-i18n="search.languageLocked" hidden>当前</span>
+            </label>
+          </fieldset>
           <p id="search-message" class="search-message" aria-live="polite"></p>
           <div id="search-candidates" class="search-candidates" role="listbox" aria-label="匹配的词条" data-i18n-attr="aria-label:search.candidates" hidden></div>
 

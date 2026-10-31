@@ -9,6 +9,7 @@ export const RELATIONSHIP_TYPES = [
 export const RELATIONSHIP_STATUSES = [
   "candidate",
   "verified",
+  "adopted",
   "demo",
   "rejected"
 ];
@@ -124,6 +125,13 @@ export function validateRelationshipRecords(relationships, words, existing = [])
     if (relationship.metadata !== undefined && relationship.metadata !== null &&
         (typeof relationship.metadata !== "object" || Array.isArray(relationship.metadata))) {
       errors.push(`${label} metadata must be an object or null`);
+    }
+    if (relationship.verificationStatus === "adopted" &&
+        (relationship.metadata?.batchAdoption?.method !== "bulk-adoption" ||
+         relationship.metadata.batchAdoption.individuallyReviewed !== false ||
+         typeof relationship.metadata.batchAdoption.adoptedAt !== "string" ||
+         !relationship.metadata.batchAdoption.adoptedAt)) {
+      errors.push(`${label} adopted relationships must include bulk-adoption metadata`);
     }
 
     if (source && target && relationship.rawRelationType &&
