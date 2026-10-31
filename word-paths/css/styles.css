@@ -396,24 +396,15 @@ button { -webkit-tap-highlight-color: transparent; }
 .api-welcome h1 { font-size: clamp(25px, 3vw, 34px); }
 .api-welcome .welcome-copy { max-width: 760px; line-height: 1.65; }
 .api-content { padding: 22px 24px 26px; border: 1px solid #e9eae4; border-radius: 17px; background: var(--surface); box-shadow: 0 8px 30px rgba(40, 55, 42, .025); }
-.api-updated { margin: 0 0 20px; color: #92978e; font: 10px "DM Mono", "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", monospace; line-height: 1.7; }
-.api-section-title { margin: 24px 0 12px; padding-top: 18px; border-top: 1px solid #eff0eb; color: #525a53; font-size: 14px; font-weight: 600; }
-.api-updated + .api-section-title { margin-top: 0; padding-top: 0; border-top: 0; }
 .api-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 13px; }
 .api-card { padding: 14px 15px 15px; border: 1px solid #eef0ea; border-radius: 12px; background: #fcfdfb; }
-.api-card-title { margin: 0 0 11px; color: #2f3730; font-size: 12px; font-weight: 600; line-height: 1.45; }
+.api-card-title { margin: 0 0 9px; color: #2f3730; font-size: 12px; font-weight: 600; line-height: 1.45; }
+.api-card-purpose { margin: 0 0 11px; color: #6f776f; font-size: 10px; line-height: 1.65; }
 .api-meta { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 7px 10px; margin: 0; }
 .api-meta-label { color: #98a096; font-size: 9px; font-weight: 500; letter-spacing: .03em; }
 .api-meta-value { margin: 0; color: #5f6760; font-size: 10px; line-height: 1.62; overflow-wrap: anywhere; }
 .api-value-link { color: var(--green-dark); text-decoration: none; }
 .api-value-link:hover { text-decoration: underline; }
-.api-excluded { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
-.api-excluded-item { padding: 10px 12px; border: 1px solid #f0efe8; border-radius: 10px; background: #fdfcf8; }
-.api-excluded-name { display: block; margin-bottom: 3px; color: #565d56; font-size: 11px; font-weight: 600; }
-.api-excluded-reason { color: #858b83; font-size: 10px; line-height: 1.65; }
-.api-notes { margin: 0; padding-left: 18px; color: #5f6760; font-size: 10px; line-height: 1.75; }
-.api-note { margin-bottom: 7px; }
-.api-note::marker { color: #98a096; font: 500 9px "DM Mono", monospace; }
 .api-back-row { margin: 18px 3px 0; }
 .api-back { color: var(--green-dark); font-size: 11px; font-weight: 500; text-decoration: none; }
 .api-back:hover { text-decoration: underline; }
