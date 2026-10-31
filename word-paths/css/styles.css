@@ -139,6 +139,44 @@ button { -webkit-tap-highlight-color: transparent; }
 .search-box input::placeholder { color: #a1a59f; }
 .search-box kbd { padding: 2px 5px; border: 1px solid #e7e9e3; border-radius: 5px; color: #969b93; font: 10px "DM Mono", monospace; }
 
+.search-language-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  margin: 10px 0 0;
+  padding: 0;
+  border: 0;
+}
+.search-language-row legend { float: left; margin-right: 5px; color: #92978f; font-size: 11px; }
+.search-language-option {
+  position: relative;
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  border: 1px solid #e8e9e3;
+  border-radius: 18px;
+  background: #fff;
+  color: #717871;
+  cursor: pointer;
+  font-size: 10px;
+  transition: color .16s ease, background .16s ease, border-color .16s ease;
+}
+.search-language-option:hover { border-color: #cddbcf; }
+.search-language-option input {
+  width: 13px;
+  height: 13px;
+  margin: 0;
+  accent-color: var(--green-dark);
+}
+.search-language-option.is-selected { border-color: #c8e1c9; background: var(--pale-green); color: #39764a; }
+.search-language-option.is-locked { cursor: not-allowed; }
+.search-language-option input:focus-visible { outline: 2px solid var(--green-dark); outline-offset: 2px; }
+.search-language-option input:disabled { cursor: not-allowed; }
+.search-language-lock { color: #69836b; font-size: 9px; }
+
 .random-button {
   width: 48px;
   height: 48px;
@@ -239,6 +277,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .graph-content { transform-origin: 0 0; }
 .graph-edge { fill: none; stroke: #d0d8cf; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
 .graph-edge.edge-origin { stroke: #78ad81; }
+.graph-edge.edge-equivalent { stroke: #66a5bd; }
 .graph-edge.edge-similar { stroke: #a9ba8e; }
 .graph-edge.edge-confusable { stroke: #bba6af; stroke-dasharray: 4 4; }
 .graph-edge.edge-antonym { stroke: #92a6ba; stroke-dasharray: 2 4; }
@@ -262,6 +301,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
 .legend-line { width: 18px; height: 0; border-top: 1.5px solid #d0d8cf; }
 .origin-line { border-color: #78ad81; }
+.equivalent-line { border-color: #66a5bd; }
 .similar-line { border-color: #a9ba8e; }
 .confusable-line { border-color: #bba6af; border-top-style: dashed; }
 .antonym-line { border-color: #92a6ba; border-top-style: dotted; }
@@ -283,6 +323,12 @@ button { -webkit-tap-highlight-color: transparent; }
 .detail-meaning { margin: 16px 0 18px; color: #656d65; font-size: 11px; line-height: 1.75; }
 .detail-section { padding: 12px 0; border-top: 1px solid #eff0eb; }
 .detail-section h3 { margin: 0 0 9px; color: #92978e; font: 500 9px "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+.source-enrichment-title { margin: 10px 0 5px; color: #798078; font-size: 10px; font-weight: 500; }
+.source-enrichment-item { padding: 7px 0; border-top: 1px solid #f1f2ee; }
+.source-enrichment-text { white-space: pre-wrap; overflow-wrap: anywhere; }
+.source-enrichment-heading { margin: 8px 0 3px; color: #657369; font-size: 10px; font-weight: 500; }
+.source-enrichment-link { display: inline-block; margin-top: 5px; color: var(--green-dark); font-size: 9px; }
+.source-enrichment button:disabled { cursor: wait; opacity: .65; }
 .translation-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 4px 0; color: #92978e; font-size: 9px; }
 .translation-row strong { color: #4b524c; font-size: 10px; font-weight: 500; text-align: right; }
 .translation-reading { display: block; margin-top: 2px; color: #9a9f98; font: 9px "DM Mono", sans-serif; }
@@ -321,6 +367,9 @@ button { -webkit-tap-highlight-color: transparent; }
   .welcome-copy { max-width: 340px; font-size: 12px; line-height: 1.6; }
   .welcome-mark { padding-right: 1%; }
   .explorer { padding: 14px 11px 13px; border-radius: 14px; }
+  .search-language-row { gap: 5px; }
+  .search-language-row legend { width: 100%; margin: 0 0 2px; }
+  .search-language-option { min-height: 30px; padding: 0 8px; }
   .filter-row { gap: 6px; }
   .filter-chip { min-height: 30px; padding: 0 8px; font-size: 9px; }
   .filter-label { margin-bottom: 2px; }

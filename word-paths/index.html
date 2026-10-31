@@ -56,12 +56,31 @@
               <span aria-hidden="true">⚄</span>
             </button>
           </form>
+          <fieldset id="search-languages" class="search-language-row">
+            <legend data-i18n="search.languages">搜索语言</legend>
+            <label class="search-language-option is-selected" data-search-language-option="zh">
+              <input type="checkbox" value="zh" checked>
+              <span data-i18n="search.language.zh">中文（中）</span>
+              <span class="search-language-lock" data-i18n="search.languageLocked" hidden>当前</span>
+            </label>
+            <label class="search-language-option is-selected" data-search-language-option="ko">
+              <input type="checkbox" value="ko" checked>
+              <span data-i18n="search.language.ko">韩语（韩）</span>
+              <span class="search-language-lock" data-i18n="search.languageLocked" hidden>当前</span>
+            </label>
+            <label class="search-language-option is-selected" data-search-language-option="ja">
+              <input type="checkbox" value="ja" checked>
+              <span data-i18n="search.language.ja">日语（日）</span>
+              <span class="search-language-lock" data-i18n="search.languageLocked" hidden>当前</span>
+            </label>
+          </fieldset>
           <p id="search-message" class="search-message" aria-live="polite"></p>
           <div id="search-candidates" class="search-candidates" role="listbox" aria-label="匹配的词条" data-i18n-attr="aria-label:search.candidates" hidden></div>
 
           <div class="filter-row" role="group" aria-label="关系筛选" data-i18n-attr="aria-label:filters.label">
             <span class="filter-label" data-i18n="filters.label">显示关系</span>
             <button class="filter-chip" type="button" data-filter="origin" aria-pressed="true"><i class="filter-dot origin-dot"></i><span data-i18n="filter.origin">词源</span></button>
+            <button class="filter-chip" type="button" data-filter="equivalent" aria-pressed="true"><i class="filter-dot equivalent-dot"></i><span data-i18n="filter.equivalent">跨语言对应</span></button>
             <button class="filter-chip" type="button" data-filter="similar" aria-pressed="true"><i class="filter-dot similar-dot"></i><span data-i18n="filter.similar">意思相近</span></button>
             <button class="filter-chip" type="button" data-filter="confusable" aria-pressed="true"><i class="filter-dot confusable-dot"></i><span data-i18n="filter.confusable">容易混淆</span></button>
             <button class="filter-chip" type="button" data-filter="antonym" aria-pressed="true"><i class="filter-dot antonym-dot"></i><span data-i18n="filter.antonym">反义词</span></button>
@@ -92,6 +111,7 @@
             </div>
             <div class="legend" aria-label="关系图例" data-i18n-attr="aria-label:legend.label">
               <span><i class="legend-line origin-line"></i><span data-i18n="filter.origin">词源</span></span>
+              <span><i class="legend-line equivalent-line"></i><span data-i18n="filter.equivalent">跨语言对应</span></span>
               <span><i class="legend-line similar-line"></i><span data-i18n="filter.similar">意思相近</span></span>
               <span><i class="legend-line confusable-line"></i><span data-i18n="filter.confusable">容易混淆</span></span>
               <span><i class="legend-line antonym-line"></i><span data-i18n="filter.antonym">反义词</span></span>

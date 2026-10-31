@@ -1,0 +1,140 @@
+{
+  "entries": [
+    {
+      "wordId": "water-zh",
+      "word": "水",
+      "language": "zh",
+      "source": {
+        "label": "Wiktionary contributors",
+        "url": "https://zh.wiktionary.org/wiki/%E6%B0%B4",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "fetchedAt": "2026-10-31T05:00:52+00:00",
+      "fields": {
+        "languageSection": "漢語",
+        "etymology": [
+          {
+            "heading": "字源",
+            "text": "{{Han etym}}\n{{liushu|p}} – 對照{{m-lite|zh|sc=Hani|川}}。\n{{zh-wp|zh|yue|lzh|gan|hak:súi|cdo:cūi|nan:chúi|wuu}}"
+          },
+          {
+            "heading": "詞源",
+            "text": "====發音====\n{{zh-pron\n|m=shuǐ,er=y\n|m-s=sui3\n|m-x=fèi\n|m-nj=shuǐ\n|dg=фи2\n|c=seoi2\n|c-dg=sui2\n|c-t=sui2\n|c-yj=sui2\n|g=sui3\n|h=pfs=súi;hrs=h:shuiˊ;gd=sui3;ct=shu3\n|j=sui2\n|mb=sṳ̌\n|md=cūi/cṳ̄\n|md_note=cūi - 文讀 (常見); cṳ̄ - vernacular (僅用於某些複合詞的首音節)\n|mn=ml,jj,ha,zp,tw,ph,sg:chúi/ml,jj,ha,zp,tw,ph,sg:súi\n|mn_note=chúi - 白讀; súi - 文讀\n|mn-t=zui2\n|mn-l=zui2/sui2\n|mn-l_note=zui2 - 白讀; sui2 - 文讀\n|px=pt,jk,nr,xy,yy,ft:zui3/pt,jk,nr,xy,yy,ft:sui3\n|px_note=zui3 - 白讀; sui3 - 文讀\n|sp=sui2\n|w=sh:5sy;jd,sj,cs,cm,jx,tx,hn,hy,dq,xs,sx:3sy;sz,ks,cz,nb,zs:3syu;yx:3shiu;jj:3shiue;hz:3suei;cx:1sy\n|w_note=由於韻律的不直觀性以及該詞相對較少使用，{{lang|zh|水}}有一些不標準的文讀音，例如 {{IPAfont|/sue/}}、{{IPAfont|/sø/}} 或 {{IPAfont|/sei/}}。這些讀音大多由年輕人使用\n|w-j=3shiu\n|x=xyei3\n|x-l=xy3\n|x-h=xy3/sui3\n|x-h_note=xy3 - 白讀; sui3 - 文讀\n|mc=y\n|oc=y\n|ma=y\n|ca=LL-Q9186-Justinrleung-水.wav\n|cat=n,a,pn,cls,v\n}}\n}}\n\n====釋義====\n{{zh-hanzi-lite|sort=水00}}\n\n#一種[[液體]]。[[常壓]][[室溫]]下為無[[色]]、無[[味]]、無[[嗅]]的[[透明]]液體，[[化學式]]是H<sub>2</sub>O。\n#* {{zh-x|冰，水 爲{wéi} 之，而 寒 於 水。||CL|ref=《{{w|荀子 (書)|荀子}}·[[s:荀子/勸學篇|勸學]]》}}\n#[[河]]；[[河流]]。\n#泛指任何[[水體]]；[[河]]；[[江]]；[[湖]]。\n#[[水災]]；[[大水]]。\n#水狀物；[[汁]]；[[液]]。\n#[[游泳]]。\n#: {{zh-co|水性}}\n#[[五行]]之一。\n#[[水星]]。"
+          }
+        ],
+        "characterHistory": []
+      }
+    },
+    {
+      "wordId": "water-ko",
+      "word": "물",
+      "language": "ko",
+      "source": {
+        "label": "Wiktionary contributors",
+        "url": "https://zh.wiktionary.org/wiki/%EB%AC%BC",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "fetchedAt": "2026-10-31T05:02:35+00:00",
+      "fields": {
+        "languageSection": "朝鮮語",
+        "sectionExcerpt": "===替代寫法===\n* {{alter|ko|믈||近世}}\n\n===詞源1===\n{{wiki|lang=ko}}\n{{ko-etym-native|hh|믈〮|múl}}，來自{{inh|ko|oko||勿|tr=*mul}}，這個詞素在公元前1000年左右的南部朝鮮語地名中，可能用於表示“水”。古代北部朝鮮語地名更常用{{cog|zkg||買|tr=*me}}來表示“水”，現在存留於少部分詞，如{{m|ko|미나리}}。\n\n可能與{{inh|mnc|tuw-pro|*mū}}、{{inh|mnc|juc|sc=Hani|木克|tr=mu-ke|ts=muke}}、{{cog|mnc|ᠮᡠᡴᡝ}}、{{cog|mn|мөрөн||河}}、{{cog|ja|水|tr=mizu||水}}同源。\n\n====發音====\n{{ko-IPA|a=y}}\n* {{ko-tone|H_H_irreg}}\n\n====名詞====\n[[Image:Stilles Mineralwasser.jpg|right|250px]]\n{{ko-noun}}\n\n# [[水]]\n#:{{ko-x|물 한 [[모금]]|一口'''水'''}}\n#:{{ko-x|물을 [[긷다]]|打'''水'''}}\n#:{{ko-x|물을 [[붓다]]|倒'''水'''}}\n#:{{ko-x|물을 [[뿌리다]] / 물을 [[엎지르다]]|灑'''水'''；潑'''水'''}}\n#:{{ko-x|물이 [[맑다]]|清澈的'''水'''}}\n#:{{ko-x|물이 [[꽁꽁]] [[얼다]]|结冰的'''水'''}}\n#:{{ux|ko|[[우물]][[가]]에 [[가다|가서]] 물을 [[마시다]].|到井边去喝'''水'''。}}\n#:{{ux|ko|[[이]] [[꽃]][[-은]] [[왜]] [[시들다|시들고]] [[있다|있니]]? - [[얼마나]] [[자주]] '''물'''[[-을]] [[주다|주었지]]?|為什麼花凋謝了？ - 你多久沒給它澆'''水'''了？}}\n# [[江]]，[[河]]，[[湖]]\n#: {{ko-x|[[아빠]]와 물에 [[가다|가서]] [[수영]]하다.|和爸爸去'''江'''边游泳。}}\n# [[潮水]]\n#: {{ko-x|물이 [[들어오다|들어올]] [[때]], [[차]]가 [[고장]] [[나다|나서]] [[움직이다|움직일]] [[수]] [[없다|없었다]].|在'''潮水'''来临时，车子因故障无法开走。}}\n# {{lb|ko|接在另一個名詞|通常否定}} [[影響]]；[[感染]] {{qualifier|和動詞{{ko-l|들다}}或{{ko-l|먹다}}}}\n#: {{ux|ko|[[뉴욕]] [[가다|갔다]] [[오다|오니]] ^[[미국]] '''물'''[[-이]] [[다]] [[들다|들었네]].|t=從紐約回來後，你已經完全變成美國人了 [壞的狀況]。|lit=從紐約回來後，你全身滲透美國的'''水'''。}}\n\n=====衍生詞=====\n{{col3|ko|눈물|물가|물개|물결|물고기|물살|민물|바닷물|콧물|수도물|샘물|찬물|더운물|구정물|물약|물병|물집|물먹다}}\n\n====前綴====\n{{ko-pos|前綴}}\n\n# [[水生]]的\n\n{{C|ko|自然|飲料}}\n\n===詞源2===\n\n====發音====\n{{ko-IPA}}\n\n====名詞====\n{{ko-noun}}\n\n# [[鲜度]]，[[新鲜]]\n#: {{ko-x|[[초저온]] [[보존]] [[기술]]은 [[참치]]의 물을 [[신선도]]를 [[가장]] [[잘]] [[보존]]할 [[수]] [[있다]].|超低温保存技术能够最大限度地保存金枪鱼的鲜度。}}\n#: {{ko-x|[[아가씨]] [[오늘]] [[생선]]은 물 [[좋다|좋아요]].|小姐，今天的鱼很新鲜。}}\n\n===詞源3===\n{{ko-etym-native|{{lang|ko|老乞大諺解/노걸대언해}}|믈|múl|1670年}}。\n\n====發音====\n{{ko-IPA}}\n\n====名詞====\n{{ko-noun}}\n\n# [[色]]，[[颜色]]\n#:{{ko-x|물이 [[빠지다]] [[바래다]]|掉色}}\n#: {{ko-x|[[이]] [[천]]은 물이 [[아주]] [[곱다]].|這塊布顏色很好看。}}\n\n=====衍生詞=====\n{{col3|ko|물다|물리다|물들이다}}\n\n====相關詞====\n*{{ko-l|묽다}}\n\n===詞源4===\n不同漢字的現代朝鮮語讀法。\n\n====音節====\n{{ko-syllable-hanja}}\n\n{{collapse|\n# {{ko-hanja-reading|勿}}\n# {{ko-hanja-reading|物}}\n# {{ko-hanja-reading|沕}}\n|bg=#FFFFFF}}",
+        "etymology": [],
+        "characterHistory": []
+      }
+    },
+    {
+      "wordId": "water-ja",
+      "word": "水",
+      "language": "ja",
+      "source": {
+        "label": "Wiktionary contributors",
+        "url": "https://zh.wiktionary.org/wiki/%E6%B0%B4",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "fetchedAt": "2026-10-31T05:02:35+00:00",
+      "fields": {
+        "languageSection": "日語",
+        "sectionExcerpt": "{{ja-kanji|grade=1|rs=水00}}\n{{wikipedia|lang=ja}}\n===讀音===\n{{ja-readings\n|goon=すい<すい<すゐ\n|kanon=すい<すい<すゐ\n|kun=みず-<みづ-\n|nanori=うず, ずみ, たいら<たひら, つ, ど, な, なか, み, みさ, みつ, みな, みん, ゆ, ゆく\n}}\n===释义===\n#水。\n#水体，有水的地方。\n#水状物。\n#[[氢]]的略称。",
+        "etymology": [],
+        "characterHistory": []
+      }
+    },
+    {
+      "wordId": "fire-zh",
+      "word": "火",
+      "language": "zh",
+      "source": {
+        "label": "Wiktionary contributors",
+        "url": "https://zh.wiktionary.org/wiki/%E7%81%AB",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "fetchedAt": "2026-10-31T05:02:41+00:00",
+      "fields": {
+        "languageSection": "漢語",
+        "sectionExcerpt": "{{zh-forms}}\n\n===字源===\n{{Han etyl}}\n\n===發音===\n{{zh-pron\n|m=huǒ\n|m-s=ho3\n|dg=хуә2\n|c=fo2\n|c-t=fo2\n|g=fo3\n|h=pfs=fó;gd=fo3\n|j=hue2\n|mb=hǒ\n|md=huōi/huō\n|md_note=huōi - colloquial; huō - literary\n|mn=xm,jj,tp,mg,hc,ph:hé/qz,ta,lk,sx,km,hc:hér/zz,kh,tn,yl,tc,sg:hóe/hóⁿ\n|mn_note=hé/hér/hóe - vernacular; hóⁿ - literary\n|mn-t=huê2\n|mn-l=hue2/ho2\n|mn-l_note=hue2 - vernacular; ho2 - literary\n|w=sh,jd:5hu;cm,jx,tx,hn,hy,sx:3hu;sj,tx,hn:3fu;sz,cz,nb:3hou;hz:3ho\n|x=ho3\n|x-l=huo3\n|x-h=ho3\n|mc=y\n|oc=y\n|ma=zh-huǒ.oga\n|ca=LL-Q9186-Justinrleung-火.wav\n|cat=n,a,v,pn\n}}\n\n===釋義===\n{{head|zh|漢字}}\n\n#[[物質]][[燃燒]]時所產生的[[光]]與[[焰]]。例：[[火焰]]、[[煙火]]、[[火源]]。\n#[[焚燒]]；[[燒毀]]。\n#[[火災]]；[[著火]]。\n#[[火把]]；[[燈燭]]。\n#[[熱]]；[[熱氣]]。\n#[[紅]]。例：[[火紅]]。\n#喻[[緊要]]；[[緊急]]。例：[[火速]]。\n#喻強烈的[[慾望]]或[[感情]]。例：[[慾火]]。\n#[[發怒]]。例：[[發火]]。\n#[[五行]]之一。\n#中醫指引起[[發炎]]、[[紅腫]]、[[煩躁]]等癥狀的原因。例：[[上火]]。\n#[[槍炮]][[彈藥]]。例：[[軍火]]、[[火器]]、[[火力]]。\n\n（huō，ㄏㄨㄛ）\n#{{方}} [[缺]][[豁]]。\n#*《字彙補‧火部》：“火，今人謂兔歧唇曰火。”\n#*清·郝懿行《證俗文》卷十七：“今謂破處曰火口子。”\n===词源===\n火\n火是一个古汉藏语词汇，其古代读音为\n/myəy ~ sməy/smyəy/。\n\n===组词===\n{{組詞}}",
+        "etymology": [
+          {
+            "heading": "字源",
+            "text": "{{Han etyl}}"
+          },
+          {
+            "heading": "词源",
+            "text": "火\n火是一个古汉藏语词汇，其古代读音为\n/myəy ~ sməy/smyəy/。"
+          }
+        ],
+        "characterHistory": []
+      }
+    },
+    {
+      "wordId": "mountain-zh",
+      "word": "山",
+      "language": "zh",
+      "source": {
+        "label": "Wiktionary contributors",
+        "url": "https://zh.wiktionary.org/wiki/%E5%B1%B1",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "fetchedAt": "2026-10-31T05:02:45+00:00",
+      "fields": {
+        "languageSection": "漢語",
+        "sectionExcerpt": "{{zh-forms|alt=𠙸,𡶸}}\n{{zh-wp|zh|yue|lzh|gan|hak:sân|cdo:săng|nan:soaⁿ|wuu}}\n[[Image:Everest North Face toward Base Camp Tibet Luca Galuzzi 2006.jpg|thumb|]]\n\n===字源===\n{{Han etyl}}\n{{liushu|p}} – 三個山峰。在甲骨文中為三角形組成，而非垂直線。對照{{zh-l|丘}}的早期字型。\n\n===詞源===\n未知 – 漢-白語支以外無同源詞。與{{cog|bca|svrt||山}}（< 原始白語 ''*sro⁴''）同源。\n\n{{zh-ref|Baxter and Sagart (2014)}}認為是從一個詞根{{m|und|*ŋ(ˤ)rar||傾斜、幾乎垂直}}所衍生的，這也衍生出{{och-l|巘|山丘|tr=*ŋ(r)ar(ʔ)}}、{{och-l|涯|河岸|tr=*ŋˤrar}}、{{och-l|顏|額|tr=*C.ŋˤrar}}。\n\nStarostin 將其與{{cog|pdu||sʰôn|山}}來比較。\n\n===發音===\n{{zh-pron\n|m=shān\n|m-s=san1\n|dg=сан1\n|c=saan1\n|c-t=san1\n|g=san1\n|h=pfs=sân;gd=san1\n|j=san1\n|mb=súing\n|md=săng\n|mn=ml,jj,na,ha,zp,ct,ly,tw,pn,sg:soaⁿ/ml,jj,na,ha,zp,ct,ly,tw,pn:san\n|mn_note=soaⁿ - 白讀; san - 文讀\n|mn-t=suan1/sang1\n|mn-t_note=suan1 - 白讀; sang1 - 文讀\n|w=1se\n|x=san1\n|mc=y\n|oc=y\n|ma=y\n|ca=LL-Q9186-Justinrleung-山.wav\n|cat=n,pn\n}}\n\n===釋義===\n{{head|zh|漢字}}\n\n# {{lb|zh|countable}} [[地層]]屈折或[[地上]][[土石]]組成的[[隆起]]部分。{{zh-mw|m,c:座|mn:粒}}\n#: {{zh-x|登山|}}\n# 山狀的[[物體]]\n#: {{zh-x|冰山|}}\n# [[蠶簇]]\n# [[山牆]]\n# {{lb|zh|粵語|柳州話|平話}} [[墓]]；[[墳]] {{zh-mw|c:個}}\n# {{surname|zh}}\n\n====同義詞====\n* {{see derivation subpage|漢語}}\n\n====翻譯====\n{{see translation subpage|名詞}}\n\n====參見====\n* {{zh-l|*嶽|yuè}}\n* {{zh-l|岳}}\n\n===組詞===\n* {{see derivation subpage|漢語}}\n\n====派生詞====\n{{CJKV|山|さん|산|sơn}}\n\n====參考資料====\n* {{R:yue:Hanzi}}\n* {{R:twedu|A01100}}\n\n{{zh-cat|Beginning}}",
+        "etymology": [
+          {
+            "heading": "字源",
+            "text": "{{Han etyl}}\n{{liushu|p}} – 三個山峰。在甲骨文中為三角形組成，而非垂直線。對照{{zh-l|丘}}的早期字型。"
+          },
+          {
+            "heading": "詞源",
+            "text": "未知 – 漢-白語支以外無同源詞。與{{cog|bca|svrt||山}}（< 原始白語 ''*sro⁴''）同源。\n\n{{zh-ref|Baxter and Sagart (2014)}}認為是從一個詞根{{m|und|*ŋ(ˤ)rar||傾斜、幾乎垂直}}所衍生的，這也衍生出{{och-l|巘|山丘|tr=*ŋ(r)ar(ʔ)}}、{{och-l|涯|河岸|tr=*ŋˤrar}}、{{och-l|顏|額|tr=*C.ŋˤrar}}。\n\nStarostin 將其與{{cog|pdu||sʰôn|山}}來比較。"
+          }
+        ],
+        "characterHistory": [
+          "{{liushu|p}} – 三個山峰。在甲骨文中為三角形組成，而非垂直線。對照{{zh-l|丘}}的早期字型。"
+        ]
+      }
+    },
+    {
+      "wordId": "person-ko",
+      "word": "사람",
+      "language": "ko",
+      "source": {
+        "label": "Wiktionary contributors",
+        "url": "https://zh.wiktionary.org/wiki/%EC%82%AC%EB%9E%8C",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "fetchedAt": "2026-10-31T05:03:09+00:00",
+      "fields": {
+        "languageSection": "朝鮮語",
+        "sectionExcerpt": "{{朝字|[[사]][[람]]}}\n\n{{朝鲜语罗马字表记\n|文=sa.ram\n|马=sa.ram\n|耶=sā.lam\n|音=sa̠ːɾa̠m\n}}\n\n{{类|朝|名}} {{语源}} ＜ 사 {{훈민정음(해례본)}}。 源自 [[살다|살―]](sal)[生] + ―[[]](om)[接辭]。 變化：sa.lom (월곡 143) > sa.lam。{{우리말語源辭典}}。 參考： 1) sal-[生] + om[接辭] (崔昌烈 1986.7.20)；2) sal-[生] + am[接辭] (安玉奎 1989.11, 한진건 1990.3)；3) so[大] + tom[國] (이탁 1978.8.31)。 试对比：'''[[살]]'''（“肉”），'''[[살다]]'''（“活”），'''[[사르다]]'''（“烧”），'''[[사랑]]'''（“爱”）。\n#人\n#:近义词：[[인간]](人間)，[[인]](人)\n#:派生词：[[윗사람]]，[[아랫사람]]，[[뱃사람]]，[[집사람]]，[[옛사람]]，[[섬사람]]，[[사람됨]]，[[뒷사람]]，[[생사람]]，[[큰사람]]，[[앞사람]]，[[뭇사람]]，[[손윗사람]]，[[손아랫사람]]，[[새사람]]，[[눈사람]]\n#::[[두]] 사람　　两个人 [[File:Ko-두 사람.oga]]\n#::[[너]]는 사람을 [[너무]] [[무시]]한다　　你太瞧不起人了 [[File:너는 사람을 너무 무시한다.ogg]]\n#::사람[[마다]] [[책]] [[한]] [[권]][[씩]] [[가지다]]　　人手一册 [[File:사람마다 책 한 권씩 가지다.ogg]]\n#::사람들이 [[모두]] [[알다|아는]] [[바]]　　人所共知 [[File:사람들이 모두 아는 바.ogg]]\n#::[[어제]] [[세]] 사람이 [[너]]를 [[찾아오다|찾아왔다]]　　昨天有三个人来找你 [[File:어제 세 사람이 너를 찾아왔다.ogg]]\n#::사람과 [[풍토]]가 [[잘]] [[맞다|맞지]] [[않다|않는다]]　　人地不宜 [[File:사람과 풍토가 잘 맞지 않는다.ogg]]\n#::그는 상하이 사람이다.(고향) 　　他上海人。[[File:그는 상하이 사람이다.ogg]]\n\n[[Category:朝鲜语 人|*]]\n[[Category:待分類的朝鮮語詞]]\n[[Category:朝鮮語]]",
+        "etymology": [],
+        "characterHistory": []
+      }
+    }
+  ]
+}

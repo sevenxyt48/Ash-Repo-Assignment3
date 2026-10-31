@@ -2,8 +2,15 @@
 import { renderGraph, resetGraphView, zoomGraph } from "./graph.js";
 import { renderDetails, renderEmptyDetails } from "./details.js";
 import { loadWordDataset, validateWordDataset } from "./wordRepository.js";
+import { relationshipIdentityKey } from "./relationshipValidation.mjs";
 import { fetchConceptNetWord, translateText } from "./vocabularyApi.js";
-import { applyInterfaceLanguage, languageName, translate } from "./i18n.js";
+import { enrichKrdictWord, enrichWiktionaryWord } from "./sourceApi.js";
+import {
+  applyInterfaceLanguage,
+  formatVocabularyWord,
+  languageName,
+  translate
+} from "./i18n.js";
 
 const graphContainer = document.querySelector("#graph");
 const graphMessage = document.querySelector("#graph-message");
@@ -11,6 +18,7 @@ const searchForm = document.querySelector("#search-form");
 const searchInput = document.querySelector("#search");
 const searchMessage = document.querySelector("#search-message");
 const searchCandidates = document.querySelector("#search-candidates");
+const searchLanguageOptions = [...document.querySelectorAll("[data-search-language-option]")];
 const languageSelect = document.querySelector("#language");
 const randomButton = document.querySelector("#random");
 const detailsPanel = document.querySelector("#details");
@@ -29,13 +37,16 @@ const state = {
   language: "zh",
   selectedId: null,
   selectedRelation: null,
-  activeTypes: new Set(["origin", "similar", "confusable", "antonym"]),
+  activeTypes: new Set(["equivalent", "origin", "similar", "confusable", "antonym"]),
   otherLanguages: false,
   query: "",
   searchRequest: 0,
   searchMessage: null,
   searchCandidates: [],
   searchCandidateHandler: null,
+  sourceEnrichments: {},
+  sourceLookupLoading: new Set(),
+  sourceLookupErrors: {},
   developmentGraph
 };
 
@@ -45,11 +56,11 @@ function normalized(value) {
 
 function wordSearchTerms(word) {
   return [word.englishTranslation, word.translations.en, word.pinyin,
-    ...Object.values(word.romanization)].filter(Boolean).map(normalized);
+    word.reading, ...Object.values(word.romanization)].filter(Boolean).map(normalized);
 }
 
 function getConnections(word, activeTypes = state.activeTypes, data = state.data,
-  includeUnverified = state.developmentGraph) {
+  includeDemo = state.developmentGraph) {
   if (!word || !data) return [];
   const connections = new Map();
   const wordIds = new Set(data.words.map((candidate) => candidate.id));
@@ -57,17 +68,16 @@ function getConnections(word, activeTypes = state.activeTypes, data = state.data
     for (const connection of item.connections) {
       const hasProductType = connection.productRelationType &&
         Object.prototype.hasOwnProperty.call(data.relationshipTypes, connection.productRelationType);
-      const isUnclassifiedRawRelation = includeUnverified &&
-        connection.verificationStatus === "unverified" &&
-        !connection.productRelationType &&
-        connection.rawRelationType;
-      if ((!includeUnverified && connection.verificationStatus !== "verified") ||
-          (includeUnverified &&
-           !["verified", "unverified", "demo"].includes(connection.verificationStatus)) ||
-          (!hasProductType && !isUnclassifiedRawRelation) ||
-          (hasProductType && !activeTypes.has(connection.productRelationType))) continue;
-      const targetId = item.id === word.id ? connection.targetWordId : item.id;
-      if (item.id !== word.id && connection.targetWordId !== word.id) continue;
+      if ((!includeDemo && connection.verificationStatus !== "verified") ||
+          (includeDemo &&
+           !["verified", "demo"].includes(connection.verificationStatus)) ||
+          !hasProductType ||
+          !activeTypes.has(connection.productRelationType)) continue;
+      const isOutgoing = item.id === word.id;
+      const isIncomingSymmetric = connection.targetWordId === word.id &&
+        connection.directionality === "symmetric";
+      if (!isOutgoing && !isIncomingSymmetric) continue;
+      const targetId = isOutgoing ? connection.targetWordId : item.id;
       if (!wordIds.has(targetId)) continue;
       const key = `${targetId}\u0000${connection.productRelationType ?? connection.rawRelationType}`;
       if (connections.has(key)) continue;
@@ -88,7 +98,8 @@ function getConnections(word, activeTypes = state.activeTypes, data = state.data
 
 function countDisplayableRelationships(data) {
   const wordIds = new Set(data.words.map((word) => word.id));
-  const relationshipIds = new Set();
+  const relationshipIds = new Map();
+  const counts = { total: 0, verified: 0, equivalents: 0, semantic: 0 };
   for (const word of data.words) {
     for (const connection of word.connections) {
       if (connection.verificationStatus === "verified" &&
@@ -96,12 +107,18 @@ function countDisplayableRelationships(data) {
           Object.prototype.hasOwnProperty.call(data.relationshipTypes, connection.productRelationType) &&
           connection.sourceWordId === word.id &&
           wordIds.has(connection.targetWordId)) {
-        const endpoints = [connection.sourceWordId, connection.targetWordId].sort();
-        relationshipIds.add(`${endpoints[0]}\u0000${endpoints[1]}\u0000${connection.productRelationType}`);
+        relationshipIds.set(relationshipIdentityKey(connection), connection.verificationStatus);
       }
     }
   }
-  return relationshipIds.size;
+  for (const [key, status] of relationshipIds) {
+    counts[status] += 1;
+    const type = key.slice(key.lastIndexOf("\u0000") + 1);
+    if (type === "equivalent") counts.equivalents += 1;
+    else counts.semantic += 1;
+  }
+  counts.total = relationshipIds.size;
+  return counts;
 }
 
 function countDemoRelationships(data) {
@@ -114,8 +131,7 @@ function countDemoRelationships(data) {
           !connection.productRelationType ||
           !Object.prototype.hasOwnProperty.call(data.relationshipTypes, connection.productRelationType) ||
           !wordIds.has(connection.targetWordId)) continue;
-      const endpoints = [connection.sourceWordId, connection.targetWordId].sort();
-      relationshipIds.add(`${endpoints[0]}\u0000${endpoints[1]}\u0000${connection.productRelationType}`);
+      relationshipIds.add(relationshipIdentityKey(connection));
     }
   }
   return relationshipIds.size;
@@ -133,13 +149,27 @@ async function addDemoRelationships(data) {
     ...word,
     connections: [...word.connections]
   }]));
+  const relationshipIdentities = new Set(
+    data.words.flatMap((word) =>
+      word.connections.map((relationship) => relationshipIdentityKey(relationship)))
+  );
+  const duplicateFixtureIds = [];
   // Fixture relationship categories only exercise the existing filters; they are not linguistic claims.
   for (const relationship of fixture.relationships) {
     const source = words.get(relationship.sourceWordId);
     if (!source || !words.has(relationship.targetWordId)) {
       throw new Error(`Demo relationship "${relationship.id}" references an unknown word`);
     }
+    const identity = relationshipIdentityKey(relationship);
+    if (relationshipIdentities.has(identity)) {
+      duplicateFixtureIds.push(relationship.id);
+      continue;
+    }
     source.connections.push(relationship);
+    relationshipIdentities.add(identity);
+  }
+  if (duplicateFixtureIds.length) {
+    console.warn(`Skipped duplicate demo relationships: ${duplicateFixtureIds.join(", ")}`);
   }
   return validateWordDataset({ ...data, words: [...words.values()] });
 }
@@ -150,6 +180,7 @@ function selectWord(id, relation = null) {
   state.selectedRelation = relation;
   state.query = "";
   searchInput.value = "";
+  updateSearchLanguageOptions("");
   showMessage("");
   clearSearchCandidates();
   render();
@@ -192,14 +223,16 @@ function render() {
       : translate(state.language, connectionCount === 1 ? "search.focusRelationsOne" : "search.focusRelations", {
           count: connectionCount
         });
-  const datasetRelationshipCount = countDisplayableRelationships(state.data);
+  const datasetRelationshipCounts = countDisplayableRelationships(state.data);
   const formattedWordCount = new Intl.NumberFormat(state.language).format(state.data.words.length);
-  const formattedRelationshipCount = new Intl.NumberFormat(state.language).format(datasetRelationshipCount);
-  datasetStats.textContent = translate(
-    state.language,
-    datasetRelationshipCount === 1 ? "search.datasetStatsOne" : "search.datasetStats",
-    { words: formattedWordCount, relations: formattedRelationshipCount }
-  );
+  const formatCount = (count) => new Intl.NumberFormat(state.language).format(count);
+  datasetStats.textContent = translate(state.language, "search.datasetStats", {
+    words: formattedWordCount,
+    relations: formatCount(datasetRelationshipCounts.total),
+    verified: formatCount(datasetRelationshipCounts.verified),
+    equivalents: formatCount(datasetRelationshipCounts.equivalents),
+    semantic: formatCount(datasetRelationshipCounts.semantic)
+  });
   if (state.developmentGraph) {
     const formattedDemoCount = new Intl.NumberFormat(state.language)
       .format(countDemoRelationships(state.data));
@@ -221,8 +254,34 @@ function render() {
     state.language,
     relation,
     matchingConnections,
-    selectWord
+    selectWord,
+    state.sourceEnrichments[selected.id] ?? {},
+    state.sourceLookupLoading,
+    state.sourceLookupErrors,
+    lookupSource
   );
+}
+
+async function lookupSource(wordId, provider) {
+  const key = `${wordId}:${provider}`;
+  state.sourceLookupErrors[key] = null;
+  state.sourceLookupLoading.add(key);
+  render();
+  try {
+    const result = provider === "krdict"
+      ? await enrichKrdictWord(wordId)
+      : await enrichWiktionaryWord(wordId);
+    state.sourceEnrichments[wordId] = {
+      ...state.sourceEnrichments[wordId],
+      [provider]: result
+    };
+  } catch (error) {
+    state.sourceLookupErrors[key] = error.message;
+    console.error(`${provider} lookup failed for ${wordId}:`, error);
+  } finally {
+    state.sourceLookupLoading.delete(key);
+    render();
+  }
 }
 
 function showMessage(key, isError = false, values = {}) {
@@ -238,13 +297,56 @@ function queryLanguages(query) {
   return [];
 }
 
+function selectedSearchLanguages() {
+  return new Set(searchLanguageOptions
+    .filter((option) => option.querySelector("input").checked)
+    .map((option) => option.dataset.searchLanguageOption));
+}
+
+function lockedSearchLanguages(query) {
+  const detectedLanguages = query ? queryLanguages(query) : [];
+  if (detectedLanguages.length !== 2 ||
+      !/\p{Script=Han}/u.test(query) ||
+      !state.localData) return new Set(detectedLanguages);
+
+  const term = normalized(query);
+  const matchingLanguages = new Set(state.localData.words
+    .filter((word) => detectedLanguages.includes(word.language) &&
+      normalized(word.word).startsWith(term))
+    .map((word) => word.language));
+  return matchingLanguages.size === 1
+    ? matchingLanguages
+    : new Set(detectedLanguages);
+}
+
+function updateSearchLanguageOptions(query) {
+  const detectedLanguages = lockedSearchLanguages(query);
+  for (const option of searchLanguageOptions) {
+    const input = option.querySelector("input");
+    const isLocked = detectedLanguages.has(input.value);
+    if (!query) input.checked = true;
+    else if (isLocked) input.checked = true;
+    input.disabled = isLocked;
+    option.classList.toggle("is-selected", input.checked);
+    option.classList.toggle("is-locked", isLocked);
+    option.querySelector(".search-language-lock").hidden = !isLocked;
+  }
+}
+
 function findMatchesIn(query, data) {
   const term = normalized(query);
   if (!term) return [];
-  const languages = queryLanguages(query);
+  const selectedLanguages = selectedSearchLanguages();
+  const detectedLanguages = queryLanguages(query);
+  const languages = detectedLanguages.length
+    ? detectedLanguages.filter((language) => selectedLanguages.has(language))
+    : [...selectedLanguages];
   return data.words.filter((word) => {
     if (languages.length) {
-      return languages.includes(word.language) && normalized(word.word).startsWith(term);
+      return languages.includes(word.language) &&
+        [word.word, word.language === "ja" ? word.reading : null]
+          .filter(Boolean)
+          .some((candidate) => normalized(candidate).startsWith(term));
     }
     return wordSearchTerms(word).some((candidate) => candidate.startsWith(term));
   });
@@ -273,7 +375,7 @@ function renderSearchCandidates(words, onSelect) {
     option.setAttribute("aria-selected", "false");
     const label = document.createElement("span");
     label.className = "search-candidate-word";
-    label.textContent = word.word;
+    label.textContent = formatVocabularyWord(word);
     const language = document.createElement("span");
     language.className = "search-candidate-language";
     language.textContent = `${languageName(word.language, state.language)} (${word.language})`;
@@ -316,6 +418,7 @@ function selectSearchCandidate(word, dataset = state.data ?? state.localData) {
   state.selectedRelation = null;
   state.query = "";
   searchInput.value = "";
+  updateSearchLanguageOptions("");
   showMessage("");
   clearSearchCandidates();
   render();
@@ -331,7 +434,8 @@ async function exploreSearch(query) {
   }
   clearSearchCandidates();
   const matches = findMatchesIn(query, state.localData);
-  const languages = queryLanguages(query);
+  const languages = queryLanguages(query)
+    .filter((language) => selectedSearchLanguages().has(language));
   if (matches.length > 0 && languages.length < 2) {
     if (matches.length === 1) {
       selectSearchCandidate(matches[0]);
@@ -389,10 +493,12 @@ async function exploreSearch(query) {
     state.data = data;
     validateWordDataset(state.data);
     for (const type of Object.keys(state.data.relationshipTypes)) state.activeTypes.add(type);
+    const selectedLanguages = selectedSearchLanguages();
     const candidates = [...new Map([
       ...matches,
       ...matchedRemoteDatasets.map((dataset) => dataset.words[0])
-    ].map((word) => [word.id, word])).values()];
+    ].filter((word) => selectedLanguages.has(word.language))
+      .map((word) => [word.id, word])).values()];
     if (candidates.length === 1 && languages.length === 1) {
       selectSearchCandidate(candidates[0], data);
       return;
@@ -445,6 +551,7 @@ searchForm.addEventListener("submit", (event) => {
 searchInput.addEventListener("input", () => {
   state.searchRequest += 1;
   const query = searchInput.value.trim();
+  updateSearchLanguageOptions(query);
   if (!query) {
     showMessage("");
     clearSearchCandidates();
@@ -455,7 +562,7 @@ searchInput.addEventListener("input", () => {
     showMessage("search.loadingInput");
     return;
   }
-  const matches = findMatches(query);
+  const matches = findMatchesIn(query, state.data ?? state.localData);
   renderSearchCandidates(matches, (word) => selectSearchCandidate(word));
   if (matches.length > 1) {
     showMessage("search.multiple", false, { count: matches.length });
@@ -465,6 +572,30 @@ searchInput.addEventListener("input", () => {
     showMessage("search.pressEnter");
   }
 });
+
+for (const option of searchLanguageOptions) {
+  const input = option.querySelector("input");
+  input.addEventListener("change", () => {
+    if (input.disabled) {
+      input.checked = true;
+      return;
+    }
+    option.classList.toggle("is-selected", input.checked);
+    const query = searchInput.value.trim();
+    if (!query || !state.localData) return;
+    const matches = findMatchesIn(query, state.data ?? state.localData);
+    renderSearchCandidates(matches, (word) => selectSearchCandidate(word));
+    if (matches.length > 1) {
+      showMessage("search.multiple", false, { count: matches.length });
+    } else if (matches.length === 1) {
+      showMessage("search.one", false, {
+        language: languageName(matches[0].language, state.language)
+      });
+    } else {
+      showMessage("search.pressEnter");
+    }
+  });
+}
 
 languageSelect.addEventListener("change", () => {
   state.language = languageSelect.value;
@@ -516,6 +647,7 @@ document.addEventListener("keydown", (event) => {
     searchInput.value = "";
     state.query = "";
     state.searchRequest += 1;
+    updateSearchLanguageOptions("");
     showMessage("");
     clearSearchCandidates();
     searchInput.blur();

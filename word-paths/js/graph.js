@@ -1,10 +1,10 @@
 // 此文件计算词汇关系图布局并绘制可交互的 SVG 节点与连线。
-import { languageName, translate } from "./i18n.js";
+import { formatVocabularyWord, languageName, translate } from "./i18n.js";
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 const VIEW_WIDTH = 1000;
 const VIEW_HEIGHT = 560;
-const TYPE_ORDER = ["origin", "similar", "confusable", "antonym"];
+const TYPE_ORDER = ["equivalent", "origin", "similar", "confusable", "antonym"];
 const viewport = { scale: 1, x: 0, y: 0 };
 let ignoreClickUntil = 0;
 
@@ -21,17 +21,17 @@ function getConnections(word, words, activeTypes, developmentGraph) {
   const connections = new Map();
   for (const item of words) {
     for (const connection of item.connections) {
-      const isUnclassifiedRawRelation = developmentGraph &&
-        connection.verificationStatus === "unverified" &&
-        !connection.productRelationType &&
-        connection.rawRelationType;
-      if ((!developmentGraph && connection.verificationStatus !== "verified") ||
+      if ((!developmentGraph &&
+           connection.verificationStatus !== "verified") ||
           (developmentGraph &&
-           !["verified", "unverified", "demo"].includes(connection.verificationStatus)) ||
-          (!connection.productRelationType && !isUnclassifiedRawRelation) ||
-          (connection.productRelationType && !activeTypes.has(connection.productRelationType))) continue;
-      const targetId = item.id === word.id ? connection.targetWordId : item.id;
-      if (item.id !== word.id && connection.targetWordId !== word.id) continue;
+           !["verified", "demo"].includes(connection.verificationStatus)) ||
+          !connection.productRelationType ||
+          !activeTypes.has(connection.productRelationType)) continue;
+      const isOutgoing = item.id === word.id;
+      const isIncomingSymmetric = connection.targetWordId === word.id &&
+        connection.directionality === "symmetric";
+      if (!isOutgoing && !isIncomingSymmetric) continue;
+      const targetId = isOutgoing ? connection.targetWordId : item.id;
       const key = `${targetId}\u0000${connection.productRelationType ?? connection.rawRelationType}`;
       if (connections.has(key)) continue;
       if (item.id === word.id) {
@@ -56,17 +56,33 @@ function getLayout(center, words, activeTypes, developmentGraph) {
   const visible = [{ word: center, x: 500, y: 280, depth: 0 }];
   const edges = [];
   const seen = new Set([center.id]);
-  const firstLevel = getConnections(center, words, activeTypes, developmentGraph).slice(0, 6);
+  const firstLevelByWord = new Map();
+  for (const connection of getConnections(center, words, activeTypes, developmentGraph)) {
+    const connections = firstLevelByWord.get(connection.word.id) ?? [];
+    connections.push(connection);
+    firstLevelByWord.set(connection.word.id, connections);
+  }
+  const firstLevel = [...firstLevelByWord.values()].slice(0, 6);
 
-  firstLevel.forEach((connection, index) => {
+  firstLevel.forEach((connections, index) => {
     const side = index % 2 === 0 ? -1 : 1;
     const row = Math.floor(index / 2);
     const rowsOnSide = Math.ceil(firstLevel.length / 2);
     const y = 280 + (row - (rowsOnSide - 1) / 2) * 128;
+    const connection = connections[0];
     const node = { word: connection.word, x: side < 0 ? 200 : 800, y, depth: 1, relation: connection };
     visible.push(node);
     seen.add(node.word.id);
-    edges.push({ from: visible[0], to: node, connection });
+    connections.forEach((item, connectionIndex) => {
+      edges.push({
+        from: visible[0],
+        to: node,
+        connection: {
+          ...item,
+          parallelOffset: (connectionIndex - (connections.length - 1) / 2) * 12
+        }
+      });
+    });
   });
 
   const secondary = [];
@@ -105,6 +121,7 @@ function drawEdge(parent, from, to, connection, relationshipTypes, language) {
   const direction = to.x >= from.x ? 1 : -1;
   const gap = Math.abs(to.x - from.x);
   const bend = Math.min(105, gap * .42);
+  const parallelOffset = connection.parallelOffset ?? 0;
   const type = connection.productRelationType;
   const relationshipLabel = type
     ? translate(language, `relationship.${type}`)
@@ -114,12 +131,10 @@ function drawEdge(parent, from, to, connection, relationshipTypes, language) {
     : relationshipLabel;
   const statusLabel = connection.verificationStatus === "demo"
     ? translate(language, "relationship.demoMarker")
-    : connection.verificationStatus === "unverified"
-      ? translate(language, "relationship.unverifiedMarker")
-      : "";
+    : "";
   const labelText = [baseLabel, statusLabel].filter(Boolean).join(" · ");
   const path = svgElement("path", {
-    d: `M ${from.x} ${from.y} C ${from.x + direction * bend} ${from.y}, ${to.x - direction * bend} ${to.y}, ${to.x} ${to.y}`,
+    d: `M ${from.x} ${from.y} C ${from.x + direction * bend} ${from.y + parallelOffset}, ${to.x - direction * bend} ${to.y + parallelOffset}, ${to.x} ${to.y}`,
     class: `graph-edge edge-${(type ?? "unclassified").replace(/[^a-z0-9_-]/gi, "-")}`,
     "data-source": connection.sourceId,
     "data-target": connection.targetWordId,
@@ -128,7 +143,7 @@ function drawEdge(parent, from, to, connection, relationshipTypes, language) {
   parent.append(path);
 
   const middleX = (from.x + to.x) / 2;
-  const middleY = (from.y + to.y) / 2 + (to.y >= from.y ? 16 : -12);
+  const middleY = (from.y + to.y) / 2 + (to.y >= from.y ? 16 : -12) + parallelOffset;
   const label = svgElement("text", { x: middleX, y: middleY, class: "edge-label" });
   label.textContent = labelText;
   parent.append(label);
@@ -146,8 +161,12 @@ function addNode(parent, node, language, otherLanguages, selectedId, query, onSe
     "data-id": word.id
   });
   const wordLanguageName = languageName(word.language, language);
-  const reading = word.language === "zh" ? word.pinyin : word.romanization[word.language];
-  const nodeAriaLabel = `${label}, ${wordLanguageName}${reading ? `, ${reading}` : ""}`;
+  const reading = word.language === "ja"
+    ? word.reading
+    : word.language === "zh" ? word.pinyin : word.romanization[word.language];
+  const nodeAriaLabel = `${formatVocabularyWord(word)}, ${wordLanguageName}${
+    word.language !== "ja" && reading ? `, ${reading}` : ""
+  }`;
   group.setAttribute("aria-label", nodeAriaLabel);
 
   group.append(
@@ -158,7 +177,12 @@ function addNode(parent, node, language, otherLanguages, selectedId, query, onSe
   text.textContent = label;
   group.append(text);
 
-  if (reading) {
+  if (word.language === "ja" && reading && reading !== word.word) {
+    text.setAttribute("y", "-8");
+    const pronunciation = svgElement("text", { y: "10", class: "node-pinyin" });
+    pronunciation.textContent = `（${reading}）`;
+    group.append(pronunciation);
+  } else if (word.language !== "ja" && reading) {
     const pronunciation = svgElement("text", { y: "13", class: "node-pinyin" });
     pronunciation.textContent = reading;
     group.append(pronunciation);
@@ -184,7 +208,8 @@ function addNode(parent, node, language, otherLanguages, selectedId, query, onSe
       word.meaning,
       ...Object.values(word.definitions ?? {}),
       ...Object.values(word.translations),
-      word.pinyin
+      word.pinyin,
+      word.reading
     ]
       .join(" ").toLocaleLowerCase();
     if (!searchable.includes(query)) group.classList.add("is-dimmed");
