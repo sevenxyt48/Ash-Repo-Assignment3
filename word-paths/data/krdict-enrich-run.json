@@ -1,0 +1,243 @@
+{
+  "ok": [
+    {
+      "id": "water-ko",
+      "word": "물",
+      "entries": 2,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "river-ko",
+      "word": "강",
+      "entries": 2,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "liquid-ko",
+      "word": "액체",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "rain-ko",
+      "word": "비",
+      "entries": 4,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "hope-ko",
+      "word": "희망",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "longing-ko",
+      "word": "바람",
+      "entries": 3,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "day-ko",
+      "word": "낮",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "night-ko",
+      "word": "밤",
+      "entries": 2,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "soil-ko",
+      "word": "흙",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "scholar-ko",
+      "word": "선비",
+      "entries": 2,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "fire-ko",
+      "word": "불",
+      "entries": 2,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "wind-ko",
+      "word": "바람",
+      "entries": 3,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "snow-ko",
+      "word": "눈",
+      "entries": 5,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "mountain-ko",
+      "word": "산",
+      "entries": 2,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "sea-ko",
+      "word": "바다",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "sun-ko",
+      "word": "태양",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "moon-ko",
+      "word": "달",
+      "entries": 2,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "sky-ko",
+      "word": "하늘",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "morning-ko",
+      "word": "아침",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "today-ko",
+      "word": "오늘",
+      "entries": 2,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "tomorrow-ko",
+      "word": "내일",
+      "entries": 2,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "yesterday-ko",
+      "word": "어제",
+      "entries": 2,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "spring-ko",
+      "word": "봄",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "summer-ko",
+      "word": "여름",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "autumn-ko",
+      "word": "가을",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "winter-ko",
+      "word": "겨울",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "person-ko",
+      "word": "사람",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "friend-ko",
+      "word": "친구",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "father-ko",
+      "word": "아버지",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "mother-ko",
+      "word": "어머니",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "home-ko",
+      "word": "집",
+      "entries": 2,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "school-ko",
+      "word": "학교",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "room-ko",
+      "word": "방",
+      "entries": 2,
+      "candidates": 0,
+      "cached": false
+    },
+    {
+      "id": "book-ko",
+      "word": "책",
+      "entries": 1,
+      "candidates": 0,
+      "cached": false
+    }
+  ],
+  "failed": []
+}
