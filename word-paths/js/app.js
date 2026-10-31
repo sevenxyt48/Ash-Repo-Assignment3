@@ -31,6 +31,7 @@ const trailBack = document.querySelector("#trail-back");
 const trailSteps = document.querySelector("#trail-steps");
 const filters = [...document.querySelectorAll("[data-filter]")];
 const localHosts = new Set(["localhost", "127.0.0.1", "[::1]"]);
+const LANGUAGE_STORAGE_KEY = "wordpaths.language";
 const developmentGraph = localHosts.has(window.location.hostname) &&
   new URLSearchParams(window.location.search).get("devGraph") === "1";
 
@@ -339,9 +340,17 @@ function renderGraphView() {
 
 // 角落预览：只补充被点击词的释义，不接管右侧详情卡，也不遮挡图例与缩放控件。
 function peekReading(word) {
-  if (word.language === "ja") return word.reading;
+  if (word.language === "ja") return word.romanization?.ja;
   if (word.language === "zh") return word.pinyin;
   return word.romanization?.[word.language];
+}
+
+function entryUrlFor(word) {
+  if (word.source?.url) return word.source.url;
+  const encoded = encodeURIComponent(word.word);
+  if (word.language === "ko") return `https://ko.wiktionary.org/wiki/${encoded}`;
+  if (word.language === "ja") return `https://ja.wiktionary.org/wiki/${encoded}`;
+  return `https://zh.wiktionary.org/wiki/${encoded}`;
 }
 
 function renderPeek() {
@@ -361,28 +370,16 @@ function renderPeek() {
     state.peekId = null;
     renderPeek();
   });
+  const reading = peekReading(word);
   const top = document.createElement("p");
   top.className = "graph-peek-top";
-  top.textContent = `${languageName(word.language, state.language)} · ${formatVocabularyWord(word)}`;
-  const reading = peekReading(word);
-  const readingKey = word.language === "ja"
-    ? "details.romaji"
-    : word.language === "zh" ? "details.pinyin" : "details.romanization";
-  const line = reading
-    ? `${translate(state.language, readingKey)} · ${reading}`
-    : null;
+  top.textContent = `${languageName(word.language, state.language)} · ${
+    word.word}${reading ? `（${reading}）` : ""}`;
   const definition = definitionFor(word, state.language);
   const meaning = document.createElement("p");
   meaning.className = "graph-peek-meaning";
   meaning.textContent = definition.text;
-  const nodes = [close, top];
-  if (line) {
-    const readingNode = document.createElement("p");
-    readingNode.className = "graph-peek-reading";
-    readingNode.textContent = line;
-    nodes.push(readingNode);
-  }
-  nodes.push(meaning);
+  const nodes = [close, top, meaning];
   if (definition.fallback) {
     const note = document.createElement("p");
     note.className = "graph-peek-note";
@@ -391,6 +388,13 @@ function renderPeek() {
     });
     nodes.push(note);
   }
+  const entry = document.createElement("a");
+  entry.className = "graph-peek-link";
+  entry.href = entryUrlFor(word);
+  entry.target = "_blank";
+  entry.rel = "noreferrer";
+  entry.textContent = translate(state.language, "peek.openEntry");
+  nodes.push(entry);
   graphPeek.replaceChildren(...nodes);
 }
 
@@ -819,6 +823,11 @@ for (const option of searchLanguageOptions) {
 
 languageSelect.addEventListener("change", () => {
   state.language = languageSelect.value;
+  try {
+    localStorage.setItem(LANGUAGE_STORAGE_KEY, state.language);
+  } catch (error) {
+    console.warn("Unable to persist the interface language:", error);
+  }
   applyInterfaceLanguage(state.language);
   updateDevelopmentNotice();
   if (state.searchCandidates.length) {
@@ -881,6 +890,12 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+try {
+  const savedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+  if (["zh", "en", "ja", "ko"].includes(savedLanguage)) state.language = savedLanguage;
+} catch (error) {
+  console.warn("Unable to restore the interface language:", error);
+}
 languageSelect.value = state.language;
 applyInterfaceLanguage(state.language);
 initialize();

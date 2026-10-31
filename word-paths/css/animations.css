@@ -118,6 +118,7 @@
     transform: none !important;
   }
   .graph-node { transition: none !important; }
+  .graph-node.is-dragging { transition: none !important; }
   .graph-edge {
     stroke-dashoffset: 0 !important;
   }

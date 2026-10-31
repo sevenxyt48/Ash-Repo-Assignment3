@@ -6,6 +6,8 @@ const VIEW_WIDTH = 1000;
 const VIEW_HEIGHT = 560;
 const TYPE_ORDER = ["equivalent", "origin", "similar", "confusable", "antonym"];
 const viewport = { scale: 1, x: 0, y: 0 };
+const positionOverrides = new Map();
+const svgEdgeMaps = new WeakMap();
 let ignoreClickUntil = 0;
 
 function svgElement(name, attributes = {}) {
@@ -186,7 +188,103 @@ function createEdge(edge, relationshipTypes, language, delay) {
   });
 }
 
-function createNode(node, index, language, selectedId, query, onSelect, onHover) {
+function pointerToGraph(svg, event) {
+  const bounds = svg.getBoundingClientRect();
+  const x = (event.clientX - bounds.left) * VIEW_WIDTH / bounds.width;
+  const y = (event.clientY - bounds.top) * VIEW_HEIGHT / bounds.height;
+  const centerX = VIEW_WIDTH / 2;
+  const centerY = VIEW_HEIGHT / 2;
+  return {
+    x: (x - viewport.x - centerX) / viewport.scale + centerX,
+    y: (y - viewport.y - centerY) / viewport.scale + centerY
+  };
+}
+
+function indexEdges(svg) {
+  const layer = svg.querySelector(".graph-edges");
+  const map = new Map();
+  for (const element of layer?.children ?? []) {
+    map.set(element.dataset.edgeKey, element);
+  }
+  svgEdgeMaps.set(svg, map);
+}
+
+function redrawConnectedEdges(svg, wordId) {
+  const layout = svg.__layout;
+  const edgeMap = svgEdgeMaps.get(svg);
+  if (!layout || !edgeMap) return;
+  for (const edge of layout.edges) {
+    if (edge.from.word.id !== wordId && edge.to.word.id !== wordId) continue;
+    edgeMap.get(edge.id)?.setAttribute("d", edgeGeometry(edge.from, edge.to));
+  }
+}
+
+function attachNodeDrag(group) {
+  let drag = null;
+  const onMove = (event) => {
+    if (!drag || event.pointerId !== drag.pointerId) return;
+    const node = group.__node;
+    if (!node) return;
+    const point = pointerToGraph(group.ownerSVGElement, event);
+    const dx = point.x - drag.startX;
+    const dy = point.y - drag.startY;
+    if (!drag.moved && Math.abs(dx) + Math.abs(dy) < 4) return;
+    if (!drag.moved) {
+      drag.moved = true;
+      group.classList.add("is-dragging");
+    }
+    node.x = drag.nodeX + dx;
+    node.y = drag.nodeY + dy;
+    group.style.transform = `translate(${node.x}px, ${node.y}px)`;
+    redrawConnectedEdges(group.ownerSVGElement, node.word.id);
+  };
+  const onEnd = (event) => {
+    if (!drag || (event && event.pointerId !== drag.pointerId)) return;
+    const node = group.__node;
+    if (drag.moved && node) {
+      ignoreClickUntil = Date.now() + 220;
+      const centerId = group.ownerSVGElement.dataset.centerId;
+      positionOverrides.set(`${centerId}\u0000${node.word.id}`, { x: node.x, y: node.y });
+    }
+    group.classList.remove("is-dragging");
+    try {
+      if (group.hasPointerCapture?.(drag.pointerId)) {
+        group.releasePointerCapture(drag.pointerId);
+      }
+    } catch (error) {
+      console.warn("Unable to release pointer capture:", error);
+    }
+    window.removeEventListener("pointermove", onMove);
+    window.removeEventListener("pointerup", onEnd);
+    window.removeEventListener("pointercancel", onEnd);
+    drag = null;
+  };
+  group.addEventListener("pointerdown", (event) => {
+    if (event.button !== 0 || drag) return;
+    const node = group.__node;
+    if (!node) return;
+    const origin = pointerToGraph(group.ownerSVGElement, event);
+    drag = {
+      pointerId: event.pointerId,
+      startX: origin.x,
+      startY: origin.y,
+      nodeX: node.x,
+      nodeY: node.y,
+      moved: false
+    };
+    try {
+      group.setPointerCapture(event.pointerId);
+    } catch (error) {
+      // 触控与合成事件可能无法捕获指针，改用窗口监听继续拖动。
+    }
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onEnd);
+    window.addEventListener("pointercancel", onEnd);
+  });
+}
+
+function createNode(node, index, context) {
+  const { language, selectedId, query, onSelect, onHover } = context;
   const { word, depth } = node;
   const label = word.word;
   const delay = word.id === selectedId ? 0 : 90 + index * 55;
@@ -200,6 +298,7 @@ function createNode(node, index, language, selectedId, query, onSelect, onHover)
     style: `--node-delay: ${delay}ms; --float-delay: ${(index % 4) * .55}s`
   });
   group.style.transform = `translate(${node.x}px, ${node.y}px)`;
+  group.__node = node;
   const wordLanguageName = languageName(word.language, language);
   const reading = word.language === "ja"
     ? word.reading
@@ -279,11 +378,13 @@ function createNode(node, index, language, selectedId, query, onSelect, onHover)
   group.addEventListener("focus", showEnglishTranslation);
   group.addEventListener("pointerleave", clearEnglishTranslation);
   group.addEventListener("blur", clearEnglishTranslation);
+  attachNodeDrag(group);
   return group;
 }
 
 function updateNode(group, node, selectedId) {
   group.style.transform = `translate(${node.x}px, ${node.y}px)`;
+  group.__node = node;
   group.classList.toggle("is-center", node.word.id === selectedId);
   group.classList.toggle("is-connected",
     node.depth === 1 && node.word.id !== selectedId);
@@ -382,8 +483,7 @@ function createSvg(layout, context) {
       140 + index * 48));
   });
   layout.nodes.forEach((node, index) => {
-    nodeLayer.append(createNode(node, index, context.language, context.selectedId,
-      context.query, context.onSelect, context.onHover));
+    nodeLayer.append(createNode(node, index, context));
   });
   content.append(edgeLayer, nodeLayer);
   svg.append(content);
@@ -420,8 +520,7 @@ function updateSvg(svg, layout, context) {
     if (group) {
       updateNode(group, node, context.selectedId);
     } else {
-      nodeLayer.append(createNode(node, index, context.language, context.selectedId,
-        context.query, context.onSelect, context.onHover));
+      nodeLayer.append(createNode(node, index, context));
     }
   });
   for (const [id, element] of existingNodes) {
@@ -442,15 +541,24 @@ export function renderGraph(container, words, options) {
 
   const layout = getLayout(center, words, new Set(activeTypes), developmentGraph,
     activeLanguages, expandedIds);
+  for (const node of layout.nodes) {
+    const override = positionOverrides.get(`${selectedId}\u0000${node.word.id}`);
+    if (override) {
+      node.x = override.x;
+      node.y = override.y;
+    }
+  }
   const context = { center, selectedId, language, query, onSelect, onHover,
-    relationshipTypes };
+    relationshipTypes, layout };
 
   const current = [...container.querySelectorAll("svg")].at(-1);
   const canUpdate = current &&
     current.dataset.centerId === String(selectedId) &&
     current.dataset.uiLanguage === language;
   if (canUpdate) {
+    current.__layout = layout;
     updateSvg(current, layout, context);
+    indexEdges(current);
     applyViewport(current);
   } else {
     if (current && current.dataset.centerId !== String(selectedId)) {
@@ -459,6 +567,8 @@ export function renderGraph(container, words, options) {
       viewport.y = 0;
     }
     const svg = createSvg(layout, context);
+    svg.__layout = layout;
+    indexEdges(svg);
     svg.classList.add("is-entering");
     for (const stale of container.querySelectorAll("svg")) {
       if (stale !== current) stale.remove();

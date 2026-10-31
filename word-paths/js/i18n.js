@@ -135,7 +135,9 @@ const COPY = {
     "details.peekLanguage": "预览{language}词条",
     "details.notCollected": "未收录",
     "details.languageUnavailable": "本地词库暂未收录{language}的对应词条。",
-    "peek.close": "关闭预览"
+    "peek.close": "关闭预览",
+    "peek.openEntry": "打开词条页面",
+    "dataset.apiLink": "API 使用与许可"
   },
   en: {
     "page.title": "Word Paths — a map of meaning",
@@ -266,7 +268,9 @@ const COPY = {
     "details.peekLanguage": "Preview the {language} entry",
     "details.notCollected": "not collected",
     "details.languageUnavailable": "The local vocabulary does not include a {language} entry yet.",
-    "peek.close": "Close preview"
+    "peek.close": "Close preview",
+    "peek.openEntry": "Open entry page",
+    "dataset.apiLink": "API usage and licences"
   },
   ja: {
     "page.title": "Word Paths — ことばの意味マップ",
@@ -397,7 +401,9 @@ const COPY = {
     "details.peekLanguage": "{language}の項目をプレビュー",
     "details.notCollected": "未収録",
     "details.languageUnavailable": "{language}の対応項目はローカル語彙にまだありません。",
-    "peek.close": "プレビューを閉じる"
+    "peek.close": "プレビューを閉じる",
+    "peek.openEntry": "項目ページを開く",
+    "dataset.apiLink": "API 利用とライセンス"
   },
   ko: {
     "page.title": "Word Paths — 단어 의미 지도",
@@ -528,7 +534,9 @@ const COPY = {
     "details.peekLanguage": "{language} 항목 미리 보기",
     "details.notCollected": "미수록",
     "details.languageUnavailable": "이 언어({language})의 해당 항목은 아직 로컬 어휘에 없습니다.",
-    "peek.close": "미리 보기 닫기"
+    "peek.close": "미리 보기 닫기",
+    "peek.openEntry": "항목 페이지 열기",
+    "dataset.apiLink": "API 사용 및 라이선스"
   }
 };
 
