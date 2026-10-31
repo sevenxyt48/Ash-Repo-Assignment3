@@ -1,0 +1,1300 @@
+{
+  "entries": [
+    {
+      "wordId": "water-ko",
+      "word": "물",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:13+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "물",
+            "target_code": "17596",
+            "sup_no": "1",
+            "pronunciation": "물",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=17596",
+            "definitions": [
+              "강, 호수, 바다, 지하수 등에 있으며 순수한 것은 빛깔, 냄새, 맛이 없고 투명한 액체.",
+              "호수, 강, 바다 등.",
+              "달, 태양 등의 인력에 의해 주기적으로 높아졌다 낮아졌다 하는 바닷물.",
+              "나무의 수액이나 과일의 즙.",
+              "(비유적으로) 어떤 곳이나 조직, 대상에 대한 경험이나 영향."
+            ]
+          },
+          {
+            "word": "물",
+            "target_code": "57038",
+            "sup_no": "2",
+            "pronunciation": "물",
+            "word_grade": "고급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=57038",
+            "definitions": [
+              "물고기의 싱싱한 정도."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "river-ko",
+      "word": "강",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:14+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "강",
+            "target_code": "30203",
+            "sup_no": "1",
+            "origin": "江",
+            "pronunciation": "강",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=30203",
+            "definitions": [
+              "넓고 길게 흘러 바다로 들어가는 물줄기."
+            ]
+          },
+          {
+            "word": "강",
+            "target_code": "600479",
+            "sup_no": "2",
+            "origin": "強",
+            "pronunciation": "강",
+            "word_grade": "초급",
+            "pos": "의존 명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=600479",
+            "definitions": [
+              "일정한 범위 안에 드는 강자."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "liquid-ko",
+      "word": "액체",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:15+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "액체",
+            "target_code": "66736",
+            "sup_no": "0",
+            "origin": "液體",
+            "pronunciation": "액체",
+            "word_grade": "고급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=66736",
+            "definitions": [
+              "물, 기름과 같이 부피가 있으나 일정한 형태가 없으며 흐르는 성질이 있는 물질."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "rain-ko",
+      "word": "비",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:16+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "비",
+            "target_code": "36681",
+            "sup_no": "1",
+            "pronunciation": "비",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=36681",
+            "definitions": [
+              "높은 곳에서 구름을 이루고 있던 수증기가 식어서 뭉쳐 떨어지는 물방울."
+            ]
+          },
+          {
+            "word": "비",
+            "target_code": "91514",
+            "sup_no": "3",
+            "origin": "比",
+            "pronunciation": "비ː",
+            "word_grade": "고급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=91514",
+            "definitions": [
+              "전체를 이루는 부분들 사이의 비율 관계.",
+              "어떤 두 개의 수 또는 양을 서로 비교하여 몇 배인가를 나타내는 관계.",
+              "‘비율’의 뜻을 나타내는 말."
+            ]
+          },
+          {
+            "word": "비",
+            "target_code": "91513",
+            "sup_no": "2",
+            "pronunciation": "비",
+            "word_grade": "고급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=91513",
+            "definitions": [
+              "먼지나 쓰레기를 쓸어 내는 기구."
+            ]
+          },
+          {
+            "word": "비",
+            "target_code": "25660",
+            "sup_no": "4",
+            "origin": "碑",
+            "pronunciation": "비",
+            "word_grade": "고급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=25660",
+            "definitions": [
+              "역사적 사건을 기념하기 위해 글자를 새겨 세워 놓은 돌.",
+              "'기념하여 세운 물건'의 뜻을 나타내는 말."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "hope-ko",
+      "word": "희망",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:17+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "희망",
+            "target_code": "73256",
+            "sup_no": "0",
+            "origin": "希望",
+            "pronunciation": "히망",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=73256",
+            "definitions": [
+              "앞일에 대하여 기대를 가지고 바람.",
+              "앞으로 잘될 수 있는 가능성."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "longing-ko",
+      "word": "바람",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:18+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "바람",
+            "target_code": "85627",
+            "sup_no": "1",
+            "pronunciation": "바람",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=85627",
+            "definitions": [
+              "기압의 변화 또는 사람이나 기계에 의해 일어나는 공기의 움직임.",
+              "공이나 튜브 등과 같이 속이 빈 곳에 채우는 공기.",
+              "몰래 다른 이성과 애정을 나눔.",
+              "옷차림, 행동, 사상 등의 한때의 유행이나 분위기.",
+              "(속된 말로) 현기증, 졸도, 경련 등이 나타난 이후 몸에 마비가 오는 병.",
+              "작은 일을 불려서 크게 말하는 일.",
+              "남의 비난의 목표가 되거나 어떤 힘의 영향을 잘 받아 불안정한 자리.",
+              "남에게 마음에 없던 일을 하도록 부추기는 일.",
+              "(비유적으로) 들뜬 마음이나 일어난 생각.",
+              "매우 빠름."
+            ]
+          },
+          {
+            "word": "바람",
+            "target_code": "58172",
+            "sup_no": "3",
+            "pronunciation": "바람",
+            "word_grade": "중급",
+            "pos": "의존 명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=58172",
+            "definitions": [
+              "뒷말의 이유나 원인을 나타내는 말.",
+              "그 옷차림을 나타내는 말."
+            ]
+          },
+          {
+            "word": "바람",
+            "target_code": "15439",
+            "sup_no": "2",
+            "pronunciation": "바람",
+            "word_grade": "고급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=15439",
+            "definitions": [
+              "어떤 일이 생각한 대로 이루어지기를 원하는 마음."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "day-ko",
+      "word": "낮",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:20+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "낮",
+            "target_code": "64497",
+            "sup_no": "0",
+            "pronunciation": "낟",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=64497",
+            "definitions": [
+              "해가 뜰 때부터 질 때까지의 동안.",
+              "오후 열두 시가 지나고 저녁이 되기 전까지의 동안.",
+              "오후 열두 시 전후로 해가 하늘에 가장 높이 떠 있는 때."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "night-ko",
+      "word": "밤",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:21+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "밤",
+            "target_code": "74178",
+            "sup_no": "1",
+            "pronunciation": "밤",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=74178",
+            "definitions": [
+              "해가 진 후부터 다음 날 해가 뜨기 전까지의 어두운 동안."
+            ]
+          },
+          {
+            "word": "밤",
+            "target_code": "57999",
+            "sup_no": "2",
+            "pronunciation": "밤ː",
+            "word_grade": "중급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=57999",
+            "definitions": [
+              "가시가 많은 껍질에 싸여 있고 맛이 떫은 속껍질이 있으며 날것으로 먹거나 굽거나 삶아서 먹는 갈색의 열매."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "soil-ko",
+      "word": "흙",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:22+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "흙",
+            "target_code": "73254",
+            "sup_no": "0",
+            "pronunciation": "흑",
+            "word_grade": "중급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=73254",
+            "definitions": [
+              "지구의 표면을 덮고 있는, 작은 알갱이로 이루어진 물질."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "scholar-ko",
+      "word": "선비",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:23+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "선비",
+            "target_code": "63392",
+            "sup_no": "2",
+            "origin": "先妣",
+            "pronunciation": "선비",
+            "word_grade": "고급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=63392",
+            "definitions": [
+              "돌아가신 자기 어머니."
+            ]
+          },
+          {
+            "word": "선비",
+            "target_code": "63324",
+            "sup_no": "1",
+            "pronunciation": "선비",
+            "word_grade": "고급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=63324",
+            "definitions": [
+              "(옛날에) 학문을 배우고 익힌 사람.",
+              "(옛날에) 벼슬을 하지 않고 학문에만 힘쓴 사람.",
+              "학식과 절개가 있고 성품이 바르며 권력이나 재물에 욕심내지 않는 사람."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "fire-ko",
+      "word": "불",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:24+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "불",
+            "target_code": "61154",
+            "sup_no": "1",
+            "pronunciation": "불",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=61154",
+            "definitions": [
+              "물질이 빛과 열을 내며 타는 것.",
+              "집이나 물건이 불에 타는 재앙이나 재난.",
+              "빛을 내어 어둠을 밝히는 물체.",
+              "(비유적으로) 불이 타는 듯이 열렬하고 거세게 타오르는 감정."
+            ]
+          },
+          {
+            "word": "불",
+            "target_code": "60282",
+            "sup_no": "2",
+            "origin": "弗",
+            "pronunciation": "불",
+            "word_grade": "고급",
+            "pos": "의존 명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=60282",
+            "definitions": [
+              "미국의 화폐 단위."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "wind-ko",
+      "word": "바람",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:26+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "바람",
+            "target_code": "85627",
+            "sup_no": "1",
+            "pronunciation": "바람",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=85627",
+            "definitions": [
+              "기압의 변화 또는 사람이나 기계에 의해 일어나는 공기의 움직임.",
+              "공이나 튜브 등과 같이 속이 빈 곳에 채우는 공기.",
+              "몰래 다른 이성과 애정을 나눔.",
+              "옷차림, 행동, 사상 등의 한때의 유행이나 분위기.",
+              "(속된 말로) 현기증, 졸도, 경련 등이 나타난 이후 몸에 마비가 오는 병.",
+              "작은 일을 불려서 크게 말하는 일.",
+              "남의 비난의 목표가 되거나 어떤 힘의 영향을 잘 받아 불안정한 자리.",
+              "남에게 마음에 없던 일을 하도록 부추기는 일.",
+              "(비유적으로) 들뜬 마음이나 일어난 생각.",
+              "매우 빠름."
+            ]
+          },
+          {
+            "word": "바람",
+            "target_code": "58172",
+            "sup_no": "3",
+            "pronunciation": "바람",
+            "word_grade": "중급",
+            "pos": "의존 명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=58172",
+            "definitions": [
+              "뒷말의 이유나 원인을 나타내는 말.",
+              "그 옷차림을 나타내는 말."
+            ]
+          },
+          {
+            "word": "바람",
+            "target_code": "15439",
+            "sup_no": "2",
+            "pronunciation": "바람",
+            "word_grade": "고급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=15439",
+            "definitions": [
+              "어떤 일이 생각한 대로 이루어지기를 원하는 마음."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "snow-ko",
+      "word": "눈",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:27+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "눈",
+            "target_code": "72704",
+            "sup_no": "1",
+            "pronunciation": "눈",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=72704",
+            "definitions": [
+              "사람이나 동물의 얼굴에 있으며 빛의 자극을 받아 물체를 볼 수 있는 감각 기관.",
+              "사물의 존재나 형태를 구별하여 알 수 있는 눈의 능력.",
+              "사물을 보고 판단하는 힘.",
+              "무엇을 보는 표정이나 태도.",
+              "사람들의 눈이 가는 길이나 방향.",
+              "태풍에서 중심을 이루는 부분."
+            ]
+          },
+          {
+            "word": "눈",
+            "target_code": "20198",
+            "sup_no": "4",
+            "pronunciation": "눈ː",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=20198",
+            "definitions": [
+              "공기 중에 있는 물기가 얼어서 땅으로 떨어지는 하얀 솜과 같은 작은 얼음 조각."
+            ]
+          },
+          {
+            "word": "눈",
+            "target_code": "24508",
+            "sup_no": "2",
+            "pronunciation": "눈",
+            "word_grade": "고급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=24508",
+            "definitions": [
+              "자, 저울, 온도계 등에 수나 양을 표시하려고 그어 놓은 금."
+            ]
+          },
+          {
+            "word": "눈",
+            "target_code": "41542",
+            "sup_no": "3",
+            "pronunciation": "눈",
+            "word_grade": "고급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=41542",
+            "definitions": [
+              "그물의 줄 사이에 있는 구멍.",
+              "바둑판에서 가로줄과 세로줄이 만나는 점."
+            ]
+          },
+          {
+            "word": "눈",
+            "target_code": "41543",
+            "sup_no": "5",
+            "pronunciation": "눈",
+            "word_grade": "고급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=41543",
+            "definitions": [
+              "식물의 가지나 줄기에서 새로 돋아나는 꽃이나 잎 등의 싹."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "mountain-ko",
+      "word": "산",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:29+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "산",
+            "target_code": "20954",
+            "sup_no": "1",
+            "origin": "山",
+            "pronunciation": "산",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=20954",
+            "definitions": [
+              "평평한 땅보다 훨씬 높이 솟아 있고 대개 나무, 풀, 바위 등이 있는 땅."
+            ]
+          },
+          {
+            "word": "산",
+            "target_code": "62178",
+            "sup_no": "2",
+            "origin": "酸",
+            "pronunciation": "산",
+            "word_grade": "고급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=62178",
+            "definitions": [
+              "물에 녹았을 때 수소 이온을 내 놓으며, 염기와 만나면 중화하는 물질."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "sea-ko",
+      "word": "바다",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:32+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "바다",
+            "target_code": "26497",
+            "sup_no": "0",
+            "pronunciation": "바다",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=26497",
+            "definitions": [
+              "지구에서 육지 이외의 부분으로 짠물이 차 있는 곳.",
+              "어떤 물건이나 현상이 넘치도록 널리 퍼져 있는 상태나 모양."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "sun-ko",
+      "word": "태양",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:34+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "태양",
+            "target_code": "72179",
+            "sup_no": "0",
+            "origin": "太陽",
+            "pronunciation": "태양",
+            "word_grade": "중급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=72179",
+            "definitions": [
+              "태양계의 중심에 있으며 온도가 매우 높고 스스로 빛을 내는 항성.",
+              "(비유적으로) 매우 소중하거나 희망을 주는 존재."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "moon-ko",
+      "word": "달",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:35+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "달",
+            "target_code": "62266",
+            "sup_no": "1",
+            "pronunciation": "달",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=62266",
+            "definitions": [
+              "밤이 되면 하늘에 뜨는 동그랗고 밝은 빛이 나는 천체.",
+              "일 년을 열둘로 나누어 놓은 기간."
+            ]
+          },
+          {
+            "word": "달",
+            "target_code": "60490",
+            "sup_no": "2",
+            "pronunciation": "달",
+            "word_grade": "초급",
+            "pos": "의존 명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=60490",
+            "definitions": [
+              "일 년을 열둘로 나눈 것 가운데 하나의 기간을 세는 단위."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "sky-ko",
+      "word": "하늘",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:36+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "하늘",
+            "target_code": "20311",
+            "sup_no": "0",
+            "pronunciation": "하늘",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=20311",
+            "definitions": [
+              "땅 위로 펼쳐진 무한히 넓은 공간.",
+              "절대적인 존재, 하느님.",
+              "신이나 죽은 사람의 영혼이 살고 있다고 생각되는 곳."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "morning-ko",
+      "word": "아침",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:37+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "아침",
+            "target_code": "27368",
+            "sup_no": "0",
+            "pronunciation": "아침",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=27368",
+            "definitions": [
+              "날이 밝아올 때부터 해가 떠올라 하루의 일이 시작될 때쯤까지의 시간.",
+              "아침에 먹는 밥."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "today-ko",
+      "word": "오늘",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:38+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "오늘",
+            "target_code": "68206",
+            "sup_no": "1",
+            "pronunciation": "오늘",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=68206",
+            "definitions": [
+              "지금 지나가고 있는 이날.",
+              "현재, 지금의 시대."
+            ]
+          },
+          {
+            "word": "오늘",
+            "target_code": "68207",
+            "sup_no": "2",
+            "pronunciation": "오늘",
+            "word_grade": "초급",
+            "pos": "부사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=68207",
+            "definitions": [
+              "지금 지나가고 있는 이날에."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "tomorrow-ko",
+      "word": "내일",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:39+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "내일",
+            "target_code": "30193",
+            "sup_no": "1",
+            "origin": "來日",
+            "pronunciation": "내일",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=30193",
+            "definitions": [
+              "오늘의 다음 날.",
+              "앞으로 올 날."
+            ]
+          },
+          {
+            "word": "내일",
+            "target_code": "30194",
+            "sup_no": "2",
+            "origin": "來日",
+            "pronunciation": "내일",
+            "word_grade": "초급",
+            "pos": "부사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=30194",
+            "definitions": [
+              "오늘의 다음 날에."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "yesterday-ko",
+      "word": "어제",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:40+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "어제",
+            "target_code": "67075",
+            "sup_no": "1",
+            "pronunciation": "어제",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=67075",
+            "definitions": [
+              "오늘의 하루 전날.",
+              "지나간 때."
+            ]
+          },
+          {
+            "word": "어제",
+            "target_code": "67076",
+            "sup_no": "2",
+            "pronunciation": "어제",
+            "word_grade": "초급",
+            "pos": "부사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=67076",
+            "definitions": [
+              "오늘의 하루 전날에."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "spring-ko",
+      "word": "봄",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:41+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "봄",
+            "target_code": "20219",
+            "sup_no": "0",
+            "pronunciation": "봄",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=20219",
+            "definitions": [
+              "네 계절 중의 하나로 겨울과 여름 사이의 계절.",
+              "(비유적으로) 어렵고 힘든 시기가 지나가고 새롭게 오는 희망의 날들.",
+              "(비유적으로) 인생에서 가장 좋은 시기."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "summer-ko",
+      "word": "여름",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:42+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "여름",
+            "target_code": "67701",
+            "sup_no": "0",
+            "pronunciation": "여름",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=67701",
+            "definitions": [
+              "네 계절 중의 하나로 봄과 가을 사이의 더운 계절."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "autumn-ko",
+      "word": "가을",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:43+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "가을",
+            "target_code": "32204",
+            "sup_no": "0",
+            "pronunciation": "가을",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=32204",
+            "definitions": [
+              "네 계절 중의 하나로 여름과 겨울 사이의 계절."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "winter-ko",
+      "word": "겨울",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:44+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "겨울",
+            "target_code": "64367",
+            "sup_no": "0",
+            "pronunciation": "겨울",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=64367",
+            "definitions": [
+              "네 계절 중의 하나로 가을과 봄 사이의 추운 계절."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "person-ko",
+      "word": "사람",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:46+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "사람",
+            "target_code": "58161",
+            "sup_no": "0",
+            "pronunciation": "사ː람",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=58161",
+            "definitions": [
+              "생각할 수 있으며 언어와 도구를 만들어 사용하고 사회를 이루어 사는 존재.",
+              "어떤 지역이나 집안, 조직에 속한 자.",
+              "일정한 자격이나 인격을 갖춘 존재.",
+              "성질이나 인격.",
+              "친근한 상대편을 가리키거나 부를 때 사용하는 말.",
+              "특별히 정해지지 않은 자기 외의 남을 가리키는 말.",
+              "뛰어난 인물.",
+              "일을 할 일꾼이나 그 수.",
+              "사람의 수를 세는 단위."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "friend-ko",
+      "word": "친구",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:47+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "친구",
+            "target_code": "29742",
+            "sup_no": "0",
+            "origin": "親舊",
+            "pronunciation": "친구",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=29742",
+            "definitions": [
+              "사이가 가까워 서로 친하게 지내는 사람.",
+              "(낮추거나 친근하게 이르는 말로) 나이가 비슷하거나 아래인 사람."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "father-ko",
+      "word": "아버지",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:48+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "아버지",
+            "target_code": "71343",
+            "sup_no": "0",
+            "pronunciation": "아버지",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=71343",
+            "definitions": [
+              "자기를 낳아 준 남자. 또는 그 사람을 부르는 말.",
+              "자녀가 있는 남자를 자식과 관련하여 이르거나 부르는 말.",
+              "자녀의 이름을 붙여 자기의 남편을 이르거나 부르는 말.",
+              "자기를 낳아 준 남자와 비슷한 나이의 남자. 또는 그 사람을 부르는 말.",
+              "(비유적으로) 어떤 일을 처음 이루거나 완성한 사람.",
+              "(친근하게) 기독교에서, 하나님 또는 하느님."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "mother-ko",
+      "word": "어머니",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:49+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "어머니",
+            "target_code": "74361",
+            "sup_no": "0",
+            "pronunciation": "어머니",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=74361",
+            "definitions": [
+              "자기를 낳아준 여자. 또는 그 사람을 부르는 말.",
+              "자녀가 있는 여자를 자식과 관련하여 이르거나 부르는 말.",
+              "자기를 낳아 준 여자처럼 여기는 사람. 또는 그 사람을 부르는 말.",
+              "자기를 낳아 준 여자와 비슷한 나이의 여자. 또는 그 사람을 부르는 말.",
+              "(비유적으로) 자식과 같이 사랑하고 보살펴 주며 걱정해 주는 사람이나 그러한 존재.",
+              "(친근하게) 남편의 어머니. 또는 그 사람을 부르는 말.",
+              "(비유적으로) 무엇이 생겨나게 된 근본."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "home-ko",
+      "word": "집",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:50+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "집",
+            "target_code": "71358",
+            "sup_no": "1",
+            "pronunciation": "집",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=71358",
+            "definitions": [
+              "사람이나 동물이 추위나 더위 등을 막고 그 속에 들어 살기 위해 지은 건물.",
+              "사람이나 동물이 살기 위해 지은 건물을 세는 단위.",
+              "가정을 이루고 생활하는 집안.",
+              "칼이나 총, 안경 등을 끼거나 담아서 보관할 수 있게 만든 것.",
+              "바둑에서, 자기 돌로 에워싸 상대편 돌이 들어올 수 없게 한, 바둑판의 빈 자리.",
+              "바둑에서, 자기 돌로 에워싸 상대편 돌이 들어올 수 없게 한 빈 자리를 세는 단위.",
+              "‘물건을 파는 가게’ 또는 ‘영업을 하는 가게’의 뜻을 나타내는 말."
+            ]
+          },
+          {
+            "word": "집",
+            "target_code": "78367",
+            "sup_no": "2",
+            "origin": "輯",
+            "pronunciation": "집",
+            "word_grade": "고급",
+            "pos": "의존 명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=78367",
+            "definitions": [
+              "잡지나 음악 앨범 등을 낼 때 그 발행 차례를 나타내는 단위."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "school-ko",
+      "word": "학교",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:51+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "학교",
+            "target_code": "73276",
+            "sup_no": "0",
+            "origin": "學校",
+            "pronunciation": "학꾜",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=73276",
+            "definitions": [
+              "일정한 목적, 교과 과정, 제도 등에 따라 학생을 교육하는 기관."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "room-ko",
+      "word": "방",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:52+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "방",
+            "target_code": "29724",
+            "sup_no": "1",
+            "origin": "房",
+            "pronunciation": "방",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=29724",
+            "definitions": [
+              "사람이 살거나 일을 하기 위해 벽을 둘러서 막은 공간."
+            ]
+          },
+          {
+            "word": "방",
+            "target_code": "57704",
+            "sup_no": "2",
+            "origin": "放",
+            "pronunciation": "방ː",
+            "word_grade": "고급",
+            "pos": "의존 명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=57704",
+            "definitions": [
+              "총이나 대포를 쏘거나 폭약 등을 터뜨리는 횟수를 세는 단위.",
+              "주먹이나 방망이 등으로 치는 횟수를 세는 단위.",
+              "사진을 찍는 횟수를 세는 단위.",
+              "방귀를 뀌는 횟수를 세는 단위."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "wordId": "book-ko",
+      "word": "책",
+      "language": "ko",
+      "source": {
+        "label": "KRDict",
+        "url": "https://krdict.korean.go.kr/",
+        "license": "Korean Learners' Dictionary API terms"
+      },
+      "fetchedAt": "2026-10-31T12:16:53+00:00",
+      "fields": {
+        "entries": [
+          {
+            "word": "책",
+            "target_code": "71468",
+            "sup_no": "0",
+            "origin": "冊",
+            "pronunciation": "책",
+            "word_grade": "초급",
+            "pos": "명사",
+            "link": "https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=71468",
+            "definitions": [
+              "글이나 그림 등을 인쇄하여 묶어 놓은 것.",
+              "옛 서적이나 여러 장의 종이를 하나로 묶은 것을 세는 단위.",
+              "‘서적’의 뜻을 나타내는 말."
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

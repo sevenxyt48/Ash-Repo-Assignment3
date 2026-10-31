@@ -30,7 +30,6 @@ const COPY = {
     "filter.similar": "意思相近",
     "filter.confusable": "容易混淆",
     "filter.antonym": "反义词",
-    "filter.otherLanguages": "其他语言",
     "graph.title": "你的词语地图",
     "graph.instruction": "选择一个词，沿着关系继续探索",
     "graph.label": "交互式词汇关系图",
@@ -127,8 +126,18 @@ const COPY = {
     "details.pinyin": "拼音",
     "details.romaji": "罗马字",
     "details.romanization": "罗马化",
+    "details.honorific": "敬语",
+    "details.englishFallback": "词库暂未提供{language}释义，以上为英文参考释义。",
     "hover.english": "英文",
-    "aria.wordMap": "以 {word}（{language}）为中心的词汇关系图"
+    "aria.wordMap": "以 {word}（{language}）为中心的词汇关系图",
+    "trail.label": "探索路径",
+    "trail.back": "返回上一个词",
+    "details.peekLanguage": "预览{language}词条",
+    "details.notCollected": "未收录",
+    "details.languageUnavailable": "本地词库暂未收录{language}的对应词条。",
+    "peek.close": "关闭预览",
+    "peek.openEntry": "打开词条页面",
+    "dataset.apiLink": "API 使用与许可"
   },
   en: {
     "page.title": "Word Paths — a map of meaning",
@@ -154,7 +163,6 @@ const COPY = {
     "filter.similar": "Similar meanings",
     "filter.confusable": "Easily confused meanings",
     "filter.antonym": "Antonyms",
-    "filter.otherLanguages": "Other languages",
     "graph.title": "Your word map",
     "graph.instruction": "Select a word to follow its path",
     "graph.label": "Interactive vocabulary relationship graph",
@@ -251,8 +259,18 @@ const COPY = {
     "details.pinyin": "Pinyin",
     "details.romaji": "Romaji",
     "details.romanization": "Romanization",
+    "details.honorific": "Honorific",
+    "details.englishFallback": "No {language} definition is available yet; showing the English reference.",
     "hover.english": "English",
-    "aria.wordMap": "Word relationships centered on {word} ({language})"
+    "aria.wordMap": "Word relationships centered on {word} ({language})",
+    "trail.label": "Exploration path",
+    "trail.back": "Back to the previous word",
+    "details.peekLanguage": "Preview the {language} entry",
+    "details.notCollected": "not collected",
+    "details.languageUnavailable": "The local vocabulary does not include a {language} entry yet.",
+    "peek.close": "Close preview",
+    "peek.openEntry": "Open entry page",
+    "dataset.apiLink": "API usage and licences"
   },
   ja: {
     "page.title": "Word Paths — ことばの意味マップ",
@@ -278,7 +296,6 @@ const COPY = {
     "filter.similar": "似た意味",
     "filter.confusable": "間違えやすい語",
     "filter.antonym": "反意語",
-    "filter.otherLanguages": "その他の言語",
     "graph.title": "ことばのマップ",
     "graph.instruction": "単語を選んで関係をたどる",
     "graph.label": "語彙関係のインタラクティブなグラフ",
@@ -375,8 +392,18 @@ const COPY = {
     "details.pinyin": "ピンイン",
     "details.romaji": "ローマ字",
     "details.romanization": "ローマ字表記",
+    "details.honorific": "敬語",
+    "details.englishFallback": "{language}の語義はまだありません。英語の参考語義を表示しています。",
     "hover.english": "英語",
-    "aria.wordMap": "{word}（{language}）を中心とした語彙関係"
+    "aria.wordMap": "{word}（{language}）を中心とした語彙関係",
+    "trail.label": "探索の道筋",
+    "trail.back": "前の単語に戻る",
+    "details.peekLanguage": "{language}の項目をプレビュー",
+    "details.notCollected": "未収録",
+    "details.languageUnavailable": "{language}の対応項目はローカル語彙にまだありません。",
+    "peek.close": "プレビューを閉じる",
+    "peek.openEntry": "項目ページを開く",
+    "dataset.apiLink": "API 利用とライセンス"
   },
   ko: {
     "page.title": "Word Paths — 단어 의미 지도",
@@ -402,7 +429,6 @@ const COPY = {
     "filter.similar": "비슷한 의미",
     "filter.confusable": "혼동하기 쉬운 의미",
     "filter.antonym": "반의어",
-    "filter.otherLanguages": "다른 언어",
     "graph.title": "단어 지도",
     "graph.instruction": "단어를 선택해 연결을 따라가세요",
     "graph.label": "대화형 어휘 관계 그래프",
@@ -499,8 +525,18 @@ const COPY = {
     "details.pinyin": "병음",
     "details.romaji": "로마자",
     "details.romanization": "로마자 표기",
+    "details.honorific": "존댓말",
+    "details.englishFallback": "{language} 뜻이 아직 없어 영어 참고 뜻을 표시합니다.",
     "hover.english": "영어",
-    "aria.wordMap": "{word} ({language}) 중심 어휘 관계"
+    "aria.wordMap": "{word} ({language}) 중심 어휘 관계",
+    "trail.label": "탐색 경로",
+    "trail.back": "이전 단어로 돌아가기",
+    "details.peekLanguage": "{language} 항목 미리 보기",
+    "details.notCollected": "미수록",
+    "details.languageUnavailable": "이 언어({language})의 해당 항목은 아직 로컬 어휘에 없습니다.",
+    "peek.close": "미리 보기 닫기",
+    "peek.openEntry": "항목 페이지 열기",
+    "dataset.apiLink": "API 사용 및 라이선스"
   }
 };
 

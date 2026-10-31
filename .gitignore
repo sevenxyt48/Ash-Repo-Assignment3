@@ -13,3 +13,7 @@ data/cache/
 __pycache__/
 .DS_Store
 Thumbs.db
+
+# Generated HTML share packages (created by the editor, not used by the app).
+.trae-html-share-packages/
+
