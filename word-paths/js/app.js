@@ -1,6 +1,6 @@
 // 此文件协调页面状态、搜索、筛选、词汇仓库和关系图渲染。
 import { renderGraph, resetGraphView, zoomGraph } from "./graph.js";
-import { renderDetails, renderEmptyDetails } from "./details.js";
+import { definitionFor, renderDetails, renderEmptyDetails } from "./details.js";
 import { loadWordDataset, validateWordDataset } from "./wordRepository.js";
 import { relationshipIdentityKey } from "./relationshipValidation.mjs";
 import { fetchConceptNetWord, translateText } from "./vocabularyApi.js";
@@ -13,6 +13,7 @@ import {
 } from "./i18n.js";
 
 const graphContainer = document.querySelector("#graph");
+const graphPeek = document.querySelector("#graph-peek");
 const graphMessage = document.querySelector("#graph-message");
 const searchForm = document.querySelector("#search-form");
 const searchInput = document.querySelector("#search");
@@ -40,6 +41,8 @@ const state = {
   selectedId: null,
   selectedRelation: null,
   trail: [],
+  expandedIds: new Set(),
+  peekId: null,
   languageHint: null,
   activeTypes: new Set(["equivalent", "origin", "similar", "confusable", "antonym"]),
   query: "",
@@ -203,9 +206,42 @@ function selectWord(id, relation = null, replaceTrail = false) {
     : [...state.trail, { id, relation }];
   state.selectedId = id;
   state.selectedRelation = relation;
+  state.expandedIds = new Set();
+  state.peekId = null;
   state.languageHint = null;
   resetSearchUi();
   render();
+}
+
+// 点击图中的词只就地延伸关系图，并替换角落预览；不切换中心词或详情卡。
+function revealWord(id) {
+  const word = wordById(id);
+  if (!word) return;
+  if (id === state.selectedId) {
+    state.peekId = null;
+    renderPeek();
+    return;
+  }
+  const connections = getConnections(word,
+    new Set(Object.keys(state.data.relationshipTypes)), state.data, state.developmentGraph,
+    selectedSearchLanguages());
+  const shouldExpand = connections.length > 0 && !state.expandedIds.has(id);
+  if (shouldExpand) state.expandedIds.add(id);
+  state.peekId = id;
+  if (shouldExpand) renderGraphView();
+  renderPeek();
+}
+
+function peekLanguage(code) {
+  const selected = wordById(state.selectedId);
+  if (!selected || code === selected.language) return;
+  const target = findLanguageVariant(selected, code);
+  if (!target) {
+    state.languageHint = { wordId: selected.id, language: code };
+    render();
+    return;
+  }
+  revealWord(target.id);
 }
 
 function selectTrailStep(index) {
@@ -214,6 +250,8 @@ function selectTrailStep(index) {
   state.trail = state.trail.slice(0, index + 1);
   state.selectedId = step.id;
   state.selectedRelation = step.relation ?? null;
+  state.expandedIds = new Set();
+  state.peekId = null;
   state.languageHint = null;
   resetSearchUi();
   render();
@@ -254,22 +292,6 @@ function languageDetailsFor(word) {
   return details;
 }
 
-function switchLanguage(code) {
-  const selected = wordById(state.selectedId);
-  if (!selected || code === selected.language) return;
-  const target = findLanguageVariant(selected, code);
-  if (!target) {
-    state.languageHint = { wordId: selected.id, language: code };
-    render();
-    return;
-  }
-  const relation = getConnections(selected,
-    new Set(Object.keys(state.data.relationshipTypes)), state.data, state.developmentGraph,
-    new Set(["zh", "ja", "ko"]))
-    .find((connection) => connection.word.id === target.id) ?? null;
-  selectWord(target.id, relation);
-}
-
 function renderTrail() {
   const steps = state.trail;
   trail.hidden = steps.length <= 1;
@@ -296,24 +318,88 @@ function renderTrail() {
   });
 }
 
-function render() {
-  const selected = state.data.words.find((word) => word.id === state.selectedId);
+function renderGraphView() {
+  const selected = wordById(state.selectedId);
   if (!selected) return;
-
-  const activeLanguages = selectedSearchLanguages();
   renderGraph(graphContainer, state.data.words, {
     language: state.language,
     selectedId: state.selectedId,
     query: state.query,
     activeTypes: state.activeTypes,
-    activeLanguages,
+    activeLanguages: selectedSearchLanguages(),
     developmentGraph: state.developmentGraph,
     relationshipTypes: state.data.relationshipTypes,
-    onSelect: selectWord,
+    expandedIds: state.expandedIds,
+    onSelect: revealWord,
     onHover: (word) => word.englishTranslation
       ? Promise.resolve(word.englishTranslation)
       : translateText(word.word, word.language, "en")
   });
+}
+
+// 角落预览：只补充被点击词的释义，不接管右侧详情卡，也不遮挡图例与缩放控件。
+function peekReading(word) {
+  if (word.language === "ja") return word.reading;
+  if (word.language === "zh") return word.pinyin;
+  return word.romanization?.[word.language];
+}
+
+function renderPeek() {
+  const word = state.peekId ? wordById(state.peekId) : null;
+  if (!word) {
+    graphPeek.hidden = true;
+    graphPeek.replaceChildren();
+    return;
+  }
+  graphPeek.hidden = false;
+  const close = document.createElement("button");
+  close.type = "button";
+  close.className = "graph-peek-close";
+  close.setAttribute("aria-label", translate(state.language, "peek.close"));
+  close.textContent = "×";
+  close.addEventListener("click", () => {
+    state.peekId = null;
+    renderPeek();
+  });
+  const top = document.createElement("p");
+  top.className = "graph-peek-top";
+  top.textContent = `${languageName(word.language, state.language)} · ${formatVocabularyWord(word)}`;
+  const reading = peekReading(word);
+  const readingKey = word.language === "ja"
+    ? "details.romaji"
+    : word.language === "zh" ? "details.pinyin" : "details.romanization";
+  const line = reading
+    ? `${translate(state.language, readingKey)} · ${reading}`
+    : null;
+  const definition = definitionFor(word, state.language);
+  const meaning = document.createElement("p");
+  meaning.className = "graph-peek-meaning";
+  meaning.textContent = definition.text;
+  const nodes = [close, top];
+  if (line) {
+    const readingNode = document.createElement("p");
+    readingNode.className = "graph-peek-reading";
+    readingNode.textContent = line;
+    nodes.push(readingNode);
+  }
+  nodes.push(meaning);
+  if (definition.fallback) {
+    const note = document.createElement("p");
+    note.className = "graph-peek-note";
+    note.textContent = translate(state.language, "details.englishFallback", {
+      language: languageName(state.language, state.language)
+    });
+    nodes.push(note);
+  }
+  graphPeek.replaceChildren(...nodes);
+}
+
+function render() {
+  const selected = state.data.words.find((word) => word.id === state.selectedId);
+  if (!selected) return;
+
+  const activeLanguages = selectedSearchLanguages();
+  renderGraphView();
   const displayableConnections = getConnections(selected,
     new Set(Object.keys(state.data.relationshipTypes)), state.data, state.developmentGraph,
     activeLanguages);
@@ -373,12 +459,12 @@ function render() {
     state.language,
     relation,
     matchingConnections,
-    selectWord,
+    revealWord,
     state.sourceEnrichments[selected.id] ?? {},
     state.sourceLookupLoading,
     state.sourceLookupErrors,
     lookupSource,
-    switchLanguage,
+    peekLanguage,
     languageAvailabilityFor(selected),
     languageHint,
     languageDetailsFor(selected)
@@ -539,6 +625,8 @@ function selectSearchCandidate(word, dataset = state.data ?? state.localData) {
   state.selectedId = word.id;
   state.selectedRelation = null;
   state.trail = [{ id: word.id, relation: null }];
+  state.expandedIds = new Set();
+  state.peekId = null;
   state.languageHint = null;
   state.query = "";
   searchInput.value = "";
@@ -633,6 +721,8 @@ async function exploreSearch(query) {
       : "search.choose");
     state.selectedId = candidates[0].id;
     state.selectedRelation = null;
+    state.expandedIds = new Set();
+    state.peekId = null;
     render();
   } catch (error) {
     if (requestId !== state.searchRequest) return;
@@ -657,6 +747,8 @@ async function initialize() {
       ? "water-zh"
       : state.data.words[Math.floor(Math.random() * state.data.words.length)].id;
     state.trail = [{ id: state.selectedId, relation: null }];
+    state.expandedIds = new Set();
+    state.peekId = null;
     render();
   } catch (error) {
     console.error("Unable to load the word graph:", error);
@@ -733,6 +825,7 @@ languageSelect.addEventListener("change", () => {
     renderSearchCandidates(state.searchCandidates, state.searchCandidateHandler);
   }
   if (state.data) render();
+  if (state.peekId) renderPeek();
   if (state.searchMessage) {
     searchMessage.textContent = translate(state.language, state.searchMessage.key, state.searchMessage.values);
     searchMessage.classList.toggle("is-error", state.searchMessage.isError);
@@ -772,6 +865,10 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "/" && !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) {
     event.preventDefault();
     searchInput.focus();
+  }
+  if (event.key === "Escape" && state.peekId) {
+    state.peekId = null;
+    renderPeek();
   }
   if (event.key === "Escape" && document.activeElement === searchInput) {
     searchInput.value = "";

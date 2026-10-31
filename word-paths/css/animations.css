@@ -13,6 +13,7 @@
 .graph-node {
   animation: arrive .34s ease backwards;
   animation-delay: var(--node-delay, 0ms);
+  transition: transform .45s cubic-bezier(.2, .8, .3, 1), opacity .22s ease;
 }
 
 .graph-node .node-core {
@@ -116,6 +117,7 @@
   .graph-node:hover .node-core {
     transform: none !important;
   }
+  .graph-node { transition: none !important; }
   .graph-edge {
     stroke-dashoffset: 0 !important;
   }

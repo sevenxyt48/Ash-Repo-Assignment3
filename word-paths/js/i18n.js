@@ -132,9 +132,10 @@ const COPY = {
     "aria.wordMap": "以 {word}（{language}）为中心的词汇关系图",
     "trail.label": "探索路径",
     "trail.back": "返回上一个词",
-    "details.switchLanguage": "切换到{language}词条",
+    "details.peekLanguage": "预览{language}词条",
     "details.notCollected": "未收录",
-    "details.languageUnavailable": "本地词库暂未收录{language}的对应词条。"
+    "details.languageUnavailable": "本地词库暂未收录{language}的对应词条。",
+    "peek.close": "关闭预览"
   },
   en: {
     "page.title": "Word Paths — a map of meaning",
@@ -262,9 +263,10 @@ const COPY = {
     "aria.wordMap": "Word relationships centered on {word} ({language})",
     "trail.label": "Exploration path",
     "trail.back": "Back to the previous word",
-    "details.switchLanguage": "Switch to the {language} entry",
+    "details.peekLanguage": "Preview the {language} entry",
     "details.notCollected": "not collected",
-    "details.languageUnavailable": "The local vocabulary does not include a {language} entry yet."
+    "details.languageUnavailable": "The local vocabulary does not include a {language} entry yet.",
+    "peek.close": "Close preview"
   },
   ja: {
     "page.title": "Word Paths — ことばの意味マップ",
@@ -392,9 +394,10 @@ const COPY = {
     "aria.wordMap": "{word}（{language}）を中心とした語彙関係",
     "trail.label": "探索の道筋",
     "trail.back": "前の単語に戻る",
-    "details.switchLanguage": "{language}の項目に切り替える",
+    "details.peekLanguage": "{language}の項目をプレビュー",
     "details.notCollected": "未収録",
-    "details.languageUnavailable": "{language}の対応項目はローカル語彙にまだありません。"
+    "details.languageUnavailable": "{language}の対応項目はローカル語彙にまだありません。",
+    "peek.close": "プレビューを閉じる"
   },
   ko: {
     "page.title": "Word Paths — 단어 의미 지도",
@@ -522,9 +525,10 @@ const COPY = {
     "aria.wordMap": "{word} ({language}) 중심 어휘 관계",
     "trail.label": "탐색 경로",
     "trail.back": "이전 단어로 돌아가기",
-    "details.switchLanguage": "{language} 항목으로 전환",
+    "details.peekLanguage": "{language} 항목 미리 보기",
     "details.notCollected": "미수록",
-    "details.languageUnavailable": "이 언어({language})의 해당 항목은 아직 로컬 어휘에 없습니다."
+    "details.languageUnavailable": "이 언어({language})의 해당 항목은 아직 로컬 어휘에 없습니다.",
+    "peek.close": "미리 보기 닫기"
   }
 };
 

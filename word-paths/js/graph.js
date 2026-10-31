@@ -53,113 +53,153 @@ function getConnections(word, words, activeTypes, developmentGraph, activeLangua
       TYPE_ORDER.indexOf(a.productRelationType) - TYPE_ORDER.indexOf(b.productRelationType));
 }
 
-function getLayout(center, words, activeTypes, developmentGraph, activeLanguages) {
-  const visible = [{ word: center, x: 500, y: 280, depth: 0 }];
+// 从中心词出发收集可见子图；只有被用户展开过的词才会继续向外延伸。
+function collectGraph(center, words, activeTypes, developmentGraph, activeLanguages, expandedIds) {
+  const byId = new Map(words.map((word) => [word.id, word]));
   const edges = [];
-  const seen = new Set([center.id]);
-  const firstLevelByWord = new Map();
-  for (const connection of getConnections(center, words, activeTypes, developmentGraph,
-    activeLanguages)) {
-    const connections = firstLevelByWord.get(connection.word.id) ?? [];
-    connections.push(connection);
-    firstLevelByWord.set(connection.word.id, connections);
+  const edgeKeys = new Set();
+  const visible = new Set([center.id]);
+  const traversed = new Set([center.id]);
+  const queue = [center.id];
+  while (queue.length) {
+    const id = queue.shift();
+    const word = byId.get(id);
+    if (!word) continue;
+    for (const connection of getConnections(word, words, activeTypes, developmentGraph,
+      activeLanguages)) {
+      const otherId = connection.targetWordId;
+      if (!byId.has(otherId)) continue;
+      visible.add(otherId);
+      const key = `${[id, otherId].sort().join("\u0000")}\u0000${
+        connection.productRelationType ?? connection.rawRelationType}`;
+      if (!edgeKeys.has(key)) {
+        edgeKeys.add(key);
+        edges.push({ id: key, fromId: id, toId: otherId, connection });
+      }
+      if (expandedIds?.has(otherId) && !traversed.has(otherId)) {
+        traversed.add(otherId);
+        queue.push(otherId);
+      }
+    }
   }
-  const firstLevel = [...firstLevelByWord.values()].slice(0, 6);
+  return { byId, visible: [...visible], edges };
+}
 
-  firstLevel.forEach((connections, index) => {
-    const side = index % 2 === 0 ? -1 : 1;
-    const row = Math.floor(index / 2);
-    const rowsOnSide = Math.ceil(firstLevel.length / 2);
-    const y = 280 + (row - (rowsOnSide - 1) / 2) * 128;
-    const connection = connections[0];
-    const node = { word: connection.word, x: side < 0 ? 200 : 800, y, depth: 1, relation: connection };
-    visible.push(node);
-    seen.add(node.word.id);
-    connections.forEach((item, connectionIndex) => {
-      edges.push({
-        from: visible[0],
-        to: node,
-        connection: {
-          ...item,
-          parallelOffset: (connectionIndex - (connections.length - 1) / 2) * 12
-        }
-      });
-    });
-  });
-
-  const secondary = [];
-  for (const parent of visible.slice(1)) {
-    const next = getConnections(parent.word, words, activeTypes, developmentGraph,
-      activeLanguages)
-      .find((connection) => !seen.has(connection.word.id));
-    if (next && secondary.length < 4) {
-      seen.add(next.word.id);
-      secondary.push({ parent, connection: next });
+function getLayout(center, words, activeTypes, developmentGraph, activeLanguages, expandedIds) {
+  const { byId, visible, edges } = collectGraph(center, words, activeTypes, developmentGraph,
+    activeLanguages, expandedIds);
+  const adjacency = new Map(visible.map((id) => [id, []]));
+  for (const edge of edges) {
+    adjacency.get(edge.fromId)?.push(edge.toId);
+    adjacency.get(edge.toId)?.push(edge.fromId);
+  }
+  const depth = new Map([[center.id, 0]]);
+  const children = new Map(visible.map((id) => [id, []]));
+  const queue = [center.id];
+  while (queue.length) {
+    const id = queue.shift();
+    for (const other of adjacency.get(id) ?? []) {
+      if (depth.has(other)) continue;
+      depth.set(other, depth.get(id) + 1);
+      children.get(id)?.push(other);
+      queue.push(other);
     }
   }
 
-  secondary.forEach(({ parent, connection }, index) => {
-    const side = parent.x < 500 ? -1 : 1;
-    const offset = (index - (secondary.length - 1) / 2) * 92;
-    const node = {
-      word: connection.word,
-      x: side < 0 ? 70 : 930,
-      y: Math.max(86, Math.min(474, parent.y + offset)),
-      depth: 2,
-      relation: connection
-    };
-    visible.push(node);
-    edges.push({ from: parent, to: node, connection });
-  });
+  const leafCounts = new Map();
+  const countLeaves = (id) => {
+    if (leafCounts.has(id)) return leafCounts.get(id);
+    const kids = children.get(id) ?? [];
+    const value = kids.length ? kids.reduce((sum, kid) => sum + countLeaves(kid), 0) : 1;
+    leafCounts.set(id, value);
+    return value;
+  };
+  countLeaves(center.id);
 
-  return { nodes: visible, edges };
+  const nodes = [];
+  const nodeMap = new Map();
+  const place = (id, startAngle, endAngle) => {
+    const level = depth.get(id) ?? 0;
+    const angle = (startAngle + endAngle) / 2;
+    const radius = level === 0 ? 0 : level === 1 ? 155 : level === 2 ? 235 : 275;
+    const x = 500 + radius * 1.55 * Math.cos(angle);
+    const y = 280 + radius * Math.sin(angle);
+    const node = { word: byId.get(id), x, y, depth: level };
+    nodes.push(node);
+    nodeMap.set(id, node);
+    const kids = children.get(id) ?? [];
+    const total = kids.reduce((sum, kid) => sum + countLeaves(kid), 0) || 1;
+    let cursor = startAngle;
+    for (const kid of kids) {
+      const span = (endAngle - startAngle) * countLeaves(kid) / total;
+      place(kid, cursor, cursor + span);
+      cursor += span;
+    }
+  };
+  place(center.id, Math.PI / 2, Math.PI / 2 + Math.PI * 2);
+
+  const layoutEdges = edges.map((edge) => ({
+    id: edge.id,
+    from: nodeMap.get(edge.fromId),
+    to: nodeMap.get(edge.toId),
+    connection: {
+      ...edge.connection,
+      sourceId: edge.fromId,
+      targetWordId: edge.toId
+    }
+  })).filter((edge) => edge.from && edge.to);
+
+  return { nodes, edges: layoutEdges };
 }
 
-function nodePointFor(edge, endpoint) {
-  const node = edge[endpoint];
-  return { x: node.x, y: node.y };
-}
-
-function drawEdge(parent, from, to, connection, relationshipTypes, language, delay) {
+function edgeGeometry(from, to) {
   const direction = to.x >= from.x ? 1 : -1;
-  const gap = Math.abs(to.x - from.x);
-  const bend = Math.min(105, gap * .42);
-  const parallelOffset = connection.parallelOffset ?? 0;
+  const bend = Math.min(105, Math.abs(to.x - from.x) * .42);
+  return `M ${from.x} ${from.y} C ${from.x + direction * bend} ${from.y}, ${
+    to.x - direction * bend} ${to.y}, ${to.x} ${to.y}`;
+}
+
+function relationshipLabel(connection, relationshipTypes, language) {
   const type = connection.productRelationType;
-  const relationshipLabel = type
+  const relationshipText = type
     ? translate(language, `relationship.${type}`)
     : translate(language, "relationship.rawType", { type: connection.rawRelationType });
-  const baseLabel = relationshipLabel.startsWith("relationship.")
+  const baseLabel = relationshipText.startsWith("relationship.")
     ? relationshipTypes[type] ?? type ?? connection.rawRelationType
-    : relationshipLabel;
+    : relationshipText;
   const statusLabel = connection.verificationStatus === "demo"
     ? translate(language, "relationship.demoMarker")
     : "";
-  const labelText = [baseLabel, statusLabel].filter(Boolean).join(" · ");
-  const path = svgElement("path", {
-    d: `M ${from.x} ${from.y} C ${from.x + direction * bend} ${from.y + parallelOffset}, ${to.x - direction * bend} ${to.y + parallelOffset}, ${to.x} ${to.y}`,
-    class: `graph-edge edge-${(type ?? "unclassified").replace(/[^a-z0-9_-]/gi, "-")}`,
-    "data-source": connection.sourceId,
-    "data-target": connection.targetWordId,
-    "aria-label": labelText,
-    style: `--edge-delay: ${delay}ms`
-  });
-  parent.append(path);
+  return [baseLabel, statusLabel].filter(Boolean).join(" · ");
 }
 
-function addNode(parent, node, index, language, selectedId, query, onSelect, onHover) {
-  const { word, x, y, depth } = node;
+function createEdge(edge, relationshipTypes, language, delay) {
+  const type = edge.connection.productRelationType;
+  return svgElement("path", {
+    d: edgeGeometry(edge.from, edge.to),
+    class: `graph-edge edge-${(type ?? "unclassified").replace(/[^a-z0-9_-]/gi, "-")}`,
+    "data-source": edge.from.word.id,
+    "data-target": edge.to.word.id,
+    "data-edge-key": edge.id,
+    "aria-label": relationshipLabel(edge.connection, relationshipTypes, language),
+    style: `--edge-delay: ${delay}ms`
+  });
+}
+
+function createNode(node, index, language, selectedId, query, onSelect, onHover) {
+  const { word, depth } = node;
   const label = word.word;
   const delay = word.id === selectedId ? 0 : 90 + index * 55;
   const group = svgElement("g", {
-    class: `graph-node${word.id === selectedId ? " is-center" : ""}${depth === 1 ? " is-connected" : ""}`,
-    transform: `translate(${x} ${y})`,
+    class: `graph-node${word.id === selectedId ? " is-center" : ""}${
+      depth === 1 && word.id !== selectedId ? " is-connected" : ""}`,
     tabindex: "0",
     role: "button",
     "aria-pressed": String(word.id === selectedId),
     "data-id": word.id,
     style: `--node-delay: ${delay}ms; --float-delay: ${(index % 4) * .55}s`
   });
+  group.style.transform = `translate(${node.x}px, ${node.y}px)`;
   const wordLanguageName = languageName(word.language, language);
   const reading = word.language === "ja"
     ? word.reading
@@ -207,12 +247,12 @@ function addNode(parent, node, index, language, selectedId, query, onSelect, onH
 
   group.addEventListener("click", () => {
     if (Date.now() < ignoreClickUntil) return;
-    onSelect(word.id, node.relation ?? null);
+    onSelect(word.id);
   });
   group.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      onSelect(word.id, node.relation ?? null);
+      onSelect(word.id);
     }
   });
   const showEnglishTranslation = () => {
@@ -239,7 +279,15 @@ function addNode(parent, node, index, language, selectedId, query, onSelect, onH
   group.addEventListener("focus", showEnglishTranslation);
   group.addEventListener("pointerleave", clearEnglishTranslation);
   group.addEventListener("blur", clearEnglishTranslation);
-  parent.append(group);
+  return group;
+}
+
+function updateNode(group, node, selectedId) {
+  group.style.transform = `translate(${node.x}px, ${node.y}px)`;
+  group.classList.toggle("is-center", node.word.id === selectedId);
+  group.classList.toggle("is-connected",
+    node.depth === 1 && node.word.id !== selectedId);
+  group.setAttribute("aria-pressed", String(node.word.id === selectedId));
 }
 
 function highlightConnections(group, id) {
@@ -315,48 +363,115 @@ function enablePanAndZoom(svg) {
   svg.addEventListener("pointercancel", () => { drag = null; });
 }
 
+function createSvg(layout, context) {
+  const svg = svgElement("svg", {
+    viewBox: `0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`,
+    role: "group",
+    "aria-label": translate(context.language, "aria.wordMap", {
+      word: context.center.word,
+      language: languageName(context.center.language, context.language)
+    }),
+    "data-center-id": context.selectedId,
+    "data-ui-language": context.language
+  });
+  const content = svgElement("g", { class: "graph-content" });
+  const edgeLayer = svgElement("g", { class: "graph-edges", "aria-hidden": "true" });
+  const nodeLayer = svgElement("g", { class: "graph-nodes" });
+  layout.edges.forEach((edge, index) => {
+    edgeLayer.append(createEdge(edge, context.relationshipTypes, context.language,
+      140 + index * 48));
+  });
+  layout.nodes.forEach((node, index) => {
+    nodeLayer.append(createNode(node, index, context.language, context.selectedId,
+      context.query, context.onSelect, context.onHover));
+  });
+  content.append(edgeLayer, nodeLayer);
+  svg.append(content);
+  return svg;
+}
+
+// 在已有 SVG 上就地增删节点与连线，避免整图刷新。
+function updateSvg(svg, layout, context) {
+  const edgeLayer = svg.querySelector(".graph-edges");
+  const nodeLayer = svg.querySelector(".graph-nodes");
+  const existingEdges = new Map(
+    [...edgeLayer.children].map((element) => [element.dataset.edgeKey, element]));
+  const keptEdges = new Set();
+  layout.edges.forEach((edge, index) => {
+    keptEdges.add(edge.id);
+    const path = existingEdges.get(edge.id);
+    if (path) {
+      path.setAttribute("d", edgeGeometry(edge.from, edge.to));
+    } else {
+      edgeLayer.append(createEdge(edge, context.relationshipTypes, context.language,
+        120 + index * 30));
+    }
+  });
+  for (const [key, element] of existingEdges) {
+    if (!keptEdges.has(key)) element.remove();
+  }
+
+  const existingNodes = new Map(
+    [...nodeLayer.children].map((element) => [element.dataset.id, element]));
+  const keptNodes = new Set();
+  layout.nodes.forEach((node, index) => {
+    keptNodes.add(node.word.id);
+    const group = existingNodes.get(node.word.id);
+    if (group) {
+      updateNode(group, node, context.selectedId);
+    } else {
+      nodeLayer.append(createNode(node, index, context.language, context.selectedId,
+        context.query, context.onSelect, context.onHover));
+    }
+  });
+  for (const [id, element] of existingNodes) {
+    if (!keptNodes.has(id)) element.remove();
+  }
+
+  svg.setAttribute("aria-label", translate(context.language, "aria.wordMap", {
+    word: context.center.word,
+    language: languageName(context.center.language, context.language)
+  }));
+}
+
 export function renderGraph(container, words, options) {
   const { language, selectedId, query, activeTypes, activeLanguages, onSelect, onHover,
-    developmentGraph } = options;
+    developmentGraph, relationshipTypes, expandedIds } = options;
   const center = words.find((word) => word.id === selectedId);
   if (!center) return { nodeCount: 0, edgeCount: 0 };
 
   const layout = getLayout(center, words, new Set(activeTypes), developmentGraph,
-    activeLanguages);
+    activeLanguages, expandedIds);
+  const context = { center, selectedId, language, query, onSelect, onHover,
+    relationshipTypes };
 
-  const svg = svgElement("svg", {
-    viewBox: `0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`,
-    role: "group",
-    "aria-label": translate(language, "aria.wordMap", {
-      word: center.word,
-      language: languageName(center.language, language)
-    })
-  });
-  const content = svgElement("g", { class: "graph-content" });
-  const edgeLayer = svgElement("g", { "aria-hidden": "true" });
-  const nodeLayer = svgElement("g", { class: "graph-nodes" });
-  const relationshipTypes = options.relationshipTypes;
-
-  layout.edges.forEach((edge, index) => {
-    drawEdge(edgeLayer, nodePointFor(edge, "from"), nodePointFor(edge, "to"), edge.connection,
-      relationshipTypes, language, 140 + index * 48);
-  });
-  layout.nodes.forEach((node, index) => {
-    addNode(nodeLayer, node, index, language, selectedId, query, onSelect, onHover);
-  });
-
-  content.append(edgeLayer, nodeLayer);
-  svg.append(content);
-  const previous = container.querySelector("svg");
-  svg.classList.add("is-entering");
-  container.append(svg);
-  if (previous) {
-    previous.classList.add("is-leaving");
-    previous.setAttribute("aria-hidden", "true");
-    window.setTimeout(() => previous.remove(), 240);
+  const current = [...container.querySelectorAll("svg")].at(-1);
+  const canUpdate = current &&
+    current.dataset.centerId === String(selectedId) &&
+    current.dataset.uiLanguage === language;
+  if (canUpdate) {
+    updateSvg(current, layout, context);
+    applyViewport(current);
+  } else {
+    if (current && current.dataset.centerId !== String(selectedId)) {
+      viewport.scale = 1;
+      viewport.x = 0;
+      viewport.y = 0;
+    }
+    const svg = createSvg(layout, context);
+    svg.classList.add("is-entering");
+    for (const stale of container.querySelectorAll("svg")) {
+      if (stale !== current) stale.remove();
+    }
+    container.append(svg);
+    if (current) {
+      current.classList.add("is-leaving");
+      current.setAttribute("aria-hidden", "true");
+      window.setTimeout(() => current.remove(), 240);
+    }
+    window.setTimeout(() => svg.classList.remove("is-entering"), 360);
+    applyViewport(svg);
+    enablePanAndZoom(svg);
   }
-  window.setTimeout(() => svg.classList.remove("is-entering"), 360);
-  applyViewport(svg);
-  enablePanAndZoom(svg);
   return { nodeCount: layout.nodes.length, edgeCount: layout.edges.length };
 }

@@ -15,7 +15,7 @@ function readingFor(word, language) {
   return "";
 }
 
-function definitionFor(word, language) {
+export function definitionFor(word, language) {
   const definition = word.definitions?.[language];
   if (definition) return { text: definition, fallback: false };
   const english = word.definitions?.en ?? word.meaning;
@@ -166,7 +166,7 @@ export function renderDetails(
       row.disabled = true;
       row.setAttribute("aria-current", "true");
     } else {
-      row.setAttribute("aria-label", translate(language, "details.switchLanguage", { language: name }));
+      row.setAttribute("aria-label", translate(language, "details.peekLanguage", { language: name }));
       row.addEventListener("click", () => onLanguageSelect(code));
     }
     row.append(element("span", "", name));

@@ -292,7 +292,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .graph-edge.edge-antonym { stroke: #bf5a52; stroke-dasharray: 2 5; stroke-width: 2.9; }
 .graph-edge.edge-unclassified { stroke: #8a918a; stroke-dasharray: 1 4; }
 .graph-edge.is-active { stroke-width: 4.2; }
-.graph-node { cursor: pointer; outline: none; }
+.graph-node { cursor: pointer; outline: none; transition: transform .5s cubic-bezier(.2, .8, .3, 1); }
 .node-halo { fill: transparent; stroke: transparent; stroke-width: 1.5; }
 .node-core { fill: #fff; stroke: #d9ded7; stroke-width: 1.3; }
 .graph-node.is-center .node-core { fill: var(--pale-green); stroke: #75b480; stroke-width: 1.7; }
@@ -319,6 +319,26 @@ button { -webkit-tap-highlight-color: transparent; }
 .graph-controls button:hover { border-color: #bfd6c0; color: var(--green-dark); }
 .graph-controls button:last-child { font-size: 14px; }
 .drag-hint { position: absolute; right: 12px; top: 11px; color: #a2a79f; font-size: 9px; pointer-events: none; }
+
+.graph-peek {
+  position: absolute;
+  top: 11px;
+  left: 12px;
+  z-index: 3;
+  width: min(238px, calc(100% - 112px));
+  padding: 10px 26px 10px 11px;
+  border: 1px solid #dfe6dc;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, .97);
+  box-shadow: 0 8px 24px rgba(40, 55, 42, .12);
+}
+.graph-peek[hidden] { display: none; }
+.graph-peek-close { position: absolute; top: 4px; right: 5px; width: 21px; height: 21px; display: grid; place-items: center; border: 0; border-radius: 6px; background: transparent; color: #8d938b; cursor: pointer; font-size: 14px; line-height: 1; }
+.graph-peek-close:hover { background: #eef4ec; color: var(--green-dark); }
+.graph-peek-top { margin: 0 0 3px; color: #718074; font-size: 9px; letter-spacing: .02em; }
+.graph-peek-reading { margin: 0 0 4px; color: #92988f; font: 9px "DM Mono", sans-serif; }
+.graph-peek-meaning { margin: 0; color: #3c443d; font-size: 11px; line-height: 1.45; }
+.graph-peek-note { margin: 4px 0 0; color: #a2a79f; font-size: 9px; line-height: 1.4; }
 
 .details-panel { min-width: 0; padding: 16px 15px; border: 1px solid #eff0eb; border-radius: 13px; background: #fff; }
 .detail-topline { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
