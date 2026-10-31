@@ -24,10 +24,10 @@
         <span class="sr-only" data-i18n="language.label">界面语言</span>
         <span class="language-globe" aria-hidden="true">◎</span>
         <select id="language">
-          <option value="en">English</option>
           <option value="zh" selected>中文</option>
-          <option value="ja">日本語</option>
+          <option value="en">English</option>
           <option value="ko">한국어</option>
+          <option value="ja">日本語</option>
         </select>
       </label>
     </header>
@@ -84,7 +84,6 @@
             <button class="filter-chip" type="button" data-filter="similar" aria-pressed="true"><i class="filter-dot similar-dot"></i><span data-i18n="filter.similar">意思相近</span></button>
             <button class="filter-chip" type="button" data-filter="confusable" aria-pressed="true"><i class="filter-dot confusable-dot"></i><span data-i18n="filter.confusable">容易混淆</span></button>
             <button class="filter-chip" type="button" data-filter="antonym" aria-pressed="true"><i class="filter-dot antonym-dot"></i><span data-i18n="filter.antonym">反义词</span></button>
-            <button class="filter-chip other-filter" id="other-languages" type="button" aria-pressed="false"><span class="filter-check" aria-hidden="true"></span><span data-i18n="filter.otherLanguages">其他语言</span></button>
           </div>
         </div>
 
@@ -96,6 +95,11 @@
           </div>
           <p class="graph-instruction"><span class="instruction-dot"></span> <span data-i18n="graph.instruction">选择一个词，沿着关系继续探索</span></p>
         </div>
+
+        <nav class="trail" id="trail" aria-label="探索路径" data-i18n-attr="aria-label:trail.label" hidden>
+          <button class="trail-back" id="trail-back" type="button" aria-label="返回上一个词" title="返回上一个词" data-i18n-attr="aria-label:trail.back" data-i18n-title="trail.back">←</button>
+          <div class="trail-steps" id="trail-steps"></div>
+        </nav>
 
         <div class="workspace">
           <div class="graph-column">

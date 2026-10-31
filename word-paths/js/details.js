@@ -17,9 +17,10 @@ function readingFor(word, language) {
 
 function definitionFor(word, language) {
   const definition = word.definitions?.[language];
-  if (definition) return definition;
-  if (language === "en") return word.definitions?.en ?? word.meaning;
-  return translate(language, "details.meaningUnavailable");
+  if (definition) return { text: definition, fallback: false };
+  const english = word.definitions?.en ?? word.meaning;
+  if (english) return { text: english, fallback: language !== "en" };
+  return { text: translate(language, "details.meaningUnavailable"), fallback: false };
 }
 
 function partOfSpeechFor(word, language) {
@@ -53,7 +54,11 @@ export function renderDetails(
   sourceEnrichments = {},
   sourceLookupLoading = new Set(),
   sourceLookupErrors = {},
-  onSourceLookup = () => {}
+  onSourceLookup = () => {},
+  onLanguageSelect = () => {},
+  languageAvailability = {},
+  languageHint = null,
+  languageDetails = {}
 ) {
   if (!word) return;
   const card = element("div", "detail-card");
@@ -79,7 +84,15 @@ export function renderDetails(
   if (reading) card.append(element("p", "detail-reading", reading));
   const partOfSpeech = partOfSpeechFor(word, language);
   if (partOfSpeech) card.append(element("p", "detail-pos", partOfSpeech));
-  card.append(element("p", "detail-meaning", definitionFor(word, language) ?? word.meaning));
+  const definition = definitionFor(word, language);
+  const meaning = element("p", "detail-meaning", definition.text);
+  if (definition.fallback) {
+    meaning.append(element("span", "detail-meaning-note",
+      translate(language, "details.englishFallback", {
+        language: languageName(language, language)
+      })));
+  }
+  card.append(meaning);
 
   if (relation) {
     const section = element("section", "detail-section");
@@ -138,23 +151,44 @@ export function renderDetails(
     }
     section.append(provenance);
     card.append(section);
-  } else {
-    const translations = element("section", "detail-section");
-    translations.append(element("h3", "", translate(language, "details.alsoKnown")));
-    for (const [code, value] of Object.entries(word.translations).filter(([code]) => code !== "en")) {
-      const name = languageName(code, language);
-      const row = element("div", "translation-row");
-      row.append(element("span", "", name));
-      const translation = element("strong", "", value);
-      if (code === "zh" && language !== "zh") {
-        if (word.pinyin) translation.append(element("span", "translation-reading",
-          `${translate(language, "details.pinyin")} · ${word.pinyin}`));
-      }
-      row.append(translation);
-      translations.append(row);
-    }
-    card.append(translations);
   }
+
+  const translations = element("section", "detail-section");
+  translations.append(element("h3", "", translate(language, "details.alsoKnown")));
+  for (const [code, value] of Object.entries(word.translations).filter(([code]) => code !== "en")) {
+    const name = languageName(code, language);
+    const row = element("button", "translation-row is-link");
+    row.type = "button";
+    const isCurrent = code === word.language;
+    const available = Boolean(languageAvailability[code]);
+    if (isCurrent) {
+      row.classList.add("is-current");
+      row.disabled = true;
+      row.setAttribute("aria-current", "true");
+    } else {
+      row.setAttribute("aria-label", translate(language, "details.switchLanguage", { language: name }));
+      row.addEventListener("click", () => onLanguageSelect(code));
+    }
+    row.append(element("span", "", name));
+    const translation = element("strong", "", value);
+    const details = languageDetails[code] ?? {};
+    if (details.reading) {
+      translation.append(element("span", "translation-reading",
+        code === "ja" ? `（${details.reading}）` : `${translate(language, "details.pinyin")} · ${details.reading}`));
+    }
+    if (code === "ko" && details.honorific) {
+      translation.append(element("span", "translation-reading",
+        `（${translate(language, "details.honorific")}：${details.honorific}）`));
+    }
+    if (!isCurrent && !available) {
+      translation.append(element("span", "translation-unavailable",
+        translate(language, "details.notCollected")));
+    }
+    row.append(translation);
+    translations.append(row);
+  }
+  if (languageHint) translations.append(element("p", "detail-language-hint", languageHint));
+  card.append(translations);
 
   if (word.source) {
     const attribution = element("p", "relation-provenance", `${word.source.label} · `);

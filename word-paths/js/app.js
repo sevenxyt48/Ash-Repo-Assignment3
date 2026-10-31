@@ -25,8 +25,10 @@ const detailsPanel = document.querySelector("#details");
 const resultCount = document.querySelector("#result-count");
 const datasetStats = document.querySelector("#dataset-stats");
 const developmentNotice = document.querySelector("#development-notice");
+const trail = document.querySelector("#trail");
+const trailBack = document.querySelector("#trail-back");
+const trailSteps = document.querySelector("#trail-steps");
 const filters = [...document.querySelectorAll("[data-filter]")];
-const otherLanguagesButton = document.querySelector("#other-languages");
 const localHosts = new Set(["localhost", "127.0.0.1", "[::1]"]);
 const developmentGraph = localHosts.has(window.location.hostname) &&
   new URLSearchParams(window.location.search).get("devGraph") === "1";
@@ -37,8 +39,9 @@ const state = {
   language: "zh",
   selectedId: null,
   selectedRelation: null,
+  trail: [],
+  languageHint: null,
   activeTypes: new Set(["equivalent", "origin", "similar", "confusable", "antonym"]),
-  otherLanguages: false,
   query: "",
   searchRequest: 0,
   searchMessage: null,
@@ -60,7 +63,7 @@ function wordSearchTerms(word) {
 }
 
 function getConnections(word, activeTypes = state.activeTypes, data = state.data,
-  includeDemo = state.developmentGraph) {
+  includeDemo = state.developmentGraph, activeLanguages = selectedSearchLanguages()) {
   if (!word || !data) return [];
   const connections = new Map();
   const wordIds = new Set(data.words.map((candidate) => candidate.id));
@@ -79,16 +82,17 @@ function getConnections(word, activeTypes = state.activeTypes, data = state.data
       if (!isOutgoing && !isIncomingSymmetric) continue;
       const targetId = isOutgoing ? connection.targetWordId : item.id;
       if (!wordIds.has(targetId)) continue;
+      const target = data.words.find((candidate) => candidate.id === targetId);
+      if (!target || !activeLanguages.has(target.language)) continue;
       const key = `${targetId}\u0000${connection.productRelationType ?? connection.rawRelationType}`;
       if (connections.has(key)) continue;
       if (item.id === word.id) {
-        const target = data.words.find((candidate) => candidate.id === connection.targetWordId);
-        if (target) connections.set(key, { ...connection, word: target });
+        connections.set(key, { ...connection, word: target });
       } else {
         connections.set(key, {
           ...connection,
           targetWordId: item.id,
-          word: item
+          word: target
         });
       }
     }
@@ -174,28 +178,135 @@ async function addDemoRelationships(data) {
   return validateWordDataset({ ...data, words: [...words.values()] });
 }
 
-function selectWord(id, relation = null) {
+function wordById(id) {
+  return state.data?.words.find((word) => word.id === id) ?? null;
+}
+
+function resetSearchUi() {
   state.searchRequest += 1;
-  state.selectedId = id;
-  state.selectedRelation = relation;
   state.query = "";
   searchInput.value = "";
   updateSearchLanguageOptions("");
   showMessage("");
   clearSearchCandidates();
+}
+
+function selectWord(id, relation = null, replaceTrail = false) {
+  if (!replaceTrail && id === state.selectedId) {
+    state.selectedRelation = relation ?? state.selectedRelation;
+    state.languageHint = null;
+    render();
+    return;
+  }
+  state.trail = replaceTrail || !state.trail.length
+    ? [{ id, relation }]
+    : [...state.trail, { id, relation }];
+  state.selectedId = id;
+  state.selectedRelation = relation;
+  state.languageHint = null;
+  resetSearchUi();
   render();
+}
+
+function selectTrailStep(index) {
+  const step = state.trail[index];
+  if (!step || index === state.trail.length - 1) return;
+  state.trail = state.trail.slice(0, index + 1);
+  state.selectedId = step.id;
+  state.selectedRelation = step.relation ?? null;
+  state.languageHint = null;
+  resetSearchUi();
+  render();
+}
+
+function findLanguageVariant(word, code) {
+  if (!word?.translations?.[code] || code === word.language) return null;
+  const candidates = state.data.words.filter((candidate) =>
+    candidate.language === code && candidate.word === word.translations[code]);
+  if (word.conceptId) {
+    const conceptMatch = candidates.find((candidate) =>
+      candidate.conceptId && candidate.conceptId === word.conceptId);
+    if (conceptMatch) return conceptMatch;
+  }
+  return candidates[0] ?? null;
+}
+
+function languageAvailabilityFor(word) {
+  return Object.fromEntries(["zh", "ja", "ko"].map((code) =>
+    [code, Boolean(findLanguageVariant(word, code))]));
+}
+
+function languageDetailsFor(word) {
+  const details = {};
+  for (const code of ["zh", "ja", "ko"]) {
+    const variant = findLanguageVariant(word, code);
+    details[code] = {
+      reading: code === "ja"
+        ? variant?.reading ?? null
+        : code === "zh"
+          ? variant?.pinyin ?? word.pinyin ?? null
+          : null,
+      honorific: code === "ko"
+        ? variant?.honorific ?? variant?.honorificForm ?? null
+        : null
+    };
+  }
+  return details;
+}
+
+function switchLanguage(code) {
+  const selected = wordById(state.selectedId);
+  if (!selected || code === selected.language) return;
+  const target = findLanguageVariant(selected, code);
+  if (!target) {
+    state.languageHint = { wordId: selected.id, language: code };
+    render();
+    return;
+  }
+  const relation = getConnections(selected,
+    new Set(Object.keys(state.data.relationshipTypes)), state.data, state.developmentGraph,
+    new Set(["zh", "ja", "ko"]))
+    .find((connection) => connection.word.id === target.id) ?? null;
+  selectWord(target.id, relation);
+}
+
+function renderTrail() {
+  const steps = state.trail;
+  trail.hidden = steps.length <= 1;
+  trailBack.disabled = steps.length <= 1;
+  trailSteps.replaceChildren();
+  steps.forEach((step, index) => {
+    const word = wordById(step.id);
+    if (!word) return;
+    if (index) {
+      const separator = document.createElement("span");
+      separator.className = "trail-sep";
+      separator.setAttribute("aria-hidden", "true");
+      separator.textContent = "→";
+      trailSteps.append(separator);
+    }
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `trail-step${index === steps.length - 1 ? " is-current" : ""}`;
+    button.textContent = word.word;
+    button.title = `${formatVocabularyWord(word)} · ${languageName(word.language, state.language)}`;
+    if (index === steps.length - 1) button.setAttribute("aria-current", "true");
+    button.addEventListener("click", () => selectTrailStep(index));
+    trailSteps.append(button);
+  });
 }
 
 function render() {
   const selected = state.data.words.find((word) => word.id === state.selectedId);
   if (!selected) return;
 
+  const activeLanguages = selectedSearchLanguages();
   renderGraph(graphContainer, state.data.words, {
     language: state.language,
     selectedId: state.selectedId,
     query: state.query,
     activeTypes: state.activeTypes,
-    otherLanguages: state.otherLanguages,
+    activeLanguages,
     developmentGraph: state.developmentGraph,
     relationshipTypes: state.data.relationshipTypes,
     onSelect: selectWord,
@@ -204,8 +315,10 @@ function render() {
       : translateText(word.word, word.language, "en")
   });
   const displayableConnections = getConnections(selected,
-    new Set(Object.keys(state.data.relationshipTypes)), state.data, state.developmentGraph);
-  const matchingConnections = getConnections(selected);
+    new Set(Object.keys(state.data.relationshipTypes)), state.data, state.developmentGraph,
+    activeLanguages);
+  const matchingConnections = getConnections(selected, state.activeTypes, state.data,
+    state.developmentGraph, activeLanguages);
   graphMessage.hidden = matchingConnections.length > 0;
   if (displayableConnections.length === 0) {
     graphMessage.textContent = translate(state.language,
@@ -247,6 +360,12 @@ function render() {
         word: undefined
       }
     : null;
+  const languageHint = state.languageHint?.wordId === selected.id
+    ? translate(state.language, "details.languageUnavailable", {
+        language: languageName(state.languageHint.language, state.language)
+      })
+    : null;
+  renderTrail();
   renderDetails(
     detailsPanel,
     selected,
@@ -258,7 +377,11 @@ function render() {
     state.sourceEnrichments[selected.id] ?? {},
     state.sourceLookupLoading,
     state.sourceLookupErrors,
-    lookupSource
+    lookupSource,
+    switchLanguage,
+    languageAvailabilityFor(selected),
+    languageHint,
+    languageDetailsFor(selected)
   );
 }
 
@@ -324,8 +447,7 @@ function updateSearchLanguageOptions(query) {
   for (const option of searchLanguageOptions) {
     const input = option.querySelector("input");
     const isLocked = detectedLanguages.has(input.value);
-    if (!query) input.checked = true;
-    else if (isLocked) input.checked = true;
+    if (query && isLocked) input.checked = true;
     input.disabled = isLocked;
     option.classList.toggle("is-selected", input.checked);
     option.classList.toggle("is-locked", isLocked);
@@ -416,6 +538,8 @@ function selectSearchCandidate(word, dataset = state.data ?? state.localData) {
   if (dataset) state.data = dataset;
   state.selectedId = word.id;
   state.selectedRelation = null;
+  state.trail = [{ id: word.id, relation: null }];
+  state.languageHint = null;
   state.query = "";
   searchInput.value = "";
   updateSearchLanguageOptions("");
@@ -532,6 +656,7 @@ async function initialize() {
     state.selectedId = state.developmentGraph
       ? "water-zh"
       : state.data.words[Math.floor(Math.random() * state.data.words.length)].id;
+    state.trail = [{ id: state.selectedId, relation: null }];
     render();
   } catch (error) {
     console.error("Unable to load the word graph:", error);
@@ -551,7 +676,9 @@ searchForm.addEventListener("submit", (event) => {
 searchInput.addEventListener("input", () => {
   state.searchRequest += 1;
   const query = searchInput.value.trim();
+  const languagesBefore = [...selectedSearchLanguages()].join(",");
   updateSearchLanguageOptions(query);
+  if (state.data && [...selectedSearchLanguages()].join(",") !== languagesBefore) render();
   if (!query) {
     showMessage("");
     clearSearchCandidates();
@@ -581,6 +708,7 @@ for (const option of searchLanguageOptions) {
       return;
     }
     option.classList.toggle("is-selected", input.checked);
+    if (state.data) render();
     const query = searchInput.value.trim();
     if (!query || !state.localData) return;
     const matches = findMatchesIn(query, state.data ?? state.localData);
@@ -621,17 +749,19 @@ for (const button of filters) {
   });
 }
 
-otherLanguagesButton.addEventListener("click", () => {
-  state.otherLanguages = !state.otherLanguages;
-  otherLanguagesButton.setAttribute("aria-pressed", String(state.otherLanguages));
-  if (state.data) render();
-});
-
 randomButton.addEventListener("click", () => {
-  if (!state.data) return;
+  if (!state.data || randomButton.classList.contains("is-spinning")) return;
+  randomButton.classList.add("is-spinning");
   const choices = state.data.words.filter((word) => word.id !== state.selectedId);
   const pool = choices.length ? choices : state.data.words;
-  selectWord(pool[Math.floor(Math.random() * pool.length)].id);
+  window.setTimeout(() => {
+    randomButton.classList.remove("is-spinning");
+    selectWord(pool[Math.floor(Math.random() * pool.length)].id, null, true);
+  }, 420);
+});
+
+trailBack.addEventListener("click", () => {
+  if (state.trail.length > 1) selectTrailStep(state.trail.length - 2);
 });
 
 document.querySelector("#zoom-in").addEventListener("click", () => zoomGraph(1));
