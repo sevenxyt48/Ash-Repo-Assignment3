@@ -317,22 +317,39 @@ export function renderDetails(
   if (connections.length) {
     const section = element("section", "detail-section");
     section.append(element("h3", "", translate(language, "details.follow")));
-    const chips = element("div", "connection-list");
+    const groupOrder = ["equivalent", "origin", "similar", "confusable", "antonym"];
+    const groups = new Map();
     for (const connection of connections) {
-      const chip = element("button", "connection-chip");
-      chip.type = "button";
-      const relationshipLabel = translate(language, `relationship.${connection.productRelationType}`);
-      chip.append(document.createTextNode(
-        `${connection.word.word} (${languageName(connection.word.language, language)}) · ${
-          relationshipLabel.startsWith("relationship.")
-            ? data.relationshipTypes[connection.productRelationType] ?? connection.productRelationType
-            : relationshipLabel
-        }`
-      ));
-      chip.addEventListener("click", () => onSelect(connection.word.id, connection));
-      chips.append(chip);
+      const type = connection.productRelationType;
+      if (!type) continue;
+      if (!groups.has(type)) groups.set(type, []);
+      groups.get(type).push(connection);
     }
-    section.append(chips);
+    const orderedGroups = [...groups.entries()].sort((a, b) => {
+      const left = groupOrder.indexOf(a[0]);
+      const right = groupOrder.indexOf(b[0]);
+      return (left < 0 ? groupOrder.length : left) - (right < 0 ? groupOrder.length : right);
+    });
+    for (const [type, items] of orderedGroups) {
+      const relationText = translate(language, `relationship.${type}`);
+      const title = relationText.startsWith("relationship.")
+        ? data.relationshipTypes[type] ?? type
+        : relationText;
+      const group = element("div", "connection-group");
+      group.append(element("h4", "connection-group-title", title));
+      const chips = element("div", "connection-list");
+      for (const connection of items) {
+        const chip = element("button", "connection-chip");
+        chip.type = "button";
+        chip.append(document.createTextNode(
+          `${connection.word.word} (${languageName(connection.word.language, language)})`
+        ));
+        chip.addEventListener("click", () => onSelect(connection.word.id, connection));
+        chips.append(chip);
+      }
+      group.append(chips);
+      section.append(group);
+    }
     card.append(section);
   }
 

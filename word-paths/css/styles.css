@@ -373,6 +373,10 @@ button { -webkit-tap-highlight-color: transparent; }
 .detail-empty h2 { margin: 0 0 7px; font-size: 16px; font-weight: 500; }
 .detail-empty p { margin: 0; color: #858b83; font-size: 10px; line-height: 1.7; }
 .connection-list { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
+.connection-group { margin-top: 2px; }
+.connection-group + .connection-group { margin-top: 11px; }
+.connection-group-title { margin: 0; color: #78857a; font-size: 9px; font-weight: 600; letter-spacing: .05em; }
+.connection-group .connection-list { margin-top: 6px; }
 .connection-chip { padding: 5px 7px; border: 1px solid #e7eae4; border-radius: 7px; background: white; cursor: pointer; font-size: 10px; }
 .connection-chip:hover { border-color: #b9d6bc; background: #f4f8f2; }
 
