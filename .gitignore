@@ -6,6 +6,7 @@ data/cache/
 # Local credentials and provider configuration.
 .env
 .env.*
+!.env.example
 
 # Machinery, not work.
 .venv/

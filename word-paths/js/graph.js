@@ -22,9 +22,9 @@ function getConnections(word, words, activeTypes, developmentGraph) {
   for (const item of words) {
     for (const connection of item.connections) {
       if ((!developmentGraph &&
-           !["verified", "adopted"].includes(connection.verificationStatus)) ||
+           connection.verificationStatus !== "verified") ||
           (developmentGraph &&
-           !["verified", "adopted", "demo"].includes(connection.verificationStatus)) ||
+           !["verified", "demo"].includes(connection.verificationStatus)) ||
           !connection.productRelationType ||
           !activeTypes.has(connection.productRelationType)) continue;
       const isOutgoing = item.id === word.id;

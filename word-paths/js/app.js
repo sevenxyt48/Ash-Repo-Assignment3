@@ -4,6 +4,7 @@ import { renderDetails, renderEmptyDetails } from "./details.js";
 import { loadWordDataset, validateWordDataset } from "./wordRepository.js";
 import { relationshipIdentityKey } from "./relationshipValidation.mjs";
 import { fetchConceptNetWord, translateText } from "./vocabularyApi.js";
+import { enrichKrdictWord, enrichWiktionaryWord } from "./sourceApi.js";
 import {
   applyInterfaceLanguage,
   formatVocabularyWord,
@@ -43,6 +44,9 @@ const state = {
   searchMessage: null,
   searchCandidates: [],
   searchCandidateHandler: null,
+  sourceEnrichments: {},
+  sourceLookupLoading: new Set(),
+  sourceLookupErrors: {},
   developmentGraph
 };
 
@@ -64,9 +68,9 @@ function getConnections(word, activeTypes = state.activeTypes, data = state.data
     for (const connection of item.connections) {
       const hasProductType = connection.productRelationType &&
         Object.prototype.hasOwnProperty.call(data.relationshipTypes, connection.productRelationType);
-      if ((!includeDemo && !["verified", "adopted"].includes(connection.verificationStatus)) ||
+      if ((!includeDemo && connection.verificationStatus !== "verified") ||
           (includeDemo &&
-           !["verified", "adopted", "demo"].includes(connection.verificationStatus)) ||
+           !["verified", "demo"].includes(connection.verificationStatus)) ||
           !hasProductType ||
           !activeTypes.has(connection.productRelationType)) continue;
       const isOutgoing = item.id === word.id;
@@ -95,10 +99,10 @@ function getConnections(word, activeTypes = state.activeTypes, data = state.data
 function countDisplayableRelationships(data) {
   const wordIds = new Set(data.words.map((word) => word.id));
   const relationshipIds = new Map();
-  const counts = { total: 0, verified: 0, adopted: 0, equivalents: 0, semantic: 0 };
+  const counts = { total: 0, verified: 0, equivalents: 0, semantic: 0 };
   for (const word of data.words) {
     for (const connection of word.connections) {
-      if (["verified", "adopted"].includes(connection.verificationStatus) &&
+      if (connection.verificationStatus === "verified" &&
           connection.productRelationType &&
           Object.prototype.hasOwnProperty.call(data.relationshipTypes, connection.productRelationType) &&
           connection.sourceWordId === word.id &&
@@ -145,13 +149,27 @@ async function addDemoRelationships(data) {
     ...word,
     connections: [...word.connections]
   }]));
+  const relationshipIdentities = new Set(
+    data.words.flatMap((word) =>
+      word.connections.map((relationship) => relationshipIdentityKey(relationship)))
+  );
+  const duplicateFixtureIds = [];
   // Fixture relationship categories only exercise the existing filters; they are not linguistic claims.
   for (const relationship of fixture.relationships) {
     const source = words.get(relationship.sourceWordId);
     if (!source || !words.has(relationship.targetWordId)) {
       throw new Error(`Demo relationship "${relationship.id}" references an unknown word`);
     }
+    const identity = relationshipIdentityKey(relationship);
+    if (relationshipIdentities.has(identity)) {
+      duplicateFixtureIds.push(relationship.id);
+      continue;
+    }
     source.connections.push(relationship);
+    relationshipIdentities.add(identity);
+  }
+  if (duplicateFixtureIds.length) {
+    console.warn(`Skipped duplicate demo relationships: ${duplicateFixtureIds.join(", ")}`);
   }
   return validateWordDataset({ ...data, words: [...words.values()] });
 }
@@ -212,7 +230,6 @@ function render() {
     words: formattedWordCount,
     relations: formatCount(datasetRelationshipCounts.total),
     verified: formatCount(datasetRelationshipCounts.verified),
-    adopted: formatCount(datasetRelationshipCounts.adopted),
     equivalents: formatCount(datasetRelationshipCounts.equivalents),
     semantic: formatCount(datasetRelationshipCounts.semantic)
   });
@@ -237,8 +254,34 @@ function render() {
     state.language,
     relation,
     matchingConnections,
-    selectWord
+    selectWord,
+    state.sourceEnrichments[selected.id] ?? {},
+    state.sourceLookupLoading,
+    state.sourceLookupErrors,
+    lookupSource
   );
+}
+
+async function lookupSource(wordId, provider) {
+  const key = `${wordId}:${provider}`;
+  state.sourceLookupErrors[key] = null;
+  state.sourceLookupLoading.add(key);
+  render();
+  try {
+    const result = provider === "krdict"
+      ? await enrichKrdictWord(wordId)
+      : await enrichWiktionaryWord(wordId);
+    state.sourceEnrichments[wordId] = {
+      ...state.sourceEnrichments[wordId],
+      [provider]: result
+    };
+  } catch (error) {
+    state.sourceLookupErrors[key] = error.message;
+    console.error(`${provider} lookup failed for ${wordId}:`, error);
+  } finally {
+    state.sourceLookupLoading.delete(key);
+    render();
+  }
 }
 
 function showMessage(key, isError = false, values = {}) {

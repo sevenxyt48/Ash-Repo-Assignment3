@@ -42,7 +42,19 @@ export function renderEmptyDetails(container, language) {
   container.replaceChildren(empty);
 }
 
-export function renderDetails(container, word, data, language, relation, connections, onSelect) {
+export function renderDetails(
+  container,
+  word,
+  data,
+  language,
+  relation,
+  connections,
+  onSelect,
+  sourceEnrichments = {},
+  sourceLookupLoading = new Set(),
+  sourceLookupErrors = {},
+  onSourceLookup = () => {}
+) {
   if (!word) return;
   const card = element("div", "detail-card");
   const top = element("div", "detail-topline");
@@ -162,6 +174,111 @@ export function renderDetails(container, word, data, language, relation, connect
     attribution.append(document.createTextNode(" · "), link);
     card.append(attribution);
   }
+
+  const sourceSection = element("section", "detail-section source-enrichment");
+  sourceSection.append(element("h3", "", translate(language, "details.sourceEnrichment")));
+  const lookupProviders = word.language === "ko" ? ["krdict", "wiktionary"] : ["wiktionary"];
+  const lookupButtons = element("div", "connection-list");
+  for (const provider of lookupProviders) {
+    const key = `${word.id}:${provider}`;
+    const loading = sourceLookupLoading.has(key);
+    const button = element(
+      "button",
+      "connection-chip",
+      translate(language, provider === "krdict"
+        ? (loading ? "details.krdictLoading" : "details.krdictLookup")
+        : (loading ? "details.wiktionaryLoading" : "details.wiktionaryLookup"))
+    );
+    button.type = "button";
+    button.disabled = loading;
+    button.addEventListener("click", () => onSourceLookup(word.id, provider));
+    lookupButtons.append(button);
+  }
+  sourceSection.append(lookupButtons);
+
+  for (const provider of lookupProviders) {
+    const error = sourceLookupErrors[`${word.id}:${provider}`];
+    if (error) {
+      sourceSection.append(element("p", "relation-copy",
+        translate(language, "details.sourceLookupFailed", { error })));
+    }
+  }
+
+  const krdictResult = sourceEnrichments.krdict;
+  if (krdictResult) {
+    sourceSection.append(element("h4", "source-enrichment-title", translate(language, "details.krdictResults")));
+    if (!krdictResult.entries?.length) {
+      sourceSection.append(element("p", "relation-copy", translate(language, "details.sourceNoResult")));
+    }
+    for (const entry of krdictResult.entries ?? []) {
+      const item = element("div", "source-enrichment-item");
+      const metadata = [
+        entry.pronunciation && `${translate(language, "details.pronunciation")}: ${entry.pronunciation}`,
+        entry.word_grade && `${translate(language, "details.wordGrade")}: ${entry.word_grade}`,
+        entry.pos && `${translate(language, "details.partOfSpeech")}: ${entry.pos}`,
+        entry.origin && `${translate(language, "details.krdictOrigin")}: ${entry.origin}`
+      ].filter(Boolean);
+      if (metadata.length) item.append(element("p", "relation-copy", metadata.join(" · ")));
+      for (const definition of entry.definitions ?? []) {
+        item.append(element("p", "relation-copy", definition));
+      }
+      if (entry.link) {
+        const link = element("a", "source-enrichment-link", translate(language, "details.viewSource"));
+        link.href = entry.link;
+        link.target = "_blank";
+        link.rel = "noreferrer";
+        item.append(link);
+      }
+      sourceSection.append(item);
+    }
+  }
+
+  const wiktionaryResult = sourceEnrichments.wiktionary;
+  if (wiktionaryResult) {
+    sourceSection.append(element("h4", "source-enrichment-title", translate(language, "details.wiktionaryResults")));
+    const record = wiktionaryResult.record;
+    const fields = record?.fields ?? wiktionaryResult.sections;
+    const etymology = fields?.etymology ?? [];
+    for (const note of etymology) {
+      sourceSection.append(element("p", "source-enrichment-heading", note.heading));
+      sourceSection.append(element("p", "relation-copy source-enrichment-text", note.text));
+    }
+    if (!etymology.length && fields?.sectionExcerpt) {
+      sourceSection.append(element(
+        "p",
+        "source-enrichment-heading",
+        translate(language, "details.wiktionarySection", { section: fields.languageSection })
+      ));
+      sourceSection.append(element(
+        "p",
+        "relation-copy source-enrichment-text",
+        fields.sectionExcerpt
+      ));
+    }
+    for (const line of fields?.characterHistory ?? []) {
+      sourceSection.append(element("p", "relation-copy source-enrichment-text", line));
+    }
+    if (!fields?.sectionExcerpt && !etymology.length && !(fields?.characterHistory?.length)) {
+      sourceSection.append(element("p", "relation-copy", translate(language, "details.sourceNoResult")));
+    }
+    if (record?.source?.url) {
+      const attribution = element("p", "relation-provenance");
+      attribution.append(
+        document.createTextNode(`${translate(language, "details.wiktionaryAttribution")} · `)
+      );
+      const link = element("a", "", translate(language, "details.viewSource"));
+      link.href = record.source.url;
+      link.target = "_blank";
+      link.rel = "noreferrer";
+      const licenseLink = element("a", "", record.source.license);
+      licenseLink.href = record.source.licenseUrl;
+      licenseLink.target = "_blank";
+      licenseLink.rel = "noreferrer";
+      attribution.append(document.createTextNode(" · "), link, document.createTextNode(" · "), licenseLink);
+      sourceSection.append(attribution);
+    }
+  }
+  card.append(sourceSection);
 
   if (connections.length) {
     const section = element("section", "detail-section");
