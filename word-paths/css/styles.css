@@ -323,6 +323,12 @@ button { -webkit-tap-highlight-color: transparent; }
 .detail-meaning { margin: 16px 0 18px; color: #656d65; font-size: 11px; line-height: 1.75; }
 .detail-section { padding: 12px 0; border-top: 1px solid #eff0eb; }
 .detail-section h3 { margin: 0 0 9px; color: #92978e; font: 500 9px "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+.source-enrichment-title { margin: 10px 0 5px; color: #798078; font-size: 10px; font-weight: 500; }
+.source-enrichment-item { padding: 7px 0; border-top: 1px solid #f1f2ee; }
+.source-enrichment-text { white-space: pre-wrap; overflow-wrap: anywhere; }
+.source-enrichment-heading { margin: 8px 0 3px; color: #657369; font-size: 10px; font-weight: 500; }
+.source-enrichment-link { display: inline-block; margin-top: 5px; color: var(--green-dark); font-size: 9px; }
+.source-enrichment button:disabled { cursor: wait; opacity: .65; }
 .translation-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 4px 0; color: #92978e; font-size: 9px; }
 .translation-row strong { color: #4b524c; font-size: 10px; font-weight: 500; text-align: right; }
 .translation-reading { display: block; margin-top: 2px; color: #9a9f98; font: 9px "DM Mono", sans-serif; }
